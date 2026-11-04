@@ -10,7 +10,14 @@
   <p class="error"><c:out value="${formError}"/></p>
 </c:if>
 
+<c:if test="${not empty param.invite}">
+  <p>家族グループへの招待リンクから開きました。ログインすると、招待の確認画面に進みます。
+     まだ登録していない場合は、新規登録とメール確認を済ませてから、もう一度招待リンクを開いてください。</p>
+</c:if>
+
 <form method="post" action="${pageContext.request.contextPath}/careshift/LoginExecute.action">
+  <%-- 招待リンク経由のとき、ログイン後に招待画面へ戻すための値 --%>
+  <input type="hidden" name="invite" value="<c:out value='${param.invite}'/>">
   <div>
     <label for="email">メールアドレス</label>
     <input type="text" id="email" name="email" size="40" value="<c:out value='${email}'/>">

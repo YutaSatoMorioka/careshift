@@ -78,6 +78,13 @@ public class LoginExecuteAction extends Action {
             old.invalidate();
         }
         req.getSession(true).setAttribute("user", user);
+
+        // 招待リンクから来た場合は、招待画面（S04）へ戻す。トークンは英数字・-・_ だけを許可する
+        String invite = Validator.trim(req.getParameter("invite"));
+        if (invite.matches("[A-Za-z0-9_-]{20,100}")) {
+            resp.sendRedirect(req.getContextPath() + "/careshift/Invite.action?token=" + invite);
+            return;
+        }
         resp.sendRedirect(req.getContextPath() + "/careshift/main/Menu.action");
     }
 

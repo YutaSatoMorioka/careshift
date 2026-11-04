@@ -1,7 +1,9 @@
 package tool;
 
+import bean.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * すべての「〇〇Action」の親クラス。
@@ -28,5 +30,21 @@ public abstract class Action {
     protected void showError(HttpServletRequest req, HttpServletResponse resp, String message) throws Exception {
         req.setAttribute("errorMessage", message);
         req.getRequestDispatcher("/error.jsp").forward(req, resp);
+    }
+
+    /** ログイン中のユーザー。ログインしていなければ null。 */
+    protected User loginUser(HttpServletRequest req) {
+        HttpSession session = req.getSession(false);
+        return session == null ? null : (User) session.getAttribute("user");
+    }
+
+    /** 次に表示する画面の上部に出す「成功」メッセージ（common/header.jsp が表示して消す）。 */
+    protected void flash(HttpServletRequest req, String message) {
+        req.getSession().setAttribute("flash", message);
+    }
+
+    /** 次に表示する画面の上部に出す「エラー」メッセージ。 */
+    protected void flashError(HttpServletRequest req, String message) {
+        req.getSession().setAttribute("flashError", message);
     }
 }
