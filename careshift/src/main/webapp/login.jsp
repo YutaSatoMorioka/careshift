@@ -5,7 +5,7 @@
 
 <h1>ログイン</h1>
 
-<%-- 認証失敗・ロック時のメッセージ（<c:out> でHTMLエスケープ） --%>
+<%-- 認証失敗・ロック・メール未確認時のメッセージ（<c:out> でHTMLエスケープ） --%>
 <c:if test="${not empty formError}">
   <p class="error"><c:out value="${formError}"/></p>
 </c:if>
@@ -28,6 +28,7 @@
   <button type="submit" name="login">ログイン</button>
 </form>
 
-<p><a href="${pageContext.request.contextPath}/careshift/PasswordReset.action">パスワードを忘れた方</a></p>
+<p><a href="${pageContext.request.contextPath}/password_reset.jsp" id="reset">パスワードを忘れた方</a></p>
+<p><a href="${pageContext.request.contextPath}/register.jsp">新規登録はこちら</a></p>
 
 <jsp:include page="/common/footer.jsp"/>

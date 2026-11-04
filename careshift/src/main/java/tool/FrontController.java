@@ -57,7 +57,8 @@ public class FrontController extends HttpServlet {
         } catch (ClassNotFoundException e) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // 詳細はコンソールにだけ出す（画面には出さない）
+            req.setAttribute("errorMessage", "処理中に問題が発生しました。時間をおいて、もう一度お試しください。");
             req.getRequestDispatcher("/error.jsp").forward(req, resp);
         }
     }

@@ -2,7 +2,6 @@ package careshift;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import bean.User;
 import dao.UserDao;
@@ -10,8 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import tool.Action;
+import tool.AuthMail;
 import tool.LoginLimiter;
 import tool.PasswordUtil;
+import tool.Validator;
 
 /**
  * S01 ログイン（login.jsp の送信先）。URL: /careshift/LoginExecute.action
@@ -19,18 +20,16 @@ import tool.PasswordUtil;
  */
 public class LoginExecuteAction extends Action {
 
-    private static final Pattern EMAIL = Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
-
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        String email = req.getParameter("email") == null ? "" : req.getParameter("email").trim();
-        String password = req.getParameter("password") == null ? "" : req.getParameter("password");
+        String email = Validator.trim(req.getParameter("email"));
+        String password = Validator.nz(req.getParameter("password"));
 
         // ① 入力チェック（エラーは項目名(name属性)をキーに保持する）
         Map<String, String> errors = new LinkedHashMap<>();
         if (email.isEmpty()) {
             errors.put("email", "メールアドレスを入力してください");
-        } else if (!EMAIL.matcher(email).matches()) {
+        } else if (!Validator.isEmail(email)) {
             errors.put("email", "メールアドレスの形式が正しくありません");
         }
         if (password.isEmpty()) {
@@ -57,9 +56,23 @@ public class LoginExecuteAction extends Action {
             back(req, resp, email, errors, "メールアドレスまたはパスワードが正しくありません");
             return;
         }
-
-        // ④ 成功：セッションを作り直して（セッション固定化攻撃の対策）ユーザーを保存し、メニューへ
         limiter.recordSuccess(key);
+
+        // ④ メール未確認なら確認メールを再送してログインさせない（設計書の指定）
+        if (!user.isEmailVerified()) {
+            String msg;
+            try {
+                AuthMail.sendVerification(req, user);
+                msg = "メールアドレスの確認が完了していません。確認メールを再送しました。メール内のリンクから本登録を完了してください。";
+            } catch (Exception e) {
+                e.printStackTrace();
+                msg = "メールアドレスの確認が完了していません。確認メールの送信に失敗しました。時間をおいて、もう一度ログインをお試しください。";
+            }
+            back(req, resp, email, errors, msg);
+            return;
+        }
+
+        // ⑤ 成功：セッションを作り直して（セッション固定化攻撃の対策）ユーザーを保存し、メニューへ
         HttpSession old = req.getSession(false);
         if (old != null) {
             old.invalidate();
