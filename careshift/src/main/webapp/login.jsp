@@ -9,6 +9,12 @@
 <c:if test="${not empty formError}">
   <p class="error"><c:out value="${formError}"/></p>
 </c:if>
+<c:if test="${verificationRequired}">
+  <form method="post" action="${pageContext.request.contextPath}/careshift/ResendVerification.action">
+    <input type="hidden" name="email" value="<c:out value='${email}'/>">
+    <button type="submit">確認メールを再送する</button>
+  </form>
+</c:if>
 
 <c:if test="${not empty param.invite}">
   <p>家族グループへの招待リンクから開きました。ログインすると、招待の確認画面に進みます。
@@ -39,3 +45,4 @@
 <p><a href="${pageContext.request.contextPath}/register.jsp">新規登録はこちら</a></p>
 
 <jsp:include page="/common/footer.jsp"/>
+

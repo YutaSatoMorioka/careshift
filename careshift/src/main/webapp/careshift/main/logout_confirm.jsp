@@ -1,0 +1,2 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %><%@ taglib prefix="c" uri="jakarta.tags.core" %><jsp:include page="/common/header.jsp"><jsp:param name="title" value="ログアウト確認"/></jsp:include><section><h1>ログアウト</h1><p>ログアウトしますか？</p><form method="post" action="${pageContext.request.contextPath}/careshift/Logout.action"><button type="submit">はい、ログアウト</button></form><p><a href="${pageContext.request.contextPath}/careshift/main/Menu.action">キャンセル</a></p></section><jsp:include page="/common/footer.jsp"/>
+

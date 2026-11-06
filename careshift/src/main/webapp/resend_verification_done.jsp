@@ -1,0 +1,2 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %><%@ taglib prefix="c" uri="jakarta.tags.core" %><jsp:include page="/common/header.jsp"><jsp:param name="title" value="再送受付"/></jsp:include><section><h1>再送を受け付けました</h1><p>該当する登録がある場合、確認メールを送信しました。開発用設定では確認リンクがEclipseコンソールに表示されます。</p><p><a href="${pageContext.request.contextPath}/login.jsp">ログインへ</a></p></section><jsp:include page="/common/footer.jsp"/>
+

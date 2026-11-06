@@ -50,7 +50,7 @@ public class RegisterExecuteAction extends Action {
         }
 
         // ② 登録済みメールか
-        String key = email.toLowerCase();
+        String key = email.toLowerCase(java.util.Locale.ROOT);
         UserDao userDao = new UserDao();
         boolean alreadyRegistered = false;
         if (!errors.containsKey("email") && userDao.findByEmail(key) != null) {

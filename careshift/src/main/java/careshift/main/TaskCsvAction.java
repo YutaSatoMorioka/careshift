@@ -1,0 +1,6 @@
+package careshift.main;
+import java.nio.charset.StandardCharsets;import java.util.List;import java.util.Map;import bean.Member;import dao.CareFeatureDao;import jakarta.servlet.http.HttpServletRequest;import jakarta.servlet.http.HttpServletResponse;
+public class TaskCsvAction extends FeatureActionSupport {
+ @Override public void execute(HttpServletRequest req,HttpServletResponse resp)throws Exception{Member me=requireMember(req,resp);if(me==null)return;List<Map<String,Object>> rows=new CareFeatureDao().tasks(me.getGroupId(),null,null);resp.setCharacterEncoding("UTF-8");resp.setContentType("text/csv; charset=UTF-8");resp.setHeader("Content-Disposition","attachment; filename=careshift_tasks.csv");var out=resp.getOutputStream();out.write(new byte[]{(byte)0xEF,(byte)0xBB,(byte)0xBF});out.write("内容,期限,担当者,所要時間(分),進捗\r\n".getBytes(StandardCharsets.UTF_8));for(var r:rows){String line=csv(r.get("title"))+","+csv(r.get("due_at"))+","+csv(r.get("assignee_name"))+","+csv(r.get("duration_minutes"))+","+csv(r.get("status"))+"\r\n";out.write(line.getBytes(StandardCharsets.UTF_8));}}
+ private String csv(Object v){String s=v==null?"":String.valueOf(v);if(s.startsWith("=")||s.startsWith("+")||s.startsWith("-")||s.startsWith("@"))s="'"+s;return "\""+s.replace("\"","\"\"")+"\"";}
+}

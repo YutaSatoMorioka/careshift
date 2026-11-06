@@ -42,6 +42,18 @@ public class FrontController extends HttpServlet {
         String path = req.getServletPath().substring(1);
         String className = path.replace(".action", "Action").replace('/', '.');
 
+        if ("POST".equalsIgnoreCase(req.getMethod()) && !"careshift.AdminLoginAction".equals(className)) {
+            jakarta.servlet.http.HttpSession session = req.getSession(false);
+            String expected = session == null ? null : (String) session.getAttribute("csrfToken");
+            String supplied = req.getParameter("_csrf");
+            if (expected == null || supplied == null || !java.security.MessageDigest.isEqual(
+                    expected.getBytes(java.nio.charset.StandardCharsets.UTF_8),
+                    supplied.getBytes(java.nio.charset.StandardCharsets.UTF_8))) {
+                resp.sendError(HttpServletResponse.SC_FORBIDDEN, "フォームの有効期限が切れました。画面を再読み込みしてください。");
+                return;
+            }
+        }
+
         try {
             if (!className.startsWith(BASE_PACKAGE)) {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -57,7 +69,12 @@ public class FrontController extends HttpServlet {
         } catch (ClassNotFoundException e) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         } catch (Exception e) {
-            e.printStackTrace(); // 詳細はコンソールにだけ出す（画面には出さない）
+            getServletContext().log("Care Shift action failed: " + req.getServletPath(), e);
+            try {
+                new dao.CareFeatureDao().log("ERROR", req.getServletPath(), e.getClass().getSimpleName());
+            } catch (Exception loggingFailure) {
+                getServletContext().log("Care Shift operation log could not be saved.", loggingFailure);
+            }
             req.setAttribute("errorMessage", "処理中に問題が発生しました。時間をおいて、もう一度お試しください。");
             req.getRequestDispatcher("/error.jsp").forward(req, resp);
         }

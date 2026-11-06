@@ -25,9 +25,9 @@ public class VerifyEmailAction extends Action {
             return;
         }
         if (t.isExpired() && !t.isUsed()) {
-            showResult(req, resp, "リンクの有効期限が切れています",
-                    "確認リンクの有効期限（24時間）が切れました。ログイン画面でログインすると、確認メールを再送します。",
-                    "/login.jsp", "ログインへ");
+            bean.User user = new UserDao().findById(t.getUserId());
+            req.setAttribute("email", user == null ? "" : user.getEmail());
+            req.getRequestDispatcher("/verify_expired.jsp").forward(req, resp);
             return;
         }
         if (t.isUsed() || !tokenDao.consume(t.getId())) {

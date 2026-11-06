@@ -42,7 +42,7 @@ public class LoginExecuteAction extends Action {
         }
 
         // ② ログイン制限（5回連続失敗で15分）
-        String key = email.toLowerCase();
+        String key = email.toLowerCase(java.util.Locale.ROOT);
         LoginLimiter limiter = LoginLimiter.shared();
         if (limiter.isLocked(key)) {
             back(req, resp, email, errors,
@@ -69,6 +69,7 @@ public class LoginExecuteAction extends Action {
                 e.printStackTrace();
                 msg = "メールアドレスの確認が完了していません。確認メールの送信に失敗しました。時間をおいて、もう一度ログインをお試しください。";
             }
+            req.setAttribute("verificationRequired", Boolean.TRUE);
             back(req, resp, email, errors, msg);
             return;
         }

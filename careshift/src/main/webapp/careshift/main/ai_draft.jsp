@@ -1,0 +1,6 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %><%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<jsp:include page="/common/header.jsp"><jsp:param name="title" value="依頼の下書き"/></jsp:include><section class="page-content"><h1>依頼文の下書き</h1><p>開発用の簡易下書きです。生成AI APIには接続していません。内容を必ず確認・修正してから送ってください。</p><c:if test="${redacted}"><p class="error">メールアドレスまたは電話番号らしい文字列を伏せ字にしました。個人情報を含めないでください。</p></c:if>
+<form method="post" action="${pageContext.request.contextPath}/careshift/main/AiDraft.action"><label>相談内容（500文字以内）<textarea name="consultation" maxlength="500"><c:out value="${consultation}"/></textarea></label><button>下書きを作る</button></form>
+<c:if test="${not empty draft}"><h2>確認して依頼にする</h2><form method="post" action="${pageContext.request.contextPath}/careshift/main/Request.action"><input type="hidden" name="type" value="TASK"/><label>タイトル<input name="title" maxlength="100" required value="家族への協力依頼"/></label><label>依頼文<textarea name="body" maxlength="1000" required><c:out value="${draft}"/></textarea></label><p>次のボタンを押すと家族に依頼として登録されます。</p><button>この内容を確認して送信</button></form></c:if>
+<h2>遠方の家族に頼める例</h2><ul><li>通院先へ電話して予約方法を確認</li><li>必要品を注文・配送</li><li>地域サービスの情報を調べる</li></ul></section><jsp:include page="/common/footer.jsp"/>
+

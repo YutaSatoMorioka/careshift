@@ -1,0 +1,3 @@
+package careshift.admin;
+import jakarta.servlet.http.HttpServletRequest;import jakarta.servlet.http.HttpServletResponse;import tool.Action;import tool.BackupService;
+public class AdminBackupAction extends Action {@Override public void execute(HttpServletRequest req,HttpServletResponse resp)throws Exception{if(!"POST".equalsIgnoreCase(req.getMethod())){resp.sendError(405);return;}try{var file=BackupService.create();req.getSession().setAttribute("flash","バックアップを作成しました: "+file.getFileName());}catch(Exception e){req.getSession().setAttribute("flashError","バックアップを作成できませんでした。H2設定を確認してください。");}resp.sendRedirect(req.getContextPath()+"/careshift/admin/AdminDashboard.action");}}

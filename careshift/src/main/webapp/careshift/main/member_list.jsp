@@ -60,6 +60,11 @@
             <input type="hidden" name="userId" value="${m.userId}">
             <button type="submit" name="setPrimary">主介護者に設定</button>
           </form>
+          <form method="post" action="${pageContext.request.contextPath}/careshift/main/MemberRemove.action"
+                onsubmit="return confirm('このメンバーをグループから削除しますか？担当中のタスクは未割当に戻ります。');">
+            <input type="hidden" name="userId" value="${m.userId}">
+            <button type="submit">グループから削除</button>
+          </form>
         </c:if>
       </td>
     </tr>
@@ -70,3 +75,4 @@
 <p><a href="${pageContext.request.contextPath}/careshift/main/Menu.action">ホームへ戻る</a></p>
 
 <jsp:include page="/common/footer.jsp"/>
+

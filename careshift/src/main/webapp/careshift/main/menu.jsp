@@ -26,10 +26,27 @@
     か、招待リンクを開いて参加してください。</p>
 </c:if>
 
+<c:if test="${not empty member}">
+  <section class="card"><h2>今日のタスク</h2>
+    <c:choose><c:when test="${empty todayTasks}"><p>今日が期限のタスクはありません。</p></c:when><c:otherwise><ul><c:forEach var="t" items="${todayTasks}"><li><c:out value="${t.title}"/> — <c:out value="${t.assignee_name}"/> (<c:out value="${t.status}"/>)</li></c:forEach></ul></c:otherwise></c:choose>
+  </section>
+  <section class="card"><h2>家族の依頼</h2><p><c:out value="${openRequests.size()}"/> 件</p><a href="${pageContext.request.contextPath}/careshift/main/Request.action">依頼を確認</a></section>
+  <section class="card"><h2>休息予定</h2><p><c:out value="${rests.size()}"/> 件</p><a href="${pageContext.request.contextPath}/careshift/main/Rest.action">休息を確認</a></section>
+</c:if>
+
 <ul>
   <li><a href="${pageContext.request.contextPath}/careshift/main/Group.action" id="family">家族管理（グループ）</a></li>
   <c:if test="${not empty member}">
     <li><a href="${pageContext.request.contextPath}/careshift/main/MemberList.action">家族メンバー</a></li>
+    <li><a href="${pageContext.request.contextPath}/careshift/main/TaskList.action">タスク一覧</a></li>
+    <li><a href="${pageContext.request.contextPath}/careshift/main/Calendar.action">カレンダー</a></li>
+    <li><a href="${pageContext.request.contextPath}/careshift/main/Request.action">依頼カード</a></li>
+    <li><a href="${pageContext.request.contextPath}/careshift/main/Rest.action">休息支援</a></li>
+    <li><a href="${pageContext.request.contextPath}/careshift/main/Burden.action">負担状況</a></li>
+    <li><a href="${pageContext.request.contextPath}/careshift/main/AiDraft.action">依頼下書き・タスク提案</a></li>
+    <li><a href="${pageContext.request.contextPath}/careshift/main/Column.action">コラム</a></li>
+    <li><a href="${pageContext.request.contextPath}/careshift/main/Notification.action">通知</a></li>
+    <li><a href="${pageContext.request.contextPath}/careshift/main/Plan.action">プラン</a></li>
   </c:if>
   <%-- 画面を作るたびにリンクを足す。例:
   <li><a href="${pageContext.request.contextPath}/careshift/main/TaskList.action">タスク一覧</a></li>
@@ -37,3 +54,4 @@
 </ul>
 
 <jsp:include page="/common/footer.jsp"/>
+

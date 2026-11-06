@@ -1,0 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %><%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<jsp:include page="/common/header.jsp"><jsp:param name="title" value="コラム"/></jsp:include><section class="page-content"><h1>コラム・チェックリスト</h1>
+<c:forEach var="a" items="${articles}"><article class="card"><p><c:out value="${a.category}"/></p><h2><c:out value="${a.title}"/></h2><p><c:out value="${a.body}"/></p></article></c:forEach>
+<h2>家族で確認すること</h2><form method="post" action="${pageContext.request.contextPath}/careshift/main/Column.action"><input type="hidden" name="saveChecklist" value="1"><label><input type="checkbox" name="family_talk" ${checklist.family_talk?'checked':''}>家族で役割を話し合った</label><br><label><input type="checkbox" name="task_share" ${checklist.task_share?'checked':''}>担当と期限を確認した</label><br><label><input type="checkbox" name="rest_schedule" ${checklist.rest_schedule?'checked':''}>主介護者の休息予定を確認した</label><br><button>チェック内容を保存</button></form></section><jsp:include page="/common/footer.jsp"/>
+
