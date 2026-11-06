@@ -1,6 +1,10 @@
 package tool;
 
+import java.io.IOException;
+
+import bean.Member;
 import bean.User;
+import dao.GroupDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -46,5 +50,24 @@ public abstract class Action {
     /** 次に表示する画面の上部に出す「エラー」メッセージ。 */
     protected void flashError(HttpServletRequest req, String message) {
         req.getSession().setAttribute("flashError", message);
+    }
+
+    /** ログイン中のユーザーを返す。未ログインならログイン画面へ移動して null を返す。 */
+    protected User requireLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        User user = loginUser(req);
+        if (user == null) {
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
+        }
+        return user;
+    }
+
+    /** 所属グループでのメンバー情報を返す。未所属ならグループ画面へ移動して null を返す。 */
+    protected Member requireMember(HttpServletRequest req, HttpServletResponse resp, User user) throws Exception {
+        Member me = new GroupDao().findMember(user.getId());
+        if (me == null) {
+            flashError(req, "先に家族グループを作成するか、招待リンクから参加してください。");
+            resp.sendRedirect(req.getContextPath() + "/careshift/main/Group.action");
+        }
+        return me;
     }
 }
