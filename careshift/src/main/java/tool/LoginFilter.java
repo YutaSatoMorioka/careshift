@@ -2,6 +2,8 @@ package tool;
 
 import java.io.IOException;
 
+import bean.User;
+import dao.NotificationDao;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -27,6 +29,13 @@ public class LoginFilter implements Filter {
 
         HttpSession session = req.getSession(false);
         if (session != null && session.getAttribute("user") != null) {
+            // ヘッダの「通知（未読件数）」用。取得に失敗しても画面は表示する
+            try {
+                req.setAttribute("unreadCount",
+                        new NotificationDao().countUnread(((User) session.getAttribute("user")).getId()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             chain.doFilter(request, response);
         } else {
             resp.sendRedirect(req.getContextPath() + "/login.jsp");
