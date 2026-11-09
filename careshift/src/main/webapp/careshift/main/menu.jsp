@@ -27,17 +27,6 @@
 </c:if>
 
 <c:if test="${not empty member}">
-<<<<<<< HEAD
-  <section class="card"><h2>今日のタスク</h2>
-    <c:choose><c:when test="${empty todayTasks}"><p>今日が期限のタスクはありません。</p></c:when><c:otherwise><ul><c:forEach var="t" items="${todayTasks}"><li><c:out value="${t.title}"/> — <c:out value="${t.assignee_name}"/> (<c:out value="${t.status}"/>)</li></c:forEach></ul></c:otherwise></c:choose>
-  </section>
-  <section class="card"><h2>家族の依頼</h2><p><c:out value="${openRequests.size()}"/> 件</p><a href="${pageContext.request.contextPath}/careshift/main/Request.action">依頼を確認</a></section>
-  <section class="card"><h2>休息予定</h2><p><c:out value="${rests.size()}"/> 件</p><a href="${pageContext.request.contextPath}/careshift/main/Rest.action">休息を確認</a></section>
-</c:if>
-
-<ul>
-  <li><a href="${pageContext.request.contextPath}/careshift/main/Group.action" id="family">家族管理（グループ）</a></li>
-=======
   <%-- 今週のタスク状況 --%>
   <h2>今週のタスク状況（<c:out value="${weekLabel}"/>）</h2>
   <c:choose>
@@ -96,20 +85,7 @@
 <%-- 主要導線 --%>
 <h2>メニュー</h2>
 <ul id="menu">
->>>>>>> branch 'master' of https://github.com/YutaSatoMorioka/careshift.git
   <c:if test="${not empty member}">
-<<<<<<< HEAD
-    <li><a href="${pageContext.request.contextPath}/careshift/main/MemberList.action">家族メンバー</a></li>
-    <li><a href="${pageContext.request.contextPath}/careshift/main/TaskList.action">タスク一覧</a></li>
-    <li><a href="${pageContext.request.contextPath}/careshift/main/Calendar.action">カレンダー</a></li>
-    <li><a href="${pageContext.request.contextPath}/careshift/main/Request.action">依頼カード</a></li>
-    <li><a href="${pageContext.request.contextPath}/careshift/main/Rest.action">休息支援</a></li>
-    <li><a href="${pageContext.request.contextPath}/careshift/main/Burden.action">負担状況</a></li>
-    <li><a href="${pageContext.request.contextPath}/careshift/main/AiDraft.action">依頼下書き・タスク提案</a></li>
-    <li><a href="${pageContext.request.contextPath}/careshift/main/Column.action">コラム</a></li>
-    <li><a href="${pageContext.request.contextPath}/careshift/main/Notification.action">通知</a></li>
-    <li><a href="${pageContext.request.contextPath}/careshift/main/Plan.action">プラン</a></li>
-=======
     <li><a href="${pageContext.request.contextPath}/careshift/main/TaskList.action" id="tasks">タスク一覧</a></li>
     <li><a href="${pageContext.request.contextPath}/careshift/main/Calendar.action" id="calendar">カレンダー</a></li>
     <li><a href="${pageContext.request.contextPath}/careshift/main/Group.action" id="family">家族管理</a>
@@ -120,17 +96,19 @@
       <li><a href="${pageContext.request.contextPath}/careshift/main/RestRequest.action" id="rest">休息リクエスト</a></li>
     </c:if>
     <li><a href="${pageContext.request.contextPath}/careshift/main/RestReport.action">休息レポート</a></li>
-    <li>負担状況（準備中）</li>
->>>>>>> branch 'master' of https://github.com/YutaSatoMorioka/careshift.git
+    <li><a href="${pageContext.request.contextPath}/careshift/main/Load.action" id="load">負担状況</a></li>
+    <li><a href="${pageContext.request.contextPath}/careshift/main/TaskSheet.action">タスク分担表（PDF・印刷）</a></li>
+    <li><a href="${pageContext.request.contextPath}/careshift/main/RemoteSuggest.action">遠方からできるタスクの提案</a></li>
   </c:if>
   <li><a href="${pageContext.request.contextPath}/careshift/main/NotificationList.action" id="notifications2">通知一覧</a></li>
 </ul>
 
-<%-- おすすめコラムへの導線（コラム・チェックリスト画面は準備中） --%>
+<%-- おすすめコラム（日替わり）と、コラム一覧への導線 --%>
 <div class="guide" id="columnGuide">
   <strong>おすすめコラム</strong>
-  <p>介護の負担を軽くするヒントやチェックリストを、順次ご紹介します（準備中）。</p>
+  <p><a href="${pageContext.request.contextPath}/careshift/main/Column.action?id=${featuredArticle.id}"><c:out value="${featuredArticle.title}"/></a><br>
+     <small><c:out value="${featuredArticle.summary}"/></small></p>
+  <p><a href="${pageContext.request.contextPath}/careshift/main/Column.action" id="column">コラム・チェックリストの一覧へ</a></p>
 </div>
 
 <jsp:include page="/common/footer.jsp"/>
-

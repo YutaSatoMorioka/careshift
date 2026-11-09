@@ -1,37 +1,46 @@
 package careshift.main;
 
 import bean.Member;
+import bean.Task;
 import bean.User;
-import dao.CareFeatureDao;
+import dao.TaskDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tool.Action;
 
-public class TaskDeleteAction extends FeatureActionSupport {
+/**
+ * S08-2 / S09 タスクの削除。URL: /careshift/main/TaskDelete.action（POST）
+ * 画面側で確認ダイアログを出し、担当者にも通知する。すでに削除済みなら一覧へ戻る。
+ */
+public class TaskDeleteAction extends Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        if (!requirePost(req, resp)) return;
-
-        Member me = requireMember(req, resp);
+        User user = requireLogin(req, resp);
+        if (user == null) return;
+        Member me = requireMember(req, resp, user);
         if (me == null) return;
 
-        User user = loginUser(req);
-        long taskId = id(req.getParameter("id"));
-        CareFeatureDao dao = new CareFeatureDao();
-
-        if (taskId < 1
-                || (!me.isPrimary()
-                && !dao.isTaskCreator(me.getGroupId(), taskId, user.getId()))) {
-            fail(req, resp, "削除できるタスクではありません。", "TaskList");
+        String listUrl = req.getContextPath() + "/careshift/main/TaskList.action";
+        long id = TaskSupport.parseId(req.getParameter("id"));
+        TaskDao dao = new TaskDao();
+        Task task = dao.find(id, me.getGroupId());
+        if (task == null) {
+            flashError(req, "タスクはすでに削除されています。");
+            resp.sendRedirect(listUrl);
             return;
         }
-
-        if (!dao.deleteTask(me.getGroupId(), taskId)) {
-            fail(req, resp, "タスクが見つかりません。", "TaskList");
+        if (!task.canEdit(user.getId(), me.isPrimary())) {
+            flashError(req, "このタスクを削除できるのは、登録者・担当者・主介護者のみです。");
+            resp.sendRedirect(req.getContextPath() + "/careshift/main/TaskDetail.action?id=" + id);
             return;
         }
-
-        req.getSession().setAttribute("flash", "タスクを削除しました。");
-        redirect(req, resp, "TaskList");
+        if (dao.delete(id, me.getGroupId())) {
+            TaskSupport.notifyDeleted(user, task);
+            flash(req, "タスク「" + task.getTitle() + "」を削除しました。");
+        } else {
+            flashError(req, "タスクはすでに削除されています。");
+        }
+        resp.sendRedirect(listUrl);
     }
 }

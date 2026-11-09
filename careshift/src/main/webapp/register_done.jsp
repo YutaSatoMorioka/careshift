@@ -16,11 +16,6 @@
     <p>届かない場合は迷惑メールフォルダをご確認ください。期限が切れた場合は、ログインすると確認メールを再送します。</p>
   </c:otherwise>
 </c:choose>
-<form method="post" action="${pageContext.request.contextPath}/careshift/ResendVerification.action">
-  <input type="hidden" name="email" value="<c:out value='${email}'/>">
-  <button type="submit">確認メールを再送する</button>
-</form>
 <p><a href="${pageContext.request.contextPath}/login.jsp">ログインへ</a></p>
 
 <jsp:include page="/common/footer.jsp"/>
-

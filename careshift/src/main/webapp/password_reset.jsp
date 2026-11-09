@@ -20,4 +20,3 @@
 <p><a href="${pageContext.request.contextPath}/login.jsp" id="login">ログインへ戻る</a></p>
 
 <jsp:include page="/common/footer.jsp"/>
-

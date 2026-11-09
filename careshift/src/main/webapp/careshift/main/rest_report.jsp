@@ -17,9 +17,13 @@
   <form method="get" action="${pageContext.request.contextPath}/careshift/main/RestReport.action">
     <input type="hidden" name="targetMonth" value="<c:out value='${nextMonth}'/>"><button type="submit">翌月</button>
   </form>
-  <button type="button" name="exportPdf" onclick="window.print()">PDF出力（印刷）</button>
+  <form method="get" action="${pageContext.request.contextPath}/careshift/main/RestReportPdf.action">
+    <input type="hidden" name="targetMonth" value="<c:out value='${targetMonth}'/>">
+    <button type="submit" name="exportPdf">PDF出力</button>
+  </form>
+  <button type="button" name="print" onclick="window.print()">印刷</button>
 </div>
-<p class="noprint"><small>「PDF出力」を押すと印刷画面が開きます。送信先を「PDFに保存」にすると、PDFファイルとして保存できます。</small></p>
+<p class="noprint"><small>PDFの文字が表示されない場合は、「印刷」から送信先を「PDFに保存」にしてください。</small></p>
 
 <h2>集計（確定した休息）</h2>
 <div id="restChart">

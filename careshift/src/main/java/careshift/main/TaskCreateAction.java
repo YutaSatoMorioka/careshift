@@ -18,7 +18,8 @@ public class TaskCreateAction extends Action {
         Member me = requireMember(req, resp, user);
         if (me == null) return;
 
-        req.setAttribute("form", TaskForm.blank());
+        // 遠方家族向け提案（AI002）などから開いたときは、渡された内容を初期値にする
+        req.setAttribute("form", req.getParameter("taskTitle") != null ? TaskForm.fromRequest(req) : TaskForm.blank());
         req.setAttribute("members", new GroupDao().findMembers(me.getGroupId()));
         req.setAttribute("frequencies", Options.FREQUENCIES);
         req.getRequestDispatcher("/careshift/main/task_create.jsp").forward(req, resp);

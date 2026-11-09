@@ -20,4 +20,3 @@
 <p><a href="${pageContext.request.contextPath}/careshift/main/Menu.action">ホームへ戻る</a></p>
 
 <jsp:include page="/common/footer.jsp"/>
-

@@ -6,4 +6,3 @@
 <p><a href="${pageContext.request.contextPath}/login.jsp">ログイン画面へ</a></p>
 
 <jsp:include page="/common/footer.jsp"/>
-

@@ -6,21 +6,8 @@
     <jsp:param name="title" value="ログイン"/>
 </jsp:include>
 
-<<<<<<< HEAD
-<%-- 認証失敗・ロック・メール未確認時のメッセージ（<c:out> でHTMLエスケープ） --%>
-<c:if test="${not empty formError}">
-  <p class="error"><c:out value="${formError}"/></p>
-</c:if>
-<c:if test="${verificationRequired}">
-  <form method="post" action="${pageContext.request.contextPath}/careshift/ResendVerification.action">
-    <input type="hidden" name="email" value="<c:out value='${email}'/>">
-    <button type="submit">確認メールを再送する</button>
-  </form>
-</c:if>
-=======
 <main class="login-main">
     <section class="login-card">
->>>>>>> branch 'master' of https://github.com/YutaSatoMorioka/careshift.git
 
         <div class="login-heading">
             <p class="login-eyebrow">WELCOME BACK</p>
@@ -32,10 +19,6 @@
             </p>
         </div>
 
-<<<<<<< HEAD
-<jsp:include page="/common/footer.jsp"/>
-
-=======
         <%-- 認証失敗、アカウントロック、メール未確認時のメッセージ --%>
         <c:if test="${not empty formError}">
             <div class="alert alert-error" role="alert">
@@ -156,4 +139,3 @@
 </main>
 
 <jsp:include page="/common/footer.jsp"/>
->>>>>>> branch 'master' of https://github.com/YutaSatoMorioka/careshift.git

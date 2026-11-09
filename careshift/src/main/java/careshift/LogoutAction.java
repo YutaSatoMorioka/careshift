@@ -10,10 +10,6 @@ public class LogoutAction extends Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        if (!"POST".equalsIgnoreCase(req.getMethod())) {
-            req.getRequestDispatcher("/careshift/main/logout_confirm.jsp").forward(req, resp);
-            return;
-        }
         HttpSession session = req.getSession(false);
         if (session != null) {
             session.invalidate();

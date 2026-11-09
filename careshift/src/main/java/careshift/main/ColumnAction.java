@@ -1,18 +1,53 @@
 package careshift.main;
 
-import java.util.List;import java.util.Map;
-import bean.Member;import bean.User;import dao.CareFeatureDao;import jakarta.servlet.http.HttpServletRequest;import jakarta.servlet.http.HttpServletResponse;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-/** 固定コラムと利用者別チェックリスト。医療助言は掲載せず、一般的な家族分担の案内に限定。 */
-public class ColumnAction extends FeatureActionSupport {
- private static final List<Map<String,String>> ARTICLES=List.of(
-  Map.of("category","家族の分担","title","最初に家族で決めること","body","担当・期限・所要時間を決め、無理のない分担から始めましょう。"),
-  Map.of("category","遠距離介護","title","現地に行かなくてもできる支援","body","電話、予約、必要品の購入、情報収集など、離れていてもできる支援があります。"),
-  Map.of("category","休息","title","休息を予定に入れる","body","休みたい時間を具体的に共有し、家族と代わりの担当を相談しましょう。"));
- private static final List<String> KEYS=List.of("family_talk","task_share","rest_schedule");
- @Override public void execute(HttpServletRequest req,HttpServletResponse resp)throws Exception{
-  Member me=requireMember(req,resp);if(me==null)return;User user=loginUser(req);CareFeatureDao dao=new CareFeatureDao();
-  if("POST".equalsIgnoreCase(req.getMethod())){if(!"1".equals(req.getParameter("saveChecklist"))){resp.sendError(400);return;}for(String key:KEYS)dao.saveChecklistItem(user.getId(),key,req.getParameter(key)!=null);req.getSession().setAttribute("flash","チェックリストを保存しました。");redirect(req,resp,"Column");return;}
-  req.setAttribute("articles",ARTICLES);req.setAttribute("checklist",dao.checklist(user.getId()));req.getRequestDispatcher("/careshift/main/columns.jsp").forward(req,resp);
- }
+import bean.Article;
+import bean.User;
+import dao.ChecklistDao;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import tool.Action;
+import tool.ColumnCatalog;
+import tool.Validator;
+
+/**
+ * S18 コラム・チェックリスト。URL: /careshift/main/Column.action?category=休息&id=rest-01
+ * カテゴリ別の固定コラムを表示する。記事がなければ「準備中」。チェック状態は本人だけに保存し、家族とは共有しない。
+ */
+public class ColumnAction extends Action {
+
+    @Override
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        User user = requireLogin(req, resp);
+        if (user == null) return;
+
+        String category = Validator.trim(req.getParameter("category"));
+        if (!ColumnCatalog.isCategory(category)) {
+            category = ""; // 不正な値・未指定は「すべて」
+        }
+        List<Article> articles = ColumnCatalog.byCategory(category);
+
+        Article article = ColumnCatalog.find(Validator.trim(req.getParameter("id")));
+        Set<Integer> checked = new HashSet<>();
+        boolean checklistError = false;
+        if (article != null) {
+            try {
+                checked = new ChecklistDao().load(user.getId(), article.getId());
+            } catch (Exception e) {
+                e.printStackTrace();
+                checklistError = true; // 記事は表示し、チェック状態だけ再試行を案内する
+            }
+        }
+
+        req.setAttribute("categories", ColumnCatalog.CATEGORIES);
+        req.setAttribute("category", category);
+        req.setAttribute("articles", articles);
+        req.setAttribute("article", article);
+        req.setAttribute("checked", checked);
+        req.setAttribute("checklistError", checklistError);
+        req.getRequestDispatcher("/careshift/main/column.jsp").forward(req, resp);
+    }
 }
