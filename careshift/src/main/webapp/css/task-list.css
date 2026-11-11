@@ -1,0 +1,881 @@
+@charset "UTF-8";
+
+/* ==========================================================
+   タスク一覧ページ全体
+   ========================================================== */
+
+main.task-list-main {
+    width: min(100%, 1280px);
+    min-height: calc(
+        100vh - var(--header-height) - var(--footer-height)
+    );
+    margin: 0 auto;
+    padding: 42px 28px 64px;
+}
+
+/* ==========================================================
+   ページヘッダー
+   ========================================================== */
+
+.task-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 28px;
+    margin-bottom: 24px;
+}
+
+.task-page-heading {
+    min-width: 0;
+}
+
+.task-page-eyebrow,
+.task-section-eyebrow {
+    margin: 0 0 7px;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.task-page-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 34px;
+    line-height: 1.35;
+}
+
+.task-page-description {
+    max-width: 720px;
+    margin: 9px 0 0;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.task-page-actions {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    gap: 11px;
+}
+
+/* ==========================================================
+   タスクページ共通ボタン
+   ========================================================== */
+
+.task-button {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 17px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    appearance: none;
+    transition:
+        background-color 150ms ease,
+        border-color 150ms ease,
+        box-shadow 150ms ease,
+        transform 150ms ease;
+}
+
+.task-button:hover {
+    transform: translateY(-1px);
+}
+
+.task-button-primary {
+    color: #ffffff;
+    background: var(--primary);
+    box-shadow:
+        0 7px 16px rgba(39, 104, 89, 0.16);
+}
+
+.task-button-primary:hover {
+    background: var(--primary-hover);
+    box-shadow:
+        0 10px 20px rgba(39, 104, 89, 0.22);
+}
+
+.task-button-secondary {
+    color: var(--primary);
+    background: #ffffff;
+    border-color: var(--border);
+}
+
+.task-button-secondary:hover {
+    background: var(--primary-soft);
+    border-color: #bfd8ce;
+}
+
+.task-button-search {
+    min-width: 170px;
+    color: #ffffff;
+    background: var(--primary);
+    box-shadow:
+        0 7px 16px rgba(39, 104, 89, 0.16);
+}
+
+.task-button-search:hover {
+    background: var(--primary-hover);
+}
+
+.task-button-icon {
+    display: inline-grid;
+    min-width: 20px;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* ==========================================================
+   検索カード
+   ========================================================== */
+
+.task-filter-card {
+    margin-bottom: 22px;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid rgba(39, 104, 89, 0.1);
+    border-radius: 17px;
+    box-shadow: var(--shadow-card);
+}
+
+.task-filter-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5ebe8;
+}
+
+.task-filter-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.task-filter-reset {
+    flex-shrink: 0;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.task-filter-reset:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.task-filter-form {
+    margin: 0;
+}
+
+.task-filter-grid {
+    display: grid;
+    grid-template-columns:
+        minmax(220px, 1.6fr)
+        minmax(170px, 1fr)
+        minmax(170px, 1fr)
+        minmax(150px, 0.9fr);
+    align-items: start;
+    gap: 16px;
+}
+
+.task-filter-field {
+    display: grid;
+    gap: 8px;
+}
+
+.task-filter-field label {
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.task-input-wrapper {
+    position: relative;
+}
+
+.task-input-icon {
+    position: absolute;
+    top: 50%;
+    left: 13px;
+    z-index: 1;
+    width: 25px;
+    height: 25px;
+    display: grid;
+    place-items: center;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: 7px;
+    font-size: 10px;
+    font-weight: 800;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+.task-form-control {
+    width: 100%;
+    min-height: 48px;
+    margin: 0;
+    padding: 10px 13px;
+    color: var(--text);
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+    font-size: 14px;
+    appearance: none;
+    transition:
+        border-color 150ms ease,
+        box-shadow 150ms ease,
+        background-color 150ms ease;
+}
+
+select.task-form-control {
+    padding-right: 36px;
+    background-image:
+        linear-gradient(45deg, transparent 50%, #66736f 50%),
+        linear-gradient(135deg, #66736f 50%, transparent 50%);
+    background-position:
+        calc(100% - 17px) calc(50% - 2px),
+        calc(100% - 12px) calc(50% - 2px);
+    background-repeat: no-repeat;
+    background-size: 5px 5px, 5px 5px;
+}
+
+.task-form-control-icon {
+    padding-left: 47px;
+}
+
+.task-form-control::placeholder {
+    color: #9ca8a4;
+}
+
+.task-form-control:hover {
+    border-color: #a9bbb4;
+}
+
+.task-form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--focus);
+}
+
+.task-form-control-error {
+    color: var(--error);
+    background: #fffafa;
+    border-color: var(--error);
+}
+
+.task-field-error {
+    display: block;
+    color: var(--error);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.task-filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* ==========================================================
+   結果カード
+   ========================================================== */
+
+.task-result-card {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid rgba(39, 104, 89, 0.1);
+    border-radius: 17px;
+    box-shadow: var(--shadow-card);
+}
+
+.task-result-header {
+    display: flex;
+    min-height: 86px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5ebe8;
+}
+
+.task-result-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.task-result-count {
+    display: inline-flex;
+    min-width: 78px;
+    min-height: 42px;
+    align-items: baseline;
+    justify-content: center;
+    gap: 3px;
+    padding: 7px 13px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border: 1px solid #d6e9e1;
+    border-radius: 999px;
+}
+
+.task-result-count strong {
+    font-size: 19px;
+    line-height: 1;
+}
+
+.task-result-count span {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* ==========================================================
+   PC・タブレット向けテーブル
+   ========================================================== */
+
+.task-table-wrapper {
+    overflow-x: auto;
+}
+
+.task-table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+}
+
+.task-table th,
+.task-table td {
+    padding: 15px 17px;
+    border-bottom: 1px solid #e6ece9;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.task-table thead th {
+    color: var(--text-muted);
+    background: #f7faf8;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.task-table tbody tr {
+    transition: background-color 140ms ease;
+}
+
+.task-table tbody tr:hover {
+    background: #f8fbf9;
+}
+
+.task-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.task-row-overdue {
+    background: #fffafb;
+}
+
+.task-row-overdue:hover {
+    background: #fff5f6 !important;
+}
+
+.task-title-cell {
+    min-width: 240px;
+}
+
+.task-title-link {
+    display: inline-block;
+    max-width: 360px;
+    overflow: hidden;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.task-title-link:hover {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.task-overdue-text {
+    display: block;
+    margin-top: 4px;
+    color: var(--error);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.task-assignee {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.task-assignee-avatar {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.task-assignee-unassigned {
+    display: inline-flex;
+    min-height: 27px;
+    align-items: center;
+    padding: 0 9px;
+    color: #8a5b00;
+    background: #fff4d8;
+    border: 1px solid #eed89a;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.task-due-date,
+.task-duration {
+    color: var(--text-muted);
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.task-overdue-badge {
+    display: inline-flex;
+    min-height: 26px;
+    align-items: center;
+    margin-left: 7px;
+    padding: 0 8px;
+    color: var(--error);
+    background: var(--error-background);
+    border: 1px solid var(--error-border);
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.task-status-badge {
+    display: inline-flex;
+    min-height: 29px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border: 1px solid #d4e8df;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.task-table-action-heading,
+.task-table-action-cell {
+    width: 64px;
+    text-align: center !important;
+}
+
+.task-detail-button {
+    width: 34px;
+    height: 34px;
+    display: inline-grid;
+    place-items: center;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: 9px;
+    font-size: 22px;
+    line-height: 1;
+    text-decoration: none;
+    transition:
+        color 140ms ease,
+        background-color 140ms ease,
+        transform 140ms ease;
+}
+
+.task-detail-button:hover {
+    color: #ffffff;
+    background: var(--primary);
+    transform: translateX(2px);
+}
+
+/* ==========================================================
+   スマートフォン向けカード一覧
+   ========================================================== */
+
+.task-mobile-list {
+    display: none;
+    padding: 16px;
+}
+
+.task-mobile-card {
+    padding: 18px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+}
+
+.task-mobile-card + .task-mobile-card {
+    margin-top: 12px;
+}
+
+.task-mobile-card-overdue {
+    background: #fffafb;
+    border-color: var(--error-border);
+}
+
+.task-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.task-mobile-title {
+    margin: 13px 0 0;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.task-mobile-title a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.task-mobile-title a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.task-mobile-details {
+    display: grid;
+    gap: 9px;
+    margin: 17px 0 0;
+}
+
+.task-mobile-details > div {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 10px;
+}
+
+.task-mobile-details dt {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.task-mobile-details dd {
+    min-width: 0;
+    margin: 0;
+    color: var(--text);
+    font-size: 13px;
+}
+
+.task-mobile-detail-link {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 17px;
+    padding: 0 13px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.task-mobile-detail-link:hover {
+    color: #ffffff;
+    background: var(--primary);
+}
+
+/* ==========================================================
+   空状態
+   ========================================================== */
+
+.task-empty-state {
+    min-height: 390px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 48px 24px;
+    text-align: center;
+}
+
+.task-empty-icon {
+    width: 68px;
+    height: 68px;
+    display: grid;
+    place-items: center;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border: 1px solid #d5e9e0;
+    border-radius: 50%;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.task-empty-title {
+    margin: 20px 0 0;
+    color: var(--text);
+    font-size: 20px;
+}
+
+.task-empty-description {
+    max-width: 480px;
+    margin: 8px 0 0;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.task-empty-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 11px;
+    margin-top: 22px;
+}
+
+/* ==========================================================
+   ページ下部
+   ========================================================== */
+
+.task-page-footer-nav {
+    margin-top: 24px;
+}
+
+.task-back-link {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    gap: 7px;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.task-back-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* ==========================================================
+   キーボード操作
+   ========================================================== */
+
+.task-button:focus-visible,
+.task-filter-reset:focus-visible,
+.task-form-control:focus-visible,
+.task-title-link:focus-visible,
+.task-detail-button:focus-visible,
+.task-mobile-title a:focus-visible,
+.task-mobile-detail-link:focus-visible,
+.task-back-link:focus-visible {
+    outline: 3px solid rgba(50, 128, 109, 0.3);
+    outline-offset: 3px;
+}
+
+/* ==========================================================
+   タブレット
+   ========================================================== */
+
+@media (max-width: 1000px) {
+    .task-filter-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    main.task-list-main {
+        padding: 32px 20px 54px;
+    }
+
+    .task-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .task-page-actions {
+        width: 100%;
+    }
+
+    .task-page-actions .task-button {
+        flex: 1;
+    }
+
+    .task-filter-card {
+        padding: 21px 19px;
+    }
+
+    .task-table {
+        min-width: 820px;
+    }
+}
+
+/* ==========================================================
+   スマートフォン
+   ========================================================== */
+
+@media (max-width: 600px) {
+    main.task-list-main {
+        padding: 26px 16px 46px;
+    }
+
+    .task-page-title {
+        font-size: 28px;
+    }
+
+    .task-page-description {
+        font-size: 13px;
+    }
+
+    .task-page-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .task-page-actions .task-button {
+        width: 100%;
+    }
+
+    .task-filter-card {
+        padding: 18px 16px;
+        border-radius: 14px;
+    }
+
+    .task-filter-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    .task-filter-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .task-filter-actions {
+        justify-content: stretch;
+    }
+
+    .task-button-search {
+        width: 100%;
+    }
+
+    .task-result-card {
+        border-radius: 14px;
+    }
+
+    .task-result-header {
+        min-height: 78px;
+        padding: 17px 16px;
+    }
+
+    .task-result-title {
+        font-size: 18px;
+    }
+
+    .task-result-count {
+        min-width: 68px;
+    }
+
+    .task-table-wrapper {
+        display: none;
+    }
+
+    .task-mobile-list {
+        display: block;
+    }
+
+    .task-empty-state {
+        min-height: 340px;
+        padding: 40px 18px;
+    }
+
+    .task-empty-actions {
+        width: 100%;
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .task-empty-actions .task-button {
+        width: 100%;
+    }
+}
+
+/* ==========================================================
+   印刷
+   ========================================================== */
+
+@media print {
+    .task-page-actions,
+    .task-filter-card,
+    .task-page-footer-nav,
+    .task-detail-button,
+    .task-mobile-list {
+        display: none !important;
+    }
+
+    main.task-list-main {
+        width: 100%;
+        max-width: none;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+    }
+
+    .task-result-card {
+        border: 0;
+        box-shadow: none;
+    }
+
+    .task-table-wrapper {
+        display: block;
+        overflow: visible;
+    }
+
+    .task-table {
+        min-width: 0;
+    }
+
+    .task-table th,
+    .task-table td {
+        padding: 8px;
+        font-size: 11px;
+    }
+}

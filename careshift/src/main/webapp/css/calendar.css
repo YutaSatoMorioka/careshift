@@ -1,0 +1,1025 @@
+@charset "UTF-8";
+
+/* ==========================================================
+   カレンダーページ全体
+   ========================================================== */
+
+main.calendar-main {
+    width: min(100%, 1480px);
+    min-height: calc(
+        100vh - var(--header-height) - var(--footer-height)
+    );
+    margin: 0 auto;
+    padding: 42px 28px 64px;
+}
+
+/* ==========================================================
+   ページヘッダー
+   ========================================================== */
+
+.calendar-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 28px;
+    margin-bottom: 24px;
+}
+
+.calendar-page-heading {
+    min-width: 0;
+}
+
+.calendar-page-eyebrow {
+    margin: 0 0 7px;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.calendar-page-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 34px;
+    line-height: 1.35;
+}
+
+.calendar-page-description {
+    max-width: 720px;
+    margin: 9px 0 0;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.calendar-page-actions {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    gap: 11px;
+}
+
+/* ==========================================================
+   共通ボタン
+   ========================================================== */
+
+.calendar-button {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 17px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+        background-color 150ms ease,
+        border-color 150ms ease,
+        box-shadow 150ms ease,
+        transform 150ms ease;
+}
+
+.calendar-button:hover {
+    transform: translateY(-1px);
+}
+
+.calendar-button-primary {
+    color: #ffffff;
+    background: var(--primary);
+    box-shadow:
+        0 7px 16px rgba(39, 104, 89, 0.16);
+}
+
+.calendar-button-primary:hover {
+    background: var(--primary-hover);
+}
+
+.calendar-button-secondary {
+    color: var(--primary);
+    background: #ffffff;
+    border-color: var(--border);
+}
+
+.calendar-button-secondary:hover {
+    background: var(--primary-soft);
+    border-color: #bfd8ce;
+}
+
+.calendar-button-icon {
+    display: inline-grid;
+    min-width: 20px;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* ==========================================================
+   月選択ツールバー
+   ========================================================== */
+
+.calendar-toolbar {
+    display: grid;
+    grid-template-columns:
+        auto minmax(180px, 1fr) auto auto;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding: 18px 20px;
+    background: #ffffff;
+    border: 1px solid rgba(39, 104, 89, 0.1);
+    border-radius: 16px;
+    box-shadow: var(--shadow-card);
+}
+
+.calendar-month-move-form,
+.calendar-month-select-form {
+    margin: 0;
+}
+
+.calendar-month-button {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 0 14px;
+    color: var(--primary);
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.calendar-month-button:hover {
+    background: var(--primary-soft);
+    border-color: #bdd8cd;
+}
+
+.calendar-current-month {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.calendar-current-month-icon {
+    width: 39px;
+    height: 39px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: #ffffff;
+    background: var(--primary);
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.calendar-current-month-label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.calendar-current-month-title {
+    margin: 2px 0 0;
+    color: var(--text);
+    font-size: 24px;
+    line-height: 1.3;
+}
+
+.calendar-month-select-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.calendar-month-select-label {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.calendar-month-input {
+    min-height: 44px;
+    padding: 7px 10px;
+    color: var(--text);
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    outline: none;
+}
+
+.calendar-month-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--focus);
+}
+
+.calendar-display-button {
+    min-height: 44px;
+    padding: 0 14px;
+    color: #ffffff;
+    background: var(--primary);
+    border: 0;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.calendar-display-button:hover {
+    background: var(--primary-hover);
+}
+
+/* ==========================================================
+   凡例
+   ========================================================== */
+
+.calendar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    font-size: 12px;
+}
+
+.calendar-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.calendar-legend-mark {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 3px;
+}
+
+.calendar-legend-task {
+    background: var(--accent);
+}
+
+.calendar-legend-rest-adjusting {
+    background: #c77d00;
+}
+
+.calendar-legend-rest-confirmed {
+    background: var(--primary);
+}
+
+.calendar-legend-rest-cancelled {
+    background: #939b98;
+}
+
+.calendar-legend-today {
+    background: #ffffff;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+}
+
+/* ==========================================================
+   カレンダーカード
+   ========================================================== */
+
+.calendar-card {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid rgba(39, 104, 89, 0.11);
+    border-radius: 17px;
+    box-shadow: var(--shadow-card);
+}
+
+.calendar-scroll {
+    overflow-x: auto;
+}
+
+.calendar-table {
+    width: 100%;
+    min-width: 1120px;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.calendar-table th,
+.calendar-table td {
+    border-right: 1px solid #e4ebe8;
+    border-bottom: 1px solid #e4ebe8;
+}
+
+.calendar-table th:last-child,
+.calendar-table td:last-child {
+    border-right: 0;
+}
+
+.calendar-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.calendar-table thead th {
+    height: 48px;
+    padding: 8px;
+    color: var(--text-muted);
+    background: #f7faf8;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.calendar-table thead .calendar-sunday {
+    color: #b34555;
+    background: #fff7f8;
+}
+
+.calendar-table thead .calendar-saturday {
+    color: #356f9f;
+    background: #f5f9fc;
+}
+
+/* ==========================================================
+   日付セル
+   ========================================================== */
+
+.calendar-cell {
+    position: relative;
+    height: 168px;
+    padding: 9px;
+    vertical-align: top;
+    background: #ffffff;
+}
+
+.calendar-cell:hover {
+    background: #fbfdfc;
+}
+
+.calendar-cell-outside {
+    color: #98a39f;
+    background: #f5f7f6;
+}
+
+.calendar-cell-outside:hover {
+    background: #f1f4f2;
+}
+
+.calendar-cell-sunday:not(.calendar-cell-outside) {
+    background: #fffdfd;
+}
+
+.calendar-cell-saturday:not(.calendar-cell-outside) {
+    background: #fcfdff;
+}
+
+.calendar-cell-today {
+    background: #f1f8f5 !important;
+    box-shadow:
+        inset 0 0 0 2px var(--primary);
+}
+
+.calendar-cell-header {
+    display: flex;
+    min-height: 29px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 7px;
+    margin-bottom: 7px;
+}
+
+.calendar-day-number {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    color: var(--text);
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.calendar-cell-sunday .calendar-day-number {
+    color: #b34555;
+}
+
+.calendar-cell-saturday .calendar-day-number {
+    color: #356f9f;
+}
+
+.calendar-cell-outside .calendar-day-number {
+    color: #9ba5a1;
+}
+
+.calendar-cell-today .calendar-day-number {
+    color: #ffffff;
+    background: var(--primary);
+}
+
+.calendar-today-label {
+    display: inline-flex;
+    min-height: 22px;
+    align-items: center;
+    padding: 0 7px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.calendar-cell-events {
+    display: grid;
+    gap: 5px;
+}
+
+/* ==========================================================
+   タスク表示
+   ========================================================== */
+
+.calendar-task {
+    display: block;
+    overflow: hidden;
+    padding: 7px 8px;
+    color: var(--text);
+    background: var(--primary-soft);
+    border-left: 4px solid var(--accent);
+    border-radius: 7px;
+    text-decoration: none;
+}
+
+.calendar-task:hover {
+    background: #dcefe7;
+}
+
+.calendar-task-title {
+    display: block;
+    overflow: hidden;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.calendar-task-meta {
+    display: block;
+    overflow: hidden;
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: 9px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.calendar-task-overdue {
+    background: var(--error-background);
+    border-left-color: var(--error);
+}
+
+.calendar-task-overdue:hover {
+    background: #fee9ec;
+}
+
+.calendar-task-unassigned {
+    background: #fff8e5;
+    border-left-color: #c77d00;
+}
+
+.calendar-task-unassigned:hover {
+    background: #fff3d3;
+}
+
+.calendar-task-done {
+    background: #f0f3f2;
+    border-left-color: #8d9894;
+    opacity: 0.78;
+}
+
+.calendar-task-done .calendar-task-title {
+    text-decoration: line-through;
+}
+
+/* ==========================================================
+   休息予定
+   ========================================================== */
+
+.calendar-rest {
+    padding: 7px 8px;
+    color: var(--text);
+    background: #fff8e5;
+    border-left: 4px solid #c77d00;
+    border-radius: 7px;
+    font-size: 10px;
+}
+
+.calendar-rest-confirmed {
+    background: var(--primary-soft);
+    border-left-color: var(--primary);
+}
+
+.calendar-rest-cancelled {
+    color: var(--text-muted);
+    background: #f0f2f1;
+    border-left-color: #979f9c;
+    opacity: 0.78;
+    text-decoration: line-through;
+}
+
+.calendar-rest-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 7px;
+}
+
+.calendar-rest-title {
+    font-weight: 800;
+}
+
+.calendar-rest-status {
+    min-height: 20px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 6px;
+    color: inherit;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 999px;
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.calendar-rest-time,
+.calendar-rest-content,
+.calendar-rest-assignee {
+    display: block;
+    overflow: hidden;
+    margin-top: 3px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.calendar-rest-content,
+.calendar-rest-assignee {
+    color: var(--text-muted);
+    font-size: 9px;
+}
+
+.calendar-rest-cancel-form {
+    display: block;
+    margin-top: 5px;
+}
+
+.calendar-rest-cancel-button {
+    min-height: 25px;
+    padding: 0 8px;
+    color: var(--error);
+    background: #ffffff;
+    border: 1px solid var(--error-border);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.calendar-rest-cancel-button:hover {
+    color: #ffffff;
+    background: var(--error);
+    border-color: var(--error);
+}
+
+/* ==========================================================
+   スマートフォン向け一覧
+   ========================================================== */
+
+.calendar-mobile-list {
+    display: none;
+}
+
+.calendar-mobile-day {
+    padding: 17px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow-card);
+}
+
+.calendar-mobile-day + .calendar-mobile-day {
+    margin-top: 12px;
+}
+
+.calendar-mobile-day-today {
+    border-color: var(--primary);
+    box-shadow:
+        0 0 0 2px var(--focus),
+        var(--shadow-card);
+}
+
+.calendar-mobile-day-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e6ece9;
+}
+
+.calendar-mobile-date {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.calendar-mobile-day-number {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background: var(--primary);
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.calendar-mobile-date-label {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.calendar-mobile-events {
+    display: grid;
+    gap: 10px;
+    padding-top: 13px;
+}
+
+.calendar-mobile-task,
+.calendar-mobile-rest {
+    display: block;
+    padding: 14px;
+    color: var(--text);
+    background: var(--primary-pale);
+    border: 1px solid #d8e9e2;
+    border-left: 4px solid var(--accent);
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.calendar-mobile-task-overdue {
+    background: var(--error-background);
+    border-color: var(--error-border);
+    border-left-color: var(--error);
+}
+
+.calendar-mobile-task-done {
+    color: var(--text-muted);
+    background: #f0f2f1;
+    border-color: #dce1df;
+    border-left-color: #929b97;
+}
+
+.calendar-mobile-task-done .calendar-mobile-event-title {
+    text-decoration: line-through;
+}
+
+.calendar-mobile-rest-adjusting {
+    background: #fff8e5;
+    border-color: #efdda7;
+    border-left-color: #c77d00;
+}
+
+.calendar-mobile-rest-confirmed {
+    background: var(--primary-pale);
+    border-color: #d8e9e2;
+    border-left-color: var(--primary);
+}
+
+.calendar-mobile-rest-cancelled {
+    color: var(--text-muted);
+    background: #f0f2f1;
+    border-color: #dce1df;
+    border-left-color: #929b97;
+    text-decoration: line-through;
+}
+
+.calendar-mobile-event-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.calendar-mobile-event-type {
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.calendar-mobile-event-status {
+    display: inline-flex;
+    min-height: 24px;
+    align-items: center;
+    padding: 0 8px;
+    color: var(--primary);
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.calendar-mobile-event-title {
+    display: block;
+    margin-top: 8px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.calendar-mobile-event-meta {
+    display: block;
+    margin-top: 5px;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.calendar-mobile-cancel-form {
+    margin-top: 12px;
+}
+
+.calendar-mobile-cancel-form
+.calendar-rest-cancel-button {
+    width: 100%;
+    min-height: 40px;
+    font-size: 12px;
+}
+
+.calendar-mobile-empty {
+    margin-top: 14px;
+    padding: 12px;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* ==========================================================
+   ページ下部
+   ========================================================== */
+
+.calendar-footer-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 24px;
+}
+
+.calendar-back-link {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    gap: 7px;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.calendar-back-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.calendar-footer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 13px;
+}
+
+.calendar-footer-link {
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.calendar-footer-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* ==========================================================
+   フォーカス
+   ========================================================== */
+
+.calendar-button:focus-visible,
+.calendar-month-button:focus-visible,
+.calendar-month-input:focus-visible,
+.calendar-display-button:focus-visible,
+.calendar-task:focus-visible,
+.calendar-rest-cancel-button:focus-visible,
+.calendar-mobile-task:focus-visible,
+.calendar-back-link:focus-visible,
+.calendar-footer-link:focus-visible {
+    outline: 3px solid rgba(50, 128, 109, 0.3);
+    outline-offset: 3px;
+}
+
+/* ==========================================================
+   タブレット
+   ========================================================== */
+
+@media (max-width: 1000px) {
+    .calendar-toolbar {
+        grid-template-columns:
+            auto minmax(180px, 1fr) auto;
+    }
+
+    .calendar-month-select-form {
+        grid-column: 1 / -1;
+        justify-content: center;
+        grid-row: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    main.calendar-main {
+        padding: 32px 20px 54px;
+    }
+
+    .calendar-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .calendar-page-actions {
+        width: 100%;
+    }
+
+    .calendar-page-actions .calendar-button {
+        flex: 1;
+    }
+
+    .calendar-toolbar {
+        padding: 16px;
+    }
+
+    .calendar-month-button-label {
+        display: none;
+    }
+}
+
+/* ==========================================================
+   スマートフォン
+   ========================================================== */
+
+@media (max-width: 600px) {
+    main.calendar-main {
+        padding: 26px 16px 46px;
+    }
+
+    .calendar-page-title {
+        font-size: 28px;
+    }
+
+    .calendar-page-description {
+        font-size: 13px;
+    }
+
+    .calendar-page-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .calendar-page-actions .calendar-button {
+        width: 100%;
+    }
+
+    .calendar-toolbar {
+        grid-template-columns: 44px minmax(0, 1fr) 44px;
+        gap: 8px;
+        padding: 13px;
+        border-radius: 13px;
+    }
+
+    .calendar-month-button {
+        width: 44px;
+        padding: 0;
+        font-size: 22px;
+    }
+
+    .calendar-current-month {
+        gap: 8px;
+    }
+
+    .calendar-current-month-icon {
+        width: 33px;
+        height: 33px;
+    }
+
+    .calendar-current-month-title {
+        font-size: 20px;
+    }
+
+    .calendar-month-select-form {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-column: 1 / -1;
+        gap: 8px;
+    }
+
+    .calendar-month-select-label {
+        display: none;
+    }
+
+    .calendar-month-input {
+        min-width: 0;
+    }
+
+    .calendar-legend {
+        gap: 8px 13px;
+        padding: 11px 12px;
+    }
+
+    .calendar-card {
+        display: none;
+    }
+
+    .calendar-mobile-list {
+        display: block;
+    }
+
+    .calendar-footer-nav {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .calendar-footer-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* ==========================================================
+   印刷
+   ========================================================== */
+
+@media print {
+    .calendar-page-actions,
+    .calendar-toolbar,
+    .calendar-legend,
+    .calendar-footer-nav,
+    .calendar-mobile-list,
+    .calendar-rest-cancel-form {
+        display: none !important;
+    }
+
+    main.calendar-main {
+        width: 100%;
+        max-width: none;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+    }
+
+    .calendar-card {
+        display: block;
+        overflow: visible;
+        border: 0;
+        box-shadow: none;
+    }
+
+    .calendar-scroll {
+        overflow: visible;
+    }
+
+    .calendar-table {
+        min-width: 0;
+    }
+
+    .calendar-cell {
+        height: 130px;
+        padding: 5px;
+    }
+
+    .calendar-task,
+    .calendar-rest {
+        padding: 4px;
+    }
+}
