@@ -1,0 +1,820 @@
+@charset "UTF-8";
+
+/* ==========================================================
+   タスク詳細ページ全体
+   ========================================================== */
+
+main.task-detail-main {
+    width: min(100%, 1040px);
+    min-height: calc(
+        100vh - var(--header-height) - var(--footer-height)
+    );
+    margin: 0 auto;
+    padding: 42px 28px 64px;
+}
+
+/* ==========================================================
+   ページヘッダー
+   ========================================================== */
+
+.task-detail-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 28px;
+    margin-bottom: 24px;
+}
+
+.task-detail-page-heading {
+    min-width: 0;
+}
+
+.task-detail-page-eyebrow {
+    margin: 0 0 7px;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.task-detail-page-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 34px;
+    line-height: 1.35;
+}
+
+.task-detail-page-description {
+    max-width: 680px;
+    margin: 9px 0 0;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.task-detail-header-actions {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.task-detail-header-button,
+.task-detail-action-button {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 17px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    appearance: none;
+    transition:
+        color 150ms ease,
+        background-color 150ms ease,
+        border-color 150ms ease,
+        box-shadow 150ms ease,
+        transform 150ms ease;
+}
+
+.task-detail-header-button:hover,
+.task-detail-action-button:hover {
+    transform: translateY(-1px);
+}
+
+.task-detail-header-button-primary,
+.task-detail-action-button-primary {
+    color: #ffffff;
+    background: var(--primary);
+    box-shadow:
+        0 7px 16px rgba(39, 104, 89, 0.16);
+}
+
+.task-detail-header-button-primary:hover,
+.task-detail-action-button-primary:hover {
+    background: var(--primary-hover);
+}
+
+.task-detail-header-button-secondary,
+.task-detail-action-button-secondary {
+    color: var(--primary);
+    background: #ffffff;
+    border-color: var(--border);
+}
+
+.task-detail-header-button-secondary:hover,
+.task-detail-action-button-secondary:hover {
+    background: var(--primary-soft);
+    border-color: #bfd8ce;
+}
+
+.task-detail-action-button-danger {
+    color: #ffffff;
+    background: var(--error);
+}
+
+.task-detail-action-button-danger:hover {
+    background: var(--error-hover);
+}
+
+.task-detail-button-icon {
+    display: inline-grid;
+    min-width: 19px;
+    place-items: center;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+/* ==========================================================
+   詳細カード
+   ========================================================== */
+
+.task-detail-card {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid rgba(39, 104, 89, 0.11);
+    border-top: 5px solid var(--primary);
+    border-radius: 17px;
+    box-shadow: var(--shadow-card);
+}
+
+.task-detail-card.is-overdue {
+    border-top-color: var(--error);
+}
+
+.task-detail-card-header {
+    display: flex;
+    min-height: 61px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 20px;
+    background: #f8faf9;
+    border-bottom: 1px solid #e5ebe8;
+}
+
+.task-detail-labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.task-detail-status-badge,
+.task-detail-unassigned-badge,
+.task-detail-assigned-badge,
+.task-detail-overdue-badge {
+    display: inline-flex;
+    min-height: 27px;
+    align-items: center;
+    padding: 0 9px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.task-detail-status-badge,
+.task-detail-assigned-badge {
+    color: var(--primary);
+    background: var(--primary-soft);
+    border: 1px solid #d2e7de;
+}
+
+.task-detail-unassigned-badge {
+    color: #805500;
+    background: #fff4d8;
+    border: 1px solid #eed89a;
+}
+
+.task-detail-overdue-badge {
+    color: var(--error);
+    background: var(--error-background);
+    border: 1px solid var(--error-border);
+}
+
+.task-detail-id {
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.task-detail-title-area {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 25px 24px;
+    border-bottom: 1px solid #e5ebe8;
+}
+
+.task-detail-title-icon {
+    width: 49px;
+    height: 49px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: #ffffff;
+    background: var(--primary);
+    border-radius: 13px;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.is-overdue .task-detail-title-icon {
+    background: var(--error);
+}
+
+.task-detail-title-label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.task-detail-title {
+    margin: 5px 0 0;
+    color: var(--text);
+    font-size: 23px;
+    line-height: 1.55;
+}
+
+/* ==========================================================
+   詳細情報
+   ========================================================== */
+
+.task-detail-information {
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+    margin: 0;
+    padding: 7px 24px 24px;
+}
+
+.task-detail-information-item {
+    padding: 18px 16px 18px 0;
+    border-bottom: 1px solid #e6ece9;
+}
+
+.task-detail-information-item:nth-last-child(-n + 3) {
+    border-bottom: 0;
+}
+
+.task-detail-information dt {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.task-detail-information-icon {
+    width: 27px;
+    height: 27px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: 7px;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.task-detail-information dd {
+    margin: 9px 0 0 34px;
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.task-detail-overdue-text {
+    display: block;
+    margin-top: 4px;
+    color: var(--error);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.task-detail-person {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.task-detail-person-avatar {
+    width: 29px;
+    height: 29px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: 50%;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.task-detail-unassigned,
+.task-detail-current-status {
+    display: inline-flex;
+    min-height: 27px;
+    align-items: center;
+    padding: 0 9px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.task-detail-unassigned {
+    color: #805500;
+    background: #fff4d8;
+}
+
+.task-detail-current-status {
+    color: var(--primary);
+    background: var(--primary-soft);
+}
+
+/* ==========================================================
+   クイック更新
+   ========================================================== */
+
+.task-quick-update-card {
+    overflow: hidden;
+    margin-top: 18px;
+    background: #ffffff;
+    border: 1px solid rgba(39, 104, 89, 0.1);
+    border-radius: 16px;
+    box-shadow: var(--shadow-card);
+}
+
+.task-quick-update-header {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 18px 21px;
+    background: #f8faf9;
+    border-bottom: 1px solid #e5ebe8;
+}
+
+.task-quick-update-icon {
+    width: 39px;
+    height: 39px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: #ffffff;
+    background: var(--primary);
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.task-quick-update-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 18px;
+}
+
+.task-quick-update-description {
+    margin: 3px 0 0;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.task-quick-update-form {
+    padding: 22px;
+}
+
+.task-quick-update-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: 17px;
+}
+
+.task-detail-form-field {
+    display: grid;
+    gap: 7px;
+}
+
+.task-detail-form-field label {
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.task-detail-form-control {
+    width: 100%;
+    min-height: 48px;
+    padding: 10px 38px 10px 13px;
+    color: var(--text);
+    background-color: #ffffff;
+    background-image:
+        linear-gradient(45deg, transparent 50%, #66736f 50%),
+        linear-gradient(135deg, #66736f 50%, transparent 50%);
+    background-position:
+        calc(100% - 18px) calc(50% - 2px),
+        calc(100% - 13px) calc(50% - 2px);
+    background-repeat: no-repeat;
+    background-size: 5px 5px, 5px 5px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+    font-size: 13px;
+    appearance: none;
+}
+
+.task-detail-form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--focus);
+}
+
+.task-detail-field-help {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.task-quick-update-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 19px;
+}
+
+/* ==========================================================
+   操作パネル
+   ========================================================== */
+
+.task-detail-action-panel,
+.task-request-card,
+.task-danger-zone {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 18px;
+    padding: 20px 22px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    box-shadow: var(--shadow-card);
+}
+
+.task-detail-action-panel-content,
+.task-request-card-content {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 13px;
+}
+
+.task-detail-action-panel-icon,
+.task-request-card-icon {
+    width: 43px;
+    height: 43px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: 11px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.task-detail-action-panel-title,
+.task-request-card-title,
+.task-danger-zone-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 16px;
+}
+
+.task-detail-action-panel-description,
+.task-request-card-description,
+.task-danger-zone-description {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+/* ==========================================================
+   閲覧のみ
+   ========================================================== */
+
+.task-detail-readonly-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 18px;
+    padding: 17px 19px;
+    color: var(--text-muted);
+    background: #f3f6f4;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.task-detail-readonly-icon {
+    width: 31px;
+    height: 31px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: #ffffff;
+    background: #87938e;
+    border-radius: 50%;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.task-detail-readonly-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.task-detail-readonly-description {
+    margin: 4px 0 0;
+    font-size: 11px;
+}
+
+/* ==========================================================
+   削除
+   ========================================================== */
+
+.task-danger-zone {
+    border-color: var(--error-border);
+    box-shadow: none;
+}
+
+.task-delete-form {
+    flex-shrink: 0;
+    margin: 0;
+}
+
+/* ==========================================================
+   下部ナビゲーション
+   ========================================================== */
+
+.task-detail-footer-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 23px;
+}
+
+.task-detail-back-link,
+.task-detail-calendar-link {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    gap: 7px;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.task-detail-back-link:hover,
+.task-detail-calendar-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* ==========================================================
+   編集画面用の削除欄
+   task_edit.jspはtask-form.cssと併用する
+   ========================================================== */
+
+.task-edit-danger-zone {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    margin-top: 20px;
+    padding: 20px 22px;
+    background: #ffffff;
+    border: 1px solid var(--error-border);
+    border-radius: 15px;
+}
+
+.task-edit-danger-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 16px;
+}
+
+.task-edit-danger-description {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.task-edit-delete-button {
+    min-height: 46px;
+    padding: 0 17px;
+    color: #ffffff;
+    background: var(--error);
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.task-edit-delete-button:hover {
+    background: var(--error-hover);
+}
+
+/* ==========================================================
+   フォーカス
+   ========================================================== */
+
+.task-detail-header-button:focus-visible,
+.task-detail-action-button:focus-visible,
+.task-detail-form-control:focus-visible,
+.task-detail-back-link:focus-visible,
+.task-detail-calendar-link:focus-visible,
+.task-edit-delete-button:focus-visible {
+    outline: 3px solid rgba(50, 128, 109, 0.3);
+    outline-offset: 3px;
+}
+
+/* ==========================================================
+   タブレット
+   ========================================================== */
+
+@media (max-width: 768px) {
+    main.task-detail-main {
+        padding: 32px 20px 54px;
+    }
+
+    .task-detail-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .task-detail-information {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .task-detail-information-item:nth-last-child(-n + 3) {
+        border-bottom: 1px solid #e6ece9;
+    }
+
+    .task-detail-information-item:nth-last-child(-n + 2) {
+        border-bottom: 0;
+    }
+}
+
+/* ==========================================================
+   スマートフォン
+   ========================================================== */
+
+@media (max-width: 600px) {
+    main.task-detail-main {
+        padding: 26px 16px 46px;
+    }
+
+    .task-detail-page-title {
+        font-size: 28px;
+    }
+
+    .task-detail-page-description {
+        font-size: 13px;
+    }
+
+    .task-detail-header-actions {
+        width: 100%;
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .task-detail-header-button {
+        width: 100%;
+    }
+
+    .task-detail-card {
+        border-radius: 14px;
+    }
+
+    .task-detail-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 13px 16px;
+    }
+
+    .task-detail-title-area {
+        padding: 20px 16px;
+    }
+
+    .task-detail-title-icon {
+        width: 43px;
+        height: 43px;
+    }
+
+    .task-detail-title {
+        font-size: 19px;
+    }
+
+    .task-detail-information {
+        grid-template-columns: 1fr;
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    .task-detail-information-item,
+    .task-detail-information-item:nth-last-child(-n + 3),
+    .task-detail-information-item:nth-last-child(-n + 2) {
+        border-bottom: 1px solid #e6ece9;
+    }
+
+    .task-detail-information-item:last-child {
+        border-bottom: 0;
+    }
+
+    .task-quick-update-header {
+        padding: 17px 16px;
+    }
+
+    .task-quick-update-form {
+        padding: 18px 16px;
+    }
+
+    .task-quick-update-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .task-quick-update-actions {
+        align-items: stretch;
+    }
+
+    .task-quick-update-actions
+    .task-detail-action-button {
+        width: 100%;
+    }
+
+    .task-detail-action-panel,
+    .task-request-card,
+    .task-danger-zone,
+    .task-edit-danger-zone {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 17px 16px;
+    }
+
+    .task-detail-action-panel
+    .task-detail-action-button,
+    .task-request-card
+    .task-detail-action-button,
+    .task-danger-zone
+    .task-detail-action-button,
+    .task-delete-form,
+    .task-edit-danger-zone form,
+    .task-edit-delete-button {
+        width: 100%;
+    }
+
+    .task-detail-footer-nav {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+/* ==========================================================
+   印刷
+   ========================================================== */
+
+@media print {
+    .task-detail-header-actions,
+    .task-quick-update-card,
+    .task-detail-action-panel,
+    .task-request-card,
+    .task-danger-zone,
+    .task-detail-footer-nav {
+        display: none !important;
+    }
+
+    main.task-detail-main {
+        width: 100%;
+        max-width: none;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+    }
+
+    .task-detail-card {
+        box-shadow: none;
+    }
+}

@@ -1,0 +1,966 @@
+@charset "UTF-8";
+
+main.group-settings-main {
+    width: min(100%, 1040px);
+    min-height: calc(
+        100vh - var(--header-height) - var(--footer-height)
+    );
+    margin: 0 auto;
+    padding: 42px 28px 64px;
+}
+
+/* ページ上部 */
+
+.group-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 28px;
+    margin-bottom: 24px;
+}
+
+.group-page-heading {
+    min-width: 0;
+}
+
+.group-page-eyebrow,
+.group-section-eyebrow {
+    margin: 0 0 7px;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.group-page-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 34px;
+    line-height: 1.35;
+}
+
+.group-page-description {
+    max-width: 700px;
+    margin: 9px 0 0;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* 共通ボタン */
+
+.group-button {
+    display: inline-flex;
+    min-height: 47px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 18px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    appearance: none;
+    transition:
+        background-color 150ms ease,
+        border-color 150ms ease,
+        box-shadow 150ms ease,
+        transform 150ms ease;
+}
+
+.group-button:hover {
+    transform: translateY(-1px);
+}
+
+.group-button-primary {
+    color: #ffffff;
+    background: var(--primary);
+    box-shadow: 0 7px 16px rgba(39, 104, 89, 0.16);
+}
+
+.group-button-primary:hover {
+    background: var(--primary-hover);
+}
+
+.group-button-secondary {
+    color: var(--primary);
+    background: #ffffff;
+    border-color: var(--border);
+}
+
+.group-button-secondary:hover {
+    background: var(--primary-soft);
+    border-color: #bfd8ce;
+}
+
+.group-button-icon {
+    display: inline-grid;
+    min-width: 20px;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+/* 未所属時の案内 */
+
+.group-welcome-card {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    align-items: center;
+    gap: 28px;
+    margin-bottom: 18px;
+    padding: 30px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #246853 0%, #32806d 100%);
+    border-radius: 18px;
+    box-shadow: 0 13px 30px rgba(39, 104, 89, 0.18);
+}
+
+.group-welcome-visual {
+    display: flex;
+    justify-content: center;
+}
+
+.group-welcome-icon {
+    width: 100px;
+    height: 100px;
+    display: grid;
+    place-items: center;
+    color: var(--primary);
+    background: #ffffff;
+    border-radius: 28px;
+    font-size: 30px;
+    font-weight: 800;
+    box-shadow: 0 10px 24px rgba(12, 47, 37, 0.2);
+}
+
+.group-welcome-title {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1.5;
+}
+
+.group-welcome-description {
+    margin: 9px 0 0;
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.group-feature-list {
+    display: grid;
+    gap: 6px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.group-feature-list li {
+    position: relative;
+    padding-left: 24px;
+    font-size: 12px;
+}
+
+.group-feature-list li::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "✓";
+    font-weight: 800;
+}
+
+/* 現在のグループ */
+
+.group-summary-card {
+    display: flex;
+    min-height: 132px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 18px;
+    padding: 24px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #246853 0%, #32806d 100%);
+    border-radius: 17px;
+    box-shadow: 0 13px 30px rgba(39, 104, 89, 0.18);
+}
+
+.group-summary-main {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 15px;
+}
+
+.group-summary-icon {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: var(--primary);
+    background: #ffffff;
+    border-radius: 16px;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.group-summary-label {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.group-summary-name {
+    overflow: hidden;
+    margin: 4px 0 0;
+    font-size: 23px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.group-summary-badges {
+    margin-top: 7px;
+}
+
+.group-role-badge {
+    display: inline-flex;
+    min-height: 25px;
+    align-items: center;
+    padding: 0 9px;
+    color: var(--primary);
+    background: #ffffff;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.group-member-summary {
+    width: min(100%, 275px);
+    flex-shrink: 0;
+}
+
+.group-member-count {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.group-member-count span {
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 11px;
+}
+
+.group-member-count strong {
+    font-size: 25px;
+}
+
+.group-member-count small {
+    font-size: 11px;
+}
+
+.group-member-progress {
+    height: 8px;
+    margin-top: 9px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+}
+
+.group-member-progress-fill {
+    display: block;
+    height: 100%;
+    max-width: 100%;
+    background: #ffffff;
+    border-radius: inherit;
+}
+
+.group-member-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 10px;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.group-member-link:hover {
+    text-decoration: underline;
+}
+
+/* 共通カード */
+
+.group-form-card,
+.group-invite-card {
+    overflow: hidden;
+    margin-top: 18px;
+    background: #ffffff;
+    border: 1px solid rgba(39, 104, 89, 0.1);
+    border-radius: 17px;
+    box-shadow: var(--shadow-card);
+}
+
+.group-form-card-header,
+.group-invite-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 23px;
+    background: #f8faf9;
+    border-bottom: 1px solid #e5ebe8;
+}
+
+.group-form-card-icon,
+.group-invite-header-icon {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: #ffffff;
+    background: var(--primary);
+    border-radius: 11px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.group-form-card-title,
+.group-invite-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 19px;
+}
+
+.group-form-card-description,
+.group-invite-description {
+    margin: 3px 0 0;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+/* 入力フォーム */
+
+.group-name-form {
+    display: grid;
+    gap: 20px;
+    padding: 24px;
+}
+
+.group-form-field {
+    display: grid;
+    gap: 8px;
+}
+
+.group-form-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.group-form-field label {
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.group-required,
+.group-optional {
+    display: inline-flex;
+    min-height: 21px;
+    align-items: center;
+    margin-left: 5px;
+    padding: 0 7px;
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.group-required {
+    color: #ffffff;
+    background: var(--error);
+}
+
+.group-optional {
+    color: var(--text-muted);
+    background: #edf1ef;
+}
+
+.group-character-limit {
+    color: var(--text-muted);
+    font-size: 10px;
+}
+
+.group-form-control {
+    width: 100%;
+    min-height: 50px;
+    padding: 11px 14px;
+    color: var(--text);
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+    font-size: 14px;
+    appearance: none;
+}
+
+select.group-form-control {
+    padding-right: 38px;
+    background-image:
+        linear-gradient(45deg, transparent 50%, #66736f 50%),
+        linear-gradient(135deg, #66736f 50%, transparent 50%);
+    background-position:
+        calc(100% - 18px) calc(50% - 2px),
+        calc(100% - 13px) calc(50% - 2px);
+    background-repeat: no-repeat;
+    background-size: 5px 5px, 5px 5px;
+}
+
+.group-form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--focus);
+}
+
+.group-form-control.is-error {
+    background: #fffafa;
+    border-color: var(--error);
+}
+
+.group-field-error {
+    color: var(--error);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.group-field-help {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.group-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 11px;
+}
+
+/* 招待条件 */
+
+.group-invite-rules {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    padding: 22px 23px 0;
+}
+
+.group-invite-rule {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px;
+    background: #f8faf9;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+}
+
+.group-invite-rule-icon {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: 9px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.group-invite-rule strong,
+.group-invite-rule small {
+    display: block;
+}
+
+.group-invite-rule strong {
+    font-size: 12px;
+}
+
+.group-invite-rule small {
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: 9px;
+}
+
+.group-invite-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: end;
+    gap: 15px;
+    padding: 22px 23px 24px;
+}
+
+.group-invite-role {
+    display: grid;
+    gap: 7px;
+}
+
+.group-invite-role span {
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.group-invite-role strong {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border: 1px solid #d3e8df;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+/* 発行結果 */
+
+.group-invite-result {
+    margin: 0 23px 24px;
+    padding: 19px;
+    background: var(--success-background);
+    border: 1px solid var(--success-border);
+    border-radius: 12px;
+}
+
+.group-invite-result-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+}
+
+.group-invite-result-icon {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: #ffffff;
+    background: var(--success);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.group-invite-result-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 15px;
+}
+
+.group-invite-result-description {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.group-invite-link-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 9px;
+    margin-top: 15px;
+}
+
+.group-invite-link-input {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    padding: 10px 13px;
+    color: var(--text);
+    background: #ffffff;
+    border: 1px solid var(--success-border);
+    border-radius: 9px;
+    outline: none;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.group-invite-link-input:focus {
+    border-color: var(--success);
+    box-shadow: 0 0 0 4px rgba(43, 126, 88, 0.14);
+}
+
+.group-copy-button {
+    min-height: 48px;
+    padding: 0 18px;
+    color: #ffffff;
+    background: var(--success);
+    border: 0;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.group-copy-button:hover {
+    filter: brightness(0.96);
+}
+
+.group-copy-result {
+    min-height: 18px;
+    margin: 6px 0 0;
+    color: var(--success);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.group-invite-security-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 10px;
+    padding: 10px 12px;
+    color: #765600;
+    background: #fff9e9;
+    border-radius: 9px;
+}
+
+.group-invite-security-icon {
+    width: 23px;
+    height: 23px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: #ffffff;
+    background: #b27a00;
+    border-radius: 50%;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.group-invite-security-note p {
+    margin: 2px 0 0;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+/* 上限、権限案内 */
+
+.group-limit-warning,
+.group-readonly-card,
+.group-join-guide {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 18px;
+    border-radius: 12px;
+}
+
+.group-limit-warning {
+    margin: 22px 23px 24px;
+    color: var(--error);
+    background: var(--error-background);
+    border: 1px solid var(--error-border);
+}
+
+.group-readonly-card,
+.group-join-guide {
+    margin-top: 18px;
+    color: var(--info);
+    background: var(--info-background);
+    border: 1px solid var(--info-border);
+}
+
+.group-limit-warning-icon,
+.group-readonly-icon,
+.group-join-guide-icon {
+    width: 31px;
+    height: 31px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.group-limit-warning-icon {
+    background: var(--error);
+}
+
+.group-readonly-icon,
+.group-join-guide-icon {
+    background: var(--info);
+}
+
+.group-limit-warning strong {
+    display: block;
+    color: var(--text);
+    font-size: 13px;
+}
+
+.group-limit-warning p,
+.group-readonly-description,
+.group-join-guide-description {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.group-readonly-title,
+.group-join-guide-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 14px;
+}
+
+/* メンバー管理 */
+
+.group-member-management {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    margin-top: 18px;
+    padding: 20px 22px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    box-shadow: var(--shadow-card);
+}
+
+.group-member-management-content {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.group-member-management-icon {
+    width: 43px;
+    height: 43px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: 11px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.group-member-management-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 16px;
+}
+
+.group-member-management-description {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+/* 下部 */
+
+.group-page-footer-nav {
+    margin-top: 23px;
+}
+
+.group-back-link {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    gap: 7px;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.group-back-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* フォーカス */
+
+.group-button:focus-visible,
+.group-form-control:focus-visible,
+.group-copy-button:focus-visible,
+.group-back-link:focus-visible,
+.group-member-link:focus-visible {
+    outline: 3px solid rgba(50, 128, 109, 0.3);
+    outline-offset: 3px;
+}
+
+/* タブレット */
+
+@media (max-width: 768px) {
+    main.group-settings-main {
+        padding: 32px 20px 54px;
+    }
+
+    .group-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .group-summary-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .group-member-summary {
+        width: 100%;
+    }
+
+    .group-invite-rules {
+        grid-template-columns: 1fr;
+    }
+
+    .group-invite-form {
+        grid-template-columns: 1fr;
+    }
+
+    .group-invite-form .group-button {
+        width: 100%;
+    }
+
+    .group-member-management {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .group-member-management .group-button {
+        width: 100%;
+    }
+}
+
+/* スマートフォン */
+
+@media (max-width: 600px) {
+    main.group-settings-main {
+        padding: 26px 16px 46px;
+    }
+
+    .group-page-title {
+        font-size: 28px;
+    }
+
+    .group-welcome-card {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 23px 18px;
+        text-align: center;
+    }
+
+    .group-welcome-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 22px;
+    }
+
+    .group-feature-list {
+        text-align: left;
+    }
+
+    .group-summary-card {
+        padding: 20px 17px;
+    }
+
+    .group-summary-name {
+        font-size: 20px;
+    }
+
+    .group-form-card,
+    .group-invite-card {
+        border-radius: 14px;
+    }
+
+    .group-form-card-header,
+    .group-invite-header {
+        padding: 17px 16px;
+    }
+
+    .group-name-form {
+        padding: 18px 16px;
+    }
+
+    .group-form-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .group-form-actions .group-button {
+        width: 100%;
+    }
+
+    .group-invite-rules {
+        padding: 18px 16px 0;
+    }
+
+    .group-invite-form {
+        padding: 18px 16px;
+    }
+
+    .group-invite-result {
+        margin: 0 16px 18px;
+        padding: 15px;
+    }
+
+    .group-invite-link-row {
+        grid-template-columns: 1fr;
+    }
+
+    .group-copy-button {
+        width: 100%;
+    }
+
+    .group-member-management {
+        padding: 17px 16px;
+    }
+}
+
+/* 印刷 */
+
+@media print {
+    .group-page-header .group-button,
+    .group-name-form,
+    .group-invite-card,
+    .group-member-management,
+    .group-page-footer-nav {
+        display: none !important;
+    }
+
+    main.group-settings-main {
+        width: 100%;
+        max-width: none;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+    }
+
+    .group-summary-card,
+    .group-welcome-card {
+        color: #000000;
+        background: #ffffff;
+        border: 1px solid #cccccc;
+        box-shadow: none;
+    }
+
+    .group-summary-name,
+    .group-summary-label,
+    .group-member-count span,
+    .group-member-count strong {
+        color: #000000;
+    }
+}

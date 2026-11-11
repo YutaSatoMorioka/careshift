@@ -1,0 +1,666 @@
+@charset "UTF-8";
+
+/* ==========================================================
+   タスクフォーム全体
+   ========================================================== */
+
+main.task-form-main {
+    width: min(100%, 940px);
+    min-height: calc(
+        100vh - var(--header-height) - var(--footer-height)
+    );
+    margin: 0 auto;
+    padding: 42px 28px 64px;
+}
+
+/* ==========================================================
+   ページヘッダー
+   ========================================================== */
+
+.task-form-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 28px;
+    margin-bottom: 24px;
+}
+
+.task-form-page-heading {
+    min-width: 0;
+}
+
+.task-form-page-eyebrow {
+    margin: 0 0 7px;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.task-form-page-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 34px;
+    line-height: 1.35;
+}
+
+.task-form-page-description {
+    max-width: 680px;
+    margin: 9px 0 0;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.task-form-header-link,
+.task-form-back-link {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    gap: 7px;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.task-form-header-link:hover,
+.task-form-back-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* ==========================================================
+   ステップ
+   ========================================================== */
+
+.task-form-stepper {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(40px, 130px)
+        minmax(0, 1fr);
+    align-items: center;
+    margin-bottom: 22px;
+    padding: 16px 20px;
+    background: #ffffff;
+    border: 1px solid rgba(39, 104, 89, 0.1);
+    border-radius: 15px;
+    box-shadow: var(--shadow-card);
+}
+
+.task-form-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #96a19d;
+}
+
+.task-form-step-number {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    background: #edf1ef;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.task-form-step-content strong,
+.task-form-step-content small {
+    display: block;
+}
+
+.task-form-step-content strong {
+    font-size: 13px;
+}
+
+.task-form-step-content small {
+    margin-top: 1px;
+    font-size: 10px;
+}
+
+.task-form-step.is-current {
+    color: var(--primary);
+}
+
+.task-form-step.is-current .task-form-step-number {
+    color: #ffffff;
+    background: var(--primary);
+}
+
+.task-form-step-line {
+    height: 2px;
+    background: #e0e6e3;
+}
+
+/* ==========================================================
+   エラーと警告
+   ========================================================== */
+
+.task-form-error-notice,
+.task-form-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    margin-bottom: 18px;
+    padding: 16px 18px;
+    border-radius: 12px;
+}
+
+.task-form-error-notice {
+    color: var(--error);
+    background: var(--error-background);
+    border: 1px solid var(--error-border);
+}
+
+.task-form-warning {
+    color: var(--warning);
+    background: var(--warning-background);
+    border: 1px solid var(--warning-border);
+}
+
+.task-form-error-icon,
+.task-form-warning-icon {
+    width: 31px;
+    height: 31px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.task-form-error-icon {
+    background: var(--error);
+}
+
+.task-form-warning-icon {
+    background: var(--warning);
+}
+
+.task-form-error-notice strong {
+    display: block;
+    color: var(--text);
+    font-size: 13px;
+}
+
+.task-form-error-notice p {
+    margin: 3px 0 0;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.task-form-warning-content {
+    min-width: 0;
+}
+
+.task-form-warning-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 16px;
+}
+
+.task-form-warning-list {
+    margin: 8px 0 0;
+    padding-left: 20px;
+    color: #725000;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.task-form-warning-help {
+    margin: 9px 0 0;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+/* ==========================================================
+   フォームカード
+   ========================================================== */
+
+.task-create-form {
+    display: grid;
+    gap: 18px;
+}
+
+.task-form-card {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid rgba(39, 104, 89, 0.1);
+    border-radius: 17px;
+    box-shadow: var(--shadow-card);
+}
+
+.task-form-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 23px;
+    background: #f8faf9;
+    border-bottom: 1px solid #e5ebe8;
+}
+
+.task-form-card-icon {
+    width: 39px;
+    height: 39px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: #ffffff;
+    background: var(--primary);
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.task-form-card-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 19px;
+}
+
+.task-form-card-description {
+    margin: 3px 0 0;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.task-form-card-body {
+    padding: 24px;
+}
+
+.task-form-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+/* ==========================================================
+   入力欄
+   ========================================================== */
+
+.task-form-field {
+    display: grid;
+    gap: 8px;
+}
+
+.task-form-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.task-form-field label {
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.task-form-required,
+.task-form-optional {
+    display: inline-flex;
+    min-height: 21px;
+    align-items: center;
+    margin-left: 5px;
+    padding: 0 7px;
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 800;
+    vertical-align: middle;
+}
+
+.task-form-required {
+    color: #ffffff;
+    background: var(--error);
+}
+
+.task-form-optional {
+    color: var(--text-muted);
+    background: #edf1ef;
+}
+
+.task-form-character-limit {
+    color: var(--text-muted);
+    font-size: 10px;
+}
+
+.task-form-control {
+    width: 100%;
+    min-height: 50px;
+    margin: 0;
+    padding: 11px 14px;
+    color: var(--text);
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+    font-size: 14px;
+    appearance: none;
+    transition:
+        border-color 150ms ease,
+        box-shadow 150ms ease,
+        background-color 150ms ease;
+}
+
+select.task-form-control {
+    padding-right: 38px;
+    background-image:
+        linear-gradient(
+            45deg,
+            transparent 50%,
+            #66736f 50%
+        ),
+        linear-gradient(
+            135deg,
+            #66736f 50%,
+            transparent 50%
+        );
+    background-position:
+        calc(100% - 18px) calc(50% - 2px),
+        calc(100% - 13px) calc(50% - 2px);
+    background-repeat: no-repeat;
+    background-size: 5px 5px, 5px 5px;
+}
+
+.task-form-control::placeholder {
+    color: #9ca8a4;
+}
+
+.task-form-control:hover {
+    border-color: #a9bbb4;
+}
+
+.task-form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--focus);
+}
+
+.task-form-control.is-error {
+    color: var(--error);
+    background: #fffafa;
+    border-color: var(--error);
+}
+
+.task-form-field-error {
+    display: block;
+    color: var(--error);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.task-form-field-help {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.task-form-number-wrapper {
+    position: relative;
+}
+
+.task-form-number-wrapper .task-form-control {
+    padding-right: 49px;
+}
+
+.task-form-number-suffix {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 700;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+/* ==========================================================
+   操作ボタン
+   ========================================================== */
+
+.task-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 2px;
+}
+
+.task-form-button {
+    display: inline-flex;
+    min-height: 49px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 20px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    appearance: none;
+    transition:
+        color 150ms ease,
+        background-color 150ms ease,
+        border-color 150ms ease,
+        box-shadow 150ms ease,
+        transform 150ms ease;
+}
+
+.task-form-button:hover {
+    transform: translateY(-1px);
+}
+
+.task-form-button-primary {
+    min-width: 170px;
+    color: #ffffff;
+    background: var(--primary);
+    box-shadow:
+        0 7px 16px rgba(39, 104, 89, 0.16);
+}
+
+.task-form-button-primary:hover {
+    background: var(--primary-hover);
+    box-shadow:
+        0 10px 20px rgba(39, 104, 89, 0.22);
+}
+
+.task-form-button-secondary {
+    color: var(--primary);
+    background: #ffffff;
+    border-color: var(--border);
+}
+
+.task-form-button-secondary:hover {
+    background: var(--primary-soft);
+    border-color: #bfd8ce;
+}
+
+.task-form-button-icon {
+    display: inline-grid;
+    min-width: 19px;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+/* ==========================================================
+   入力案内
+   ========================================================== */
+
+.task-form-guidance {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 16px 18px;
+    color: var(--info);
+    background: var(--info-background);
+    border: 1px solid var(--info-border);
+    border-radius: 12px;
+}
+
+.task-form-guidance-icon {
+    width: 31px;
+    height: 31px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: #ffffff;
+    background: var(--info);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.task-form-guidance-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.task-form-guidance-description {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+/* ==========================================================
+   下部ナビゲーション
+   ========================================================== */
+
+.task-form-page-footer-nav {
+    margin-top: 20px;
+}
+
+/* ==========================================================
+   フォーカス
+   ========================================================== */
+
+.task-form-header-link:focus-visible,
+.task-form-control:focus-visible,
+.task-form-button:focus-visible,
+.task-form-back-link:focus-visible {
+    outline: 3px solid rgba(50, 128, 109, 0.3);
+    outline-offset: 3px;
+}
+
+/* ==========================================================
+   タブレット
+   ========================================================== */
+
+@media (max-width: 768px) {
+    main.task-form-main {
+        padding: 32px 20px 54px;
+    }
+
+    .task-form-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .task-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================
+   スマートフォン
+   ========================================================== */
+
+@media (max-width: 600px) {
+    main.task-form-main {
+        padding: 26px 16px 46px;
+    }
+
+    .task-form-page-title {
+        font-size: 28px;
+    }
+
+    .task-form-page-description {
+        font-size: 13px;
+    }
+
+    .task-form-stepper {
+        grid-template-columns:
+            auto minmax(30px, 1fr) auto;
+        padding: 13px 16px;
+    }
+
+    .task-form-step {
+        justify-content: center;
+    }
+
+    .task-form-step-content {
+        display: none;
+    }
+
+    .task-form-step-number {
+        width: 31px;
+        height: 31px;
+    }
+
+    .task-form-card {
+        border-radius: 14px;
+    }
+
+    .task-form-card-header {
+        padding: 17px 16px;
+    }
+
+    .task-form-card-body {
+        padding: 18px 16px;
+    }
+
+    .task-form-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .task-form-actions .task-form-button {
+        width: 100%;
+    }
+
+    .task-form-guidance {
+        padding: 14px;
+    }
+}
+
+/* ==========================================================
+   印刷
+   ========================================================== */
+
+@media print {
+    .site-header,
+    .site-footer,
+    .task-form-stepper,
+    .task-form-header-link,
+    .task-form-actions,
+    .task-form-guidance,
+    .task-form-page-footer-nav {
+        display: none !important;
+    }
+
+    main.task-form-main {
+        width: 100%;
+        max-width: none;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+    }
+
+    .task-form-card {
+        box-shadow: none;
+        break-inside: avoid;
+    }
+}
