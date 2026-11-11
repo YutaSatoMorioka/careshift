@@ -35,6 +35,7 @@ public class MenuAction extends Action {
         }
         Member me = new GroupDao().findMember(user.getId());
         req.setAttribute("member", me); // グループ未所属ならホームで案内する
+        req.setAttribute("isAdmin", tool.AdminSupport.isAdmin(user)); // 管理者にだけ S90 への導線を出す
 
         if (me != null) {
             ReminderSupport.generate(user, me); // 期限リマインドを（なければ）作る

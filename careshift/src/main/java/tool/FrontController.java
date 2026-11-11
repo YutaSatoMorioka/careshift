@@ -58,6 +58,8 @@ public class FrontController extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         } catch (Exception e) {
             e.printStackTrace(); // 詳細はコンソールにだけ出す（画面には出さない）
+            // 障害ログには、処理の名前と例外の種類だけを残す（入力値・相談文・パスワードは記録しない）
+            AppLog.write("ERROR", className + " で " + e.getClass().getSimpleName() + " が発生しました");
             req.setAttribute("errorMessage", "処理中に問題が発生しました。時間をおいて、もう一度お試しください。");
             req.getRequestDispatcher("/error.jsp").forward(req, resp);
         }

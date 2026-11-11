@@ -26,4 +26,27 @@ public class SettingsDao extends Dao {
             }
         }
     }
+
+    /** 通知設定を保存する（なければ作る）。 */
+    public void save(long userId, boolean emailNotice, boolean reminder) throws Exception {
+        try (Connection con = getConnection()) {
+            int updated;
+            try (PreparedStatement ps = con.prepareStatement(
+                    "UPDATE user_settings SET email_notice = ?, reminder = ? WHERE user_id = ?")) {
+                ps.setBoolean(1, emailNotice);
+                ps.setBoolean(2, reminder);
+                ps.setLong(3, userId);
+                updated = ps.executeUpdate();
+            }
+            if (updated == 0) {
+                try (PreparedStatement ps = con.prepareStatement(
+                        "INSERT INTO user_settings (user_id, email_notice, reminder) VALUES (?, ?, ?)")) {
+                    ps.setLong(1, userId);
+                    ps.setBoolean(2, emailNotice);
+                    ps.setBoolean(3, reminder);
+                    ps.executeUpdate();
+                }
+            }
+        }
+    }
 }

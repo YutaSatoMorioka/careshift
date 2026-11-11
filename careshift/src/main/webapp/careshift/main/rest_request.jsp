@@ -34,7 +34,7 @@
         <label for="restContent">希望内容（300文字以内・必須）</label><br>
         <textarea id="restContent" name="restContent" rows="4" cols="60" maxlength="300"><c:out value="${form.restContent}"/></textarea>
         <c:if test="${not empty errors['restContent']}"><br><span class="error"><c:out value="${errors['restContent']}"/></span></c:if>
-        <br><small>文章が思い浮かばないときは、そのまま手で入力できます（AI下書きは今後追加予定です）。</small>
+        <br><small>文章が思い浮かばないときは、そのまま手で入力できます（<a href="${pageContext.request.contextPath}/careshift/main/AiDraft.action">AIで下書きを作る</a>こともできます）。</small>
       </div>
       <fieldset>
         <legend>協力依頼先（必須・複数選べます）</legend>

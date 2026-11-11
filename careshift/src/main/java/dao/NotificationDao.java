@@ -46,6 +46,7 @@ public class NotificationDao extends Dao {
             ps.setString(5, refKey);
             ps.executeUpdate();
         }
+        tool.EmailNotifier.notify(userId, message); // メール通知がオンの人には、メールでも知らせる
     }
 
     /** 新しい順。type が空なら全種別、OTHER なら家族・タスクの通知、それ以外はその種別だけ。 */

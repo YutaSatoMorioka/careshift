@@ -84,6 +84,17 @@ public class Dao {
         }
     }
 
+    /** 使っているDBが H2（既定）か。バックアップ・復元（S90）は H2 のときだけ使える。 */
+    public static boolean isH2() {
+        return url().startsWith("jdbc:h2:");
+    }
+
+    /** 復元のあとに呼ぶ。テーブルの不足（古いバックアップ）を補うため、初期化をやり直す。 */
+    public static synchronized void reinit() throws Exception {
+        initialized = false;
+        init();
+    }
+
     /** アプリ停止時に呼ぶ。H2のファイルDBを閉じて、再読み込み時のロック競合を防ぐ。 */
     public static synchronized void shutdown() {
         if (!initialized || !url().startsWith("jdbc:h2:file:")) {

@@ -20,7 +20,7 @@
 
     <link
         rel="stylesheet"
-        href="${pageContext.request.contextPath}/css/style.css">
+        href="${pageContext.request.contextPath}/css/style.css?v=20261111-2">
 </head>
 
 <body>
@@ -44,32 +44,65 @@
         <%-- ログイン済みの場合 --%>
         <c:if test="${not empty sessionScope.user}">
 
+            <a
+                class="header-link"
+                href="${pageContext.request.contextPath}/careshift/main/Menu.action">
+                ホーム
+            </a>
+
+            <a
+                class="header-link"
+                id="notifications"
+                href="${pageContext.request.contextPath}/careshift/main/NotificationList.action">
+                通知
+
+                <c:if test="${unreadCount > 0}">
+                    <span class="badge">
+                        <c:out value="${unreadCount}"/>
+                    </span>
+                </c:if>
+            </a>
+
             <span class="header-user-name">
                 <c:out
                     value="${sessionScope.user.displayName}"
-                    default="ログイン中"/>
-                さん
+                    default="ログイン中"/>さん
             </span>
 
             <a
                 class="logout-link"
-                href="${pageContext.request.contextPath}/careshift/Logout.action">
+                href="${pageContext.request.contextPath}/careshift/Logout.action"
+                onclick="return confirm('ログアウトします。よろしいですか？');">
                 ログアウト
             </a>
 
         </c:if>
 
-        <%-- 未ログインの場合 --%>
-        <c:if test="${empty sessionScope.user}">
-
-            <a
-                class="header-login-link"
-                href="${pageContext.request.contextPath}/login.jsp">
-                ログイン
-            </a>
-
-        </c:if>
 
     </div>
 
 </header>
+
+<main class="${param.pageClass}">
+
+    <%-- 処理成功メッセージ --%>
+    <c:if test="${not empty sessionScope.flash}">
+        <p class="success" role="status">
+            <c:out value="${sessionScope.flash}"/>
+        </p>
+
+        <c:remove
+            var="flash"
+            scope="session"/>
+    </c:if>
+
+    <%-- 処理失敗メッセージ --%>
+    <c:if test="${not empty sessionScope.flashError}">
+        <p class="page-alert" role="alert">
+            <c:out value="${sessionScope.flashError}"/>
+        </p>
+
+        <c:remove
+            var="flashError"
+            scope="session"/>
+    </c:if>

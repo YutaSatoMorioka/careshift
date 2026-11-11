@@ -99,8 +99,14 @@
     <li><a href="${pageContext.request.contextPath}/careshift/main/Load.action" id="load">負担状況</a></li>
     <li><a href="${pageContext.request.contextPath}/careshift/main/TaskSheet.action">タスク分担表（PDF・印刷）</a></li>
     <li><a href="${pageContext.request.contextPath}/careshift/main/RemoteSuggest.action">遠方からできるタスクの提案</a></li>
+    <li><a href="${pageContext.request.contextPath}/careshift/main/AiDraft.action" id="aiDraft">AIで依頼文の下書きを作る</a></li>
+    <li><a href="${pageContext.request.contextPath}/careshift/main/Settings.action" id="settings">設定</a>
+        （<a href="${pageContext.request.contextPath}/careshift/main/Plan.action" id="plan">プラン</a>）</li>
   </c:if>
   <li><a href="${pageContext.request.contextPath}/careshift/main/NotificationList.action" id="notifications2">通知一覧</a></li>
+  <c:if test="${isAdmin}">
+    <li><a href="${pageContext.request.contextPath}/careshift/main/Admin.action" id="admin">管理者</a></li>
+  </c:if>
 </ul>
 
 <%-- おすすめコラム（日替わり）と、コラム一覧への導線 --%>

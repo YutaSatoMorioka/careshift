@@ -1,4 +1,11 @@
-<%-- 入口。ログイン画面へ移動する --%>
+<%-- 入口。ログイン中ならホームへ、そうでなければログイン画面へ --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<c:redirect url="/login.jsp"/>
+<c:choose>
+  <c:when test="${not empty sessionScope.user}">
+    <c:redirect url="/careshift/main/Menu.action"/>
+  </c:when>
+  <c:otherwise>
+    <c:redirect url="/login.jsp"/>
+  </c:otherwise>
+</c:choose>
