@@ -1,0 +1,927 @@
+@charset "UTF-8";
+
+/* ==========================================================
+   メンバー一覧ページ全体
+   ========================================================== */
+
+main.member-list-main {
+    width: min(100%, 1240px);
+    min-height: calc(
+        100vh - var(--header-height) - var(--footer-height)
+    );
+    margin: 0 auto;
+    padding: 42px 28px 64px;
+}
+
+/* ==========================================================
+   ページヘッダー
+   ========================================================== */
+
+.member-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 28px;
+    margin-bottom: 24px;
+}
+
+.member-page-heading {
+    min-width: 0;
+}
+
+.member-page-eyebrow,
+.member-section-eyebrow {
+    margin: 0 0 7px;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.member-page-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 34px;
+    line-height: 1.35;
+}
+
+.member-page-description {
+    max-width: 720px;
+    margin: 9px 0 0;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* ==========================================================
+   共通ボタン
+   ========================================================== */
+
+.member-button {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 17px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    appearance: none;
+    transition:
+        color 150ms ease,
+        background-color 150ms ease,
+        border-color 150ms ease,
+        box-shadow 150ms ease,
+        transform 150ms ease;
+}
+
+.member-button:hover {
+    transform: translateY(-1px);
+}
+
+.member-button-primary {
+    color: #ffffff;
+    background: var(--primary);
+    box-shadow:
+        0 7px 16px rgba(39, 104, 89, 0.16);
+}
+
+.member-button-primary:hover {
+    background: var(--primary-hover);
+    box-shadow:
+        0 10px 20px rgba(39, 104, 89, 0.22);
+}
+
+.member-button-secondary {
+    color: var(--primary);
+    background: #ffffff;
+    border-color: var(--border);
+}
+
+.member-button-secondary:hover {
+    background: var(--primary-soft);
+    border-color: #bfd8ce;
+}
+
+.member-button-save {
+    width: 100%;
+    color: #ffffff;
+    background: var(--primary);
+}
+
+.member-button-save:hover {
+    background: var(--primary-hover);
+}
+
+.member-button-icon {
+    display: inline-grid;
+    min-width: 20px;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+/* ==========================================================
+   グループ概要
+   ========================================================== */
+
+.member-group-summary {
+    display: flex;
+    min-height: 116px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 18px;
+    padding: 22px 24px;
+    color: #ffffff;
+    background:
+        linear-gradient(
+            135deg,
+            #246853 0%,
+            #32806d 100%
+        );
+    border-radius: 17px;
+    box-shadow:
+        0 13px 30px rgba(39, 104, 89, 0.18);
+}
+
+.member-group-main {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 15px;
+}
+
+.member-group-icon {
+    width: 55px;
+    height: 55px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: var(--primary);
+    background: #ffffff;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 800;
+    box-shadow:
+        0 5px 14px rgba(12, 47, 37, 0.17);
+}
+
+.member-group-content {
+    min-width: 0;
+}
+
+.member-group-label {
+    display: block;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.member-group-name {
+    overflow: hidden;
+    margin: 4px 0 0;
+    color: #ffffff;
+    font-size: 23px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.member-count-summary {
+    width: min(100%, 280px);
+    flex-shrink: 0;
+}
+
+.member-count-text {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.member-count-text > span {
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.member-count-text strong {
+    font-size: 25px;
+    line-height: 1;
+}
+
+.member-count-text small {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.member-count-bar {
+    height: 8px;
+    margin-top: 10px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+}
+
+.member-count-bar-fill {
+    display: block;
+    height: 100%;
+    max-width: 100%;
+    background: #ffffff;
+    border-radius: inherit;
+}
+
+/* ==========================================================
+   権限案内
+   ========================================================== */
+
+.member-permission-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding: 15px 17px;
+    color: var(--info);
+    background: var(--info-background);
+    border: 1px solid var(--info-border);
+    border-radius: 12px;
+}
+
+.member-permission-note.is-primary {
+    color: var(--success);
+    background: var(--success-background);
+    border-color: var(--success-border);
+}
+
+.member-permission-icon {
+    width: 31px;
+    height: 31px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: #ffffff;
+    background: var(--info);
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.member-permission-note.is-primary
+.member-permission-icon {
+    background: var(--success);
+}
+
+.member-permission-note strong {
+    display: block;
+    color: var(--text);
+    font-size: 13px;
+}
+
+.member-permission-note p {
+    margin: 3px 0 0;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* ==========================================================
+   メンバー一覧外枠
+   ========================================================== */
+
+.member-result-card {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid rgba(39, 104, 89, 0.1);
+    border-radius: 17px;
+    box-shadow: var(--shadow-card);
+}
+
+.member-result-header {
+    display: flex;
+    min-height: 88px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5ebe8;
+}
+
+.member-result-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.member-result-count {
+    display: inline-flex;
+    min-width: 78px;
+    min-height: 42px;
+    align-items: baseline;
+    justify-content: center;
+    gap: 3px;
+    padding: 7px 13px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border: 1px solid #d6e9e1;
+    border-radius: 999px;
+}
+
+.member-result-count strong {
+    font-size: 19px;
+    line-height: 1;
+}
+
+.member-result-count span {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* ==========================================================
+   メンバーカード
+   ========================================================== */
+
+.member-card-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    padding: 20px;
+}
+
+.member-card {
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-top: 5px solid #9eaaa5;
+    border-radius: 14px;
+    transition:
+        border-color 150ms ease,
+        box-shadow 150ms ease,
+        transform 150ms ease;
+}
+
+.member-card:hover {
+    border-color: #bed6cc;
+    box-shadow:
+        0 11px 28px rgba(28, 68, 59, 0.09);
+    transform: translateY(-1px);
+}
+
+.member-card.is-primary {
+    border-top-color: var(--primary);
+}
+
+.member-card.is-me {
+    background:
+        linear-gradient(
+            180deg,
+            #f9fcfa 0%,
+            #ffffff 32%
+        );
+}
+
+/* ==========================================================
+   メンバーカード上部
+   ========================================================== */
+
+.member-card-header {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 18px 19px;
+    background: #f8faf9;
+    border-bottom: 1px solid #e5ebe8;
+}
+
+.member-card.is-primary
+.member-card-header {
+    background:
+        linear-gradient(
+            135deg,
+            #ebf6f1 0%,
+            #f8faf9 100%
+        );
+}
+
+.member-avatar {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border: 1px solid #d4e8df;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.member-card.is-primary .member-avatar {
+    color: #ffffff;
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.member-identity {
+    min-width: 0;
+}
+
+.member-name-row,
+.member-role-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.member-name {
+    overflow: hidden;
+    margin: 0;
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.member-me-badge,
+.member-role-badge {
+    display: inline-flex;
+    min-height: 23px;
+    align-items: center;
+    padding: 0 8px;
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.member-me-badge {
+    color: #286c8f;
+    background: #e6f3f8;
+    border: 1px solid #cce4ed;
+}
+
+.member-role-row {
+    margin-top: 4px;
+}
+
+.member-role-badge {
+    color: var(--text-muted);
+    background: #edf1ef;
+    border: 1px solid #d8dfdc;
+}
+
+.member-role-badge.is-primary {
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-color: #d1e7de;
+}
+
+/* ==========================================================
+   編集フォーム
+   ========================================================== */
+
+.member-edit-form {
+    display: grid;
+    gap: 16px;
+    padding: 19px;
+}
+
+.member-form-field {
+    display: grid;
+    gap: 7px;
+}
+
+.member-form-field label {
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.member-form-control {
+    width: 100%;
+    min-height: 46px;
+    margin: 0;
+    padding: 9px 12px;
+    color: var(--text);
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    outline: none;
+    font-size: 13px;
+    appearance: none;
+}
+
+select.member-form-control {
+    padding-right: 36px;
+    background-image:
+        linear-gradient(
+            45deg,
+            transparent 50%,
+            #66736f 50%
+        ),
+        linear-gradient(
+            135deg,
+            #66736f 50%,
+            transparent 50%
+        );
+    background-position:
+        calc(100% - 17px) calc(50% - 2px),
+        calc(100% - 12px) calc(50% - 2px);
+    background-repeat: no-repeat;
+    background-size: 5px 5px, 5px 5px;
+}
+
+.member-form-control:hover:not(:disabled) {
+    border-color: #a9bbb4;
+}
+
+.member-form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--focus);
+}
+
+.member-form-control:disabled {
+    color: #7e8985;
+    background: #f2f5f3;
+    border-color: #e0e5e3;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+.member-readonly-value {
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    padding: 9px 12px;
+    color: var(--text-muted);
+    background: #f2f5f3;
+    border: 1px solid #e0e5e3;
+    border-radius: 9px;
+    font-size: 13px;
+}
+
+.member-field-help {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.member-card-actions {
+    padding-top: 2px;
+}
+
+/* ==========================================================
+   編集不可案内
+   ========================================================== */
+
+.member-card-locked {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 12px;
+    color: var(--text-muted);
+    background: #f4f6f5;
+    border-radius: 9px;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.member-card-locked-icon {
+    width: 26px;
+    height: 26px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: #ffffff;
+    background: #8a9691;
+    border-radius: 50%;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+/* ==========================================================
+   管理操作
+   ========================================================== */
+
+.member-management-actions {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    padding: 14px 19px 18px;
+    border-top: 1px solid #e5ebe8;
+}
+
+.member-management-actions form {
+    margin: 0;
+}
+
+.member-management-button {
+    width: 100%;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 7px 10px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.member-primary-button {
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-color: #d1e7de;
+}
+
+.member-primary-button:hover {
+    color: #ffffff;
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.member-remove-button {
+    color: var(--error);
+    background: var(--error-background);
+    border-color: var(--error-border);
+}
+
+.member-remove-button:hover {
+    color: #ffffff;
+    background: var(--error);
+    border-color: var(--error);
+}
+
+/* ==========================================================
+   グループ管理案内
+   ========================================================== */
+
+.member-group-management {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 20px;
+    padding: 20px 22px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    box-shadow: var(--shadow-card);
+}
+
+.member-group-management-content {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 13px;
+}
+
+.member-group-management-icon {
+    width: 43px;
+    height: 43px;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: 11px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.member-group-management-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 16px;
+}
+
+.member-group-management-description {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* ==========================================================
+   下部ナビゲーション
+   ========================================================== */
+
+.member-page-footer-nav {
+    margin-top: 24px;
+}
+
+.member-back-link {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    gap: 7px;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.member-back-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* ==========================================================
+   フォーカス
+   ========================================================== */
+
+.member-button:focus-visible,
+.member-form-control:focus-visible,
+.member-management-button:focus-visible,
+.member-back-link:focus-visible {
+    outline: 3px solid rgba(50, 128, 109, 0.3);
+    outline-offset: 3px;
+}
+
+/* ==========================================================
+   タブレット
+   ========================================================== */
+
+@media (max-width: 900px) {
+    .member-card-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    main.member-list-main {
+        padding: 32px 20px 54px;
+    }
+
+    .member-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .member-page-header .member-button {
+        align-self: stretch;
+    }
+
+    .member-group-summary {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .member-count-summary {
+        width: 100%;
+    }
+
+    .member-group-management {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .member-group-management .member-button {
+        width: 100%;
+    }
+}
+
+/* ==========================================================
+   スマートフォン
+   ========================================================== */
+
+@media (max-width: 600px) {
+    main.member-list-main {
+        padding: 26px 16px 46px;
+    }
+
+    .member-page-title {
+        font-size: 28px;
+    }
+
+    .member-page-description {
+        font-size: 13px;
+    }
+
+    .member-group-summary {
+        gap: 20px;
+        padding: 19px 17px;
+        border-radius: 14px;
+    }
+
+    .member-group-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .member-group-name {
+        font-size: 20px;
+    }
+
+    .member-permission-note {
+        padding: 14px;
+    }
+
+    .member-result-card {
+        border-radius: 14px;
+    }
+
+    .member-result-header {
+        min-height: 78px;
+        padding: 17px 16px;
+    }
+
+    .member-result-title {
+        font-size: 18px;
+    }
+
+    .member-result-count {
+        min-width: 68px;
+    }
+
+    .member-card-grid {
+        gap: 13px;
+        padding: 13px;
+    }
+
+    .member-card-header {
+        padding: 16px;
+    }
+
+    .member-edit-form {
+        padding: 16px;
+    }
+
+    .member-management-actions {
+        grid-template-columns: 1fr;
+        padding: 13px 16px 16px;
+    }
+
+    .member-group-management {
+        padding: 17px 16px;
+    }
+
+    .member-group-management-content {
+        align-items: flex-start;
+    }
+}
+
+/* ==========================================================
+   印刷
+   ========================================================== */
+
+@media print {
+    .member-page-header .member-button,
+    .member-card-actions,
+    .member-management-actions,
+    .member-group-management,
+    .member-page-footer-nav {
+        display: none !important;
+    }
+
+    main.member-list-main {
+        width: 100%;
+        max-width: none;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+    }
+
+    .member-group-summary {
+        color: #000000;
+        background: #ffffff;
+        border: 1px solid #cccccc;
+        box-shadow: none;
+    }
+
+    .member-group-label,
+    .member-group-name,
+    .member-count-text > span,
+    .member-count-text strong {
+        color: #000000;
+    }
+
+    .member-result-card,
+    .member-card {
+        box-shadow: none;
+    }
+
+    .member-card {
+        break-inside: avoid;
+    }
+
+    .member-form-control {
+        border-color: #cccccc;
+    }
+}
