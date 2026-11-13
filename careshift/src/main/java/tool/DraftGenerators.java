@@ -1,6 +1,6 @@
 package tool;
 
-/** 使う下書き生成の実装を選ぶ。設定がなければ「利用不可」（手入力を案内）。試験では差し替えられる。 */
+/** 使う下書き生成の実装を選ぶ。GeminiキーがあればGeminiを優先し、なければClaudeを使う。 */
 public final class DraftGenerators {
 
     private static volatile DraftGenerator override;
@@ -14,6 +14,8 @@ public final class DraftGenerators {
 
     public static DraftGenerator get() {
         if (override != null) return override;
+        DraftGenerator gemini = GeminiDraftGenerator.fromConfig();
+        if (gemini != null) return gemini;
         DraftGenerator claude = ClaudeDraftGenerator.fromConfig();
         if (claude != null) return claude;
         return prompt -> {

@@ -2,7 +2,7 @@ package tool;
 
 /**
  * AI001：相談文から、依頼の下書き（日時・内容・所要時間）を作る。
- * 実装を差し替えられるようにしてある（本番は ClaudeDraftGenerator、AIが使えない環境では Unavailable）。
+ * 実装を差し替えられるようにしてある（Gemini / Claude / 利用不可）。
  */
 public interface DraftGenerator {
 
