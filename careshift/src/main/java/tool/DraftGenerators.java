@@ -19,6 +19,7 @@ public final class DraftGenerators {
         DraftGenerator claude = ClaudeDraftGenerator.fromConfig();
         if (claude != null) return claude;
         return prompt -> {
+            AppLog.write("ERROR", "AI下書き生成のAPIキーが設定されていません");
             throw new DraftGenerator.UnavailableException("AIが設定されていません");
         };
     }
