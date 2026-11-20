@@ -1,0 +1,1469 @@
+/* =========================================================
+   Care Shift
+   休息リクエスト画面
+   ========================================================= */
+
+.rest-request-main {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 42px 0 72px;
+    color: #24343d;
+}
+
+.rest-request-main *,
+.rest-request-main *::before,
+.rest-request-main *::after {
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   ページヘッダー
+   ========================================================= */
+
+.rest-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 28px;
+}
+
+.rest-page-heading {
+    min-width: 0;
+}
+
+.rest-page-eyebrow,
+.rest-section-eyebrow {
+    margin: 0 0 7px;
+    color: #18836d;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+}
+
+.rest-page-title {
+    margin: 0;
+    color: #1d333a;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+}
+
+.rest-page-description {
+    max-width: 720px;
+    margin: 14px 0 0;
+    color: #617078;
+    font-size: 1rem;
+    line-height: 1.9;
+}
+
+.rest-page-header-actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 14px;
+}
+
+.rest-header-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 44px;
+    color: #52656d;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.rest-header-back-link:hover {
+    color: #13705e;
+    text-decoration: underline;
+}
+
+/* =========================================================
+   共通ボタン
+   ========================================================= */
+
+.rest-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 46px;
+    padding: 11px 20px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font: inherit;
+    font-size: 0.92rem;
+    font-weight: 800;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+.rest-button:hover {
+    transform: translateY(-1px);
+}
+
+.rest-button:active {
+    transform: translateY(0);
+}
+
+.rest-button:focus-visible,
+.rest-form-control:focus-visible,
+.rest-recipient-option:focus-within,
+.rest-rerequest-member:focus-within {
+    outline: 3px solid rgba(36, 153, 130, 0.23);
+    outline-offset: 2px;
+}
+
+.rest-button-primary {
+    border-color: #17826c;
+    background: #17826c;
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(23, 130, 108, 0.18);
+}
+
+.rest-button-primary:hover {
+    border-color: #116b59;
+    background: #116b59;
+    color: #ffffff;
+    box-shadow: 0 11px 24px rgba(23, 130, 108, 0.24);
+}
+
+.rest-button-secondary {
+    border-color: #cbd9d6;
+    background: #ffffff;
+    color: #245b50;
+}
+
+.rest-button-secondary:hover {
+    border-color: #78ad9f;
+    background: #f2faf7;
+    color: #174e43;
+}
+
+.rest-button-danger {
+    border-color: #e9b4b4;
+    background: #fffafa;
+    color: #a43b3b;
+}
+
+.rest-button-danger:hover {
+    border-color: #d87979;
+    background: #fff0f0;
+    color: #8e2c2c;
+}
+
+.rest-button-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.17);
+    font-size: 0.74rem;
+    font-weight: 900;
+}
+
+/* =========================================================
+   説明カード
+   ========================================================= */
+
+.rest-information-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 24px 26px;
+    border: 1px solid #c9e4dc;
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            135deg,
+            #f1faf7 0%,
+            #f8fcfb 100%
+        );
+}
+
+.rest-information-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: #d9f0e9;
+    color: #15705e;
+    font-size: 1.05rem;
+    font-weight: 900;
+}
+
+.rest-information-title {
+    margin: 0 0 8px;
+    color: #1d554a;
+    font-size: 1.1rem;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+.rest-information-content > p {
+    margin: 0;
+    color: #4f6b64;
+    line-height: 1.8;
+}
+
+.rest-information-list {
+    display: grid;
+    gap: 6px;
+    margin: 14px 0 0;
+    padding-left: 1.3rem;
+    color: #4f6b64;
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.rest-information-list strong {
+    color: #1d554a;
+}
+
+/* =========================================================
+   アラート
+   ========================================================= */
+
+.rest-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding: 18px 20px;
+    border: 1px solid;
+    border-radius: 14px;
+}
+
+.rest-alert-error {
+    border-color: #efb6b6;
+    background: #fff5f5;
+    color: #8d3030;
+}
+
+.rest-alert-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background: #c64a4a;
+    color: #ffffff;
+    font-weight: 900;
+}
+
+.rest-alert strong {
+    display: block;
+    margin-bottom: 3px;
+}
+
+.rest-alert p {
+    margin: 0;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   セクション
+   ========================================================= */
+
+.rest-create-section,
+.rest-list-section {
+    overflow: hidden;
+    margin-bottom: 32px;
+    border: 1px solid #dce5e3;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 12px 34px rgba(38, 65, 60, 0.07);
+}
+
+.rest-section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 25px 28px;
+    border-bottom: 1px solid #e4ebe9;
+    background: #fbfdfc;
+}
+
+.rest-section-title {
+    margin: 0;
+    color: #213b42;
+    font-size: 1.4rem;
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+.rest-section-description {
+    margin: 7px 0 0;
+    color: #6a787d;
+    font-size: 0.92rem;
+    line-height: 1.7;
+}
+
+.rest-section-step {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 5px 13px;
+    border-radius: 999px;
+    background: #dff2ec;
+    color: #176d5c;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+/* =========================================================
+   登録フォーム
+   ========================================================= */
+
+.rest-create-form {
+    display: grid;
+    gap: 22px;
+    padding: 28px;
+}
+
+.rest-form-card {
+    overflow: hidden;
+    border: 1px solid #dfe8e6;
+    border-radius: 17px;
+    background: #ffffff;
+}
+
+.rest-form-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px 22px;
+    border-bottom: 1px solid #e5ecea;
+    background: #f9fbfa;
+}
+
+.rest-form-card-number {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 11px;
+    background: #18836d;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 900;
+}
+
+.rest-form-card-title {
+    margin: 0;
+    color: #263f45;
+    font-size: 1.08rem;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+.rest-form-card-description {
+    margin: 4px 0 0;
+    color: #6c797e;
+    font-size: 0.86rem;
+    line-height: 1.6;
+}
+
+.rest-form-card-body {
+    padding: 23px;
+}
+
+.rest-date-time-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr 1fr;
+    gap: 20px;
+}
+
+.rest-form-field {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+}
+
+.rest-form-field > label,
+.rest-label-row label {
+    color: #30484e;
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+.rest-required {
+    display: inline-flex;
+    margin-left: 6px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: #fff0e8;
+    color: #b2532f;
+    font-size: 0.68rem;
+    font-weight: 800;
+    vertical-align: 1px;
+}
+
+.rest-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 8px;
+}
+
+.rest-character-limit {
+    color: #7b888d;
+    font-size: 0.77rem;
+    white-space: nowrap;
+}
+
+.rest-form-control {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    margin-top: 8px;
+    padding: 11px 13px;
+    border: 1px solid #bdcbc8;
+    border-radius: 11px;
+    background: #ffffff;
+    color: #273b40;
+    font: inherit;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition:
+        border-color 0.17s ease,
+        box-shadow 0.17s ease,
+        background-color 0.17s ease;
+}
+
+.rest-label-row + .rest-form-control {
+    margin-top: 0;
+}
+
+.rest-form-control:hover {
+    border-color: #8eaaa4;
+}
+
+.rest-form-control:focus {
+    border-color: #278d78;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(39, 141, 120, 0.13);
+}
+
+.rest-form-control.is-error {
+    border-color: #d76363;
+    background: #fffafa;
+}
+
+.rest-form-control.is-error:focus {
+    box-shadow: 0 0 0 4px rgba(215, 99, 99, 0.13);
+}
+
+.rest-form-textarea {
+    min-height: 126px;
+    resize: vertical;
+}
+
+.rest-form-control::placeholder {
+    color: #9aa5a8;
+}
+
+.rest-field-help {
+    margin: 7px 0 0;
+    color: #7a888d;
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+
+.rest-field-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    margin-top: 7px;
+    color: #b33d3d;
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.55;
+}
+
+.rest-field-error > span:first-child {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 17px;
+    height: 17px;
+    margin-top: 1px;
+    border-radius: 50%;
+    background: #c94f4f;
+    color: #ffffff;
+    font-size: 0.68rem;
+}
+
+/* =========================================================
+   AI補助
+   ========================================================= */
+
+.rest-ai-help {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 13px;
+    padding: 13px 15px;
+    border: 1px solid #dce7f4;
+    border-radius: 12px;
+    background: #f6f9fd;
+}
+
+.rest-ai-help-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 31px;
+    height: 31px;
+    border-radius: 9px;
+    background: #e2eaf8;
+    color: #496690;
+    font-size: 0.7rem;
+    font-weight: 900;
+}
+
+.rest-ai-help p {
+    margin: 3px 0 0;
+    color: #5e6d81;
+    font-size: 0.83rem;
+    line-height: 1.65;
+}
+
+.rest-ai-help a {
+    color: #315e9a;
+    font-weight: 800;
+}
+
+/* =========================================================
+   依頼先
+   ========================================================= */
+
+.rest-recipient-fieldset,
+.rest-rerequest-fieldset {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.rest-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+.rest-recipient-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.rest-recipient-option {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+    min-height: 72px;
+    padding: 13px 15px;
+    border: 1px solid #d3dedb;
+    border-radius: 13px;
+    background: #ffffff;
+    cursor: pointer;
+    transition:
+        border-color 0.17s ease,
+        background-color 0.17s ease,
+        box-shadow 0.17s ease;
+}
+
+.rest-recipient-option:hover {
+    border-color: #84b7aa;
+    background: #f7fcfa;
+}
+
+.rest-recipient-checkbox {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.rest-recipient-option:has(.rest-recipient-checkbox:checked) {
+    border-color: #289079;
+    background: #f0faf7;
+    box-shadow: inset 0 0 0 1px #289079;
+}
+
+.rest-recipient-avatar,
+.rest-covered-avatar,
+.rest-response-avatar {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #e1f1ec;
+    color: #177460;
+    font-weight: 900;
+}
+
+.rest-recipient-avatar {
+    width: 42px;
+    height: 42px;
+    font-size: 0.8rem;
+}
+
+.rest-recipient-content {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.rest-recipient-content strong {
+    overflow: hidden;
+    color: #2d444a;
+    font-size: 0.92rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rest-recipient-content small {
+    overflow: hidden;
+    color: #738086;
+    font-size: 0.77rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rest-recipient-selected {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #c3cfcc;
+    border-radius: 50%;
+    background: #ffffff;
+    color: transparent;
+    font-size: 0.8rem;
+    font-weight: 900;
+}
+
+.rest-recipient-checkbox:checked
+    ~ .rest-recipient-selected {
+    border-color: #238771;
+    background: #238771;
+    color: #ffffff;
+}
+
+.rest-recipient-error {
+    margin-top: 14px;
+}
+
+.rest-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 13px;
+    padding-top: 3px;
+}
+
+/* =========================================================
+   家族未登録
+   ========================================================= */
+
+.rest-empty-member-card {
+    margin-bottom: 32px;
+    padding: 48px 28px;
+    border: 1px solid #dce5e3;
+    border-radius: 20px;
+    background: #ffffff;
+    text-align: center;
+    box-shadow: 0 12px 34px rgba(38, 65, 60, 0.07);
+}
+
+.rest-empty-member-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 66px;
+    height: 66px;
+    margin-bottom: 17px;
+    border-radius: 21px;
+    background: #e5f3ef;
+    color: #16735f;
+    font-size: 1.15rem;
+    font-weight: 900;
+}
+
+.rest-empty-member-title {
+    margin: 0;
+    color: #263e44;
+    font-size: 1.35rem;
+}
+
+.rest-empty-member-description {
+    max-width: 620px;
+    margin: 13px auto 0;
+    color: #69787d;
+    line-height: 1.8;
+}
+
+.rest-empty-member-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 23px;
+}
+
+/* =========================================================
+   一覧ヘッダー
+   ========================================================= */
+
+.rest-list-header {
+    align-items: center;
+}
+
+.rest-result-count {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: baseline;
+    gap: 4px;
+    min-width: 74px;
+    padding: 9px 14px;
+    border: 1px solid #d4e2df;
+    border-radius: 13px;
+    background: #ffffff;
+    color: #50656a;
+}
+
+.rest-result-count strong {
+    color: #16735f;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.rest-result-count span {
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+/* =========================================================
+   空状態
+   ========================================================= */
+
+.rest-empty-state {
+    padding: 58px 28px;
+    text-align: center;
+}
+
+.rest-empty-state-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+    border-radius: 20px;
+    background: #e9f5f1;
+    color: #197560;
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.rest-empty-state h3 {
+    margin: 0;
+    color: #2d444a;
+    font-size: 1.2rem;
+}
+
+.rest-empty-state p {
+    margin: 10px 0 0;
+    color: #738086;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   休息予定カード
+   ========================================================= */
+
+.rest-plan-list {
+    display: grid;
+    gap: 17px;
+    padding: 25px 28px 29px;
+}
+
+.rest-plan-card {
+    overflow: hidden;
+    border: 1px solid #dae4e2;
+    border-left: 5px solid #d2a24c;
+    border-radius: 15px;
+    background: #ffffff;
+}
+
+.rest-plan-card.is-confirmed {
+    border-left-color: #2a947a;
+}
+
+.rest-plan-card.is-cancelled {
+    border-left-color: #a4afb2;
+    background: #fbfbfb;
+}
+
+.rest-plan-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 16px 19px;
+    border-bottom: 1px solid #e5ecea;
+    background: #fbfcfc;
+}
+
+.rest-plan-labels {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.rest-plan-status,
+.rest-plan-response-status {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.73rem;
+    font-weight: 800;
+}
+
+.rest-plan-status.is-adjusting {
+    background: #fff2d9;
+    color: #956619;
+}
+
+.rest-plan-status.is-confirmed {
+    background: #dff3eb;
+    color: #156b59;
+}
+
+.rest-plan-status.is-cancelled {
+    background: #eceff0;
+    color: #667377;
+}
+
+.rest-plan-response-status {
+    background: #edf3fa;
+    color: #456685;
+}
+
+.rest-plan-date {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 8px;
+    color: #506168;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.rest-plan-date-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 27px;
+    height: 27px;
+    border-radius: 8px;
+    background: #e5efed;
+    color: #42665e;
+    font-size: 0.69rem;
+}
+
+.rest-plan-card-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(290px, 0.7fr);
+}
+
+.rest-plan-main {
+    min-width: 0;
+    padding: 21px;
+}
+
+.rest-plan-response-area {
+    min-width: 0;
+    padding: 21px;
+    border-left: 1px solid #e4ebe9;
+    background: #fafcfc;
+}
+
+.rest-plan-time {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 11px;
+}
+
+.rest-plan-time strong {
+    color: #203c43;
+    font-size: 1.34rem;
+    letter-spacing: -0.02em;
+}
+
+.rest-plan-time > span {
+    display: inline-flex;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: #ecf3f1;
+    color: #536b66;
+    font-size: 0.76rem;
+    font-weight: 800;
+}
+
+.rest-plan-content {
+    margin: 15px 0 18px;
+    color: #4f6066;
+    line-height: 1.85;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.rest-plan-detail {
+    display: grid;
+    gap: 9px;
+    margin: 0;
+}
+
+.rest-plan-detail > div {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 12px;
+    align-items: center;
+}
+
+.rest-plan-detail dt {
+    color: #7a888d;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.rest-plan-detail dd {
+    min-width: 0;
+    margin: 0;
+    color: #354c52;
+    font-size: 0.86rem;
+    font-weight: 700;
+}
+
+.rest-covered-person {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.rest-covered-avatar {
+    width: 27px;
+    height: 27px;
+    font-size: 0.62rem;
+}
+
+.rest-plan-response-title {
+    margin: 0 0 12px;
+    color: #334b51;
+    font-size: 0.88rem;
+    font-weight: 800;
+}
+
+.rest-no-request {
+    margin: 0;
+    color: #7c898d;
+    font-size: 0.83rem;
+}
+
+.rest-response-list {
+    display: grid;
+    gap: 9px;
+}
+
+.rest-response-person {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border: 1px solid #dfe7e5;
+    border-radius: 11px;
+    background: #ffffff;
+}
+
+.rest-response-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.65rem;
+}
+
+.rest-response-person-info {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.rest-response-person-info strong {
+    overflow: hidden;
+    color: #354b51;
+    font-size: 0.82rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rest-response-person-info small {
+    color: #758287;
+    font-size: 0.72rem;
+}
+
+.rest-request-status {
+    margin: 12px 0 0;
+    color: #717e82;
+    font-size: 0.77rem;
+}
+
+.rest-request-status strong {
+    color: #43585e;
+}
+
+/* =========================================================
+   調整案内
+   ========================================================= */
+
+.rest-guidance {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 13px;
+    border: 1px solid #ecd7a5;
+    border-radius: 11px;
+    background: #fff9e9;
+    color: #735b29;
+}
+
+.rest-guidance-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    background: #d6a548;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 900;
+}
+
+.rest-guidance strong {
+    display: block;
+    font-size: 0.8rem;
+}
+
+.rest-guidance p {
+    margin: 4px 0 0;
+    font-size: 0.75rem;
+    line-height: 1.65;
+}
+
+/* =========================================================
+   一覧操作
+   ========================================================= */
+
+.rest-plan-card-actions {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 16px 20px;
+    border-top: 1px solid #e4ebe9;
+    background: #fbfcfc;
+}
+
+.rest-rerequest-form {
+    display: flex;
+    min-width: 0;
+    flex: 1 1 auto;
+    align-items: flex-end;
+    gap: 13px;
+}
+
+.rest-rerequest-fieldset {
+    flex: 1 1 auto;
+}
+
+.rest-rerequest-fieldset legend {
+    margin-bottom: 7px;
+    color: #55686d;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.rest-rerequest-members {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.rest-rerequest-member {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 34px;
+    padding: 5px 10px;
+    border: 1px solid #d0dcda;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #485d62;
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.rest-rerequest-member:hover {
+    border-color: #8eb4aa;
+    background: #f5faf8;
+}
+
+.rest-rerequest-member:has(input:checked) {
+    border-color: #328b76;
+    background: #edf8f4;
+    color: #1f6757;
+}
+
+.rest-rerequest-member input {
+    width: 16px;
+    height: 16px;
+    accent-color: #23836e;
+}
+
+.rest-cancel-form {
+    flex: 0 0 auto;
+}
+
+/* =========================================================
+   下部ナビゲーション
+   ========================================================= */
+
+.rest-footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 4px;
+}
+
+.rest-footer-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #36675d;
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.rest-footer-nav a:hover {
+    color: #145d4e;
+    text-decoration: underline;
+}
+
+/* =========================================================
+   タブレット
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .rest-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .rest-page-header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .rest-date-time-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .rest-date-time-grid .rest-form-field:first-child {
+        grid-column: 1 / -1;
+    }
+
+    .rest-plan-card-body {
+        grid-template-columns: 1fr;
+    }
+
+    .rest-plan-response-area {
+        border-top: 1px solid #e4ebe9;
+        border-left: 0;
+    }
+
+    .rest-plan-card-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .rest-rerequest-form {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .rest-cancel-form {
+        align-self: flex-end;
+    }
+}
+
+/* =========================================================
+   スマートフォン
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+    .rest-request-main {
+        width: min(100% - 24px, 1180px);
+        padding: 27px 0 50px;
+    }
+
+    .rest-page-header {
+        gap: 20px;
+        margin-bottom: 22px;
+    }
+
+    .rest-page-title {
+        font-size: 2rem;
+    }
+
+    .rest-page-description {
+        font-size: 0.91rem;
+        line-height: 1.75;
+    }
+
+    .rest-page-header-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .rest-page-header-actions .rest-button {
+        width: 100%;
+    }
+
+    .rest-header-back-link {
+        justify-content: center;
+    }
+
+    .rest-information-card {
+        grid-template-columns: 1fr;
+        gap: 13px;
+        padding: 20px;
+    }
+
+    .rest-information-icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 14px;
+    }
+
+    .rest-section-header {
+        flex-direction: column;
+        gap: 13px;
+        padding: 21px 19px;
+    }
+
+    .rest-list-header {
+        align-items: flex-start;
+    }
+
+    .rest-create-form {
+        gap: 17px;
+        padding: 18px;
+    }
+
+    .rest-form-card-header {
+        padding: 17px;
+    }
+
+    .rest-form-card-body {
+        padding: 17px;
+    }
+
+    .rest-date-time-grid {
+        grid-template-columns: 1fr;
+        gap: 17px;
+    }
+
+    .rest-date-time-grid .rest-form-field:first-child {
+        grid-column: auto;
+    }
+
+    .rest-recipient-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rest-form-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .rest-form-actions .rest-button {
+        width: 100%;
+    }
+
+    .rest-empty-member-card {
+        padding: 38px 19px;
+    }
+
+    .rest-empty-member-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .rest-plan-list {
+        gap: 15px;
+        padding: 18px;
+    }
+
+    .rest-plan-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 11px;
+    }
+
+    .rest-plan-date {
+        width: 100%;
+    }
+
+    .rest-plan-main,
+    .rest-plan-response-area {
+        padding: 18px;
+    }
+
+    .rest-plan-time {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .rest-plan-time strong {
+        font-size: 1.2rem;
+    }
+
+    .rest-plan-detail > div {
+        grid-template-columns: 1fr;
+        gap: 3px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #edf1f0;
+    }
+
+    .rest-plan-detail > div:last-child {
+        padding-bottom: 0;
+        border-bottom: 0;
+    }
+
+    .rest-plan-card-actions {
+        padding: 17px;
+    }
+
+    .rest-rerequest-form .rest-button,
+    .rest-cancel-form,
+    .rest-cancel-form .rest-button {
+        width: 100%;
+    }
+
+    .rest-rerequest-members {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .rest-rerequest-member {
+        width: 100%;
+    }
+
+    .rest-footer-nav {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .rest-footer-nav a {
+        justify-content: center;
+        min-height: 44px;
+        padding: 8px;
+        border: 1px solid #d8e2e0;
+        border-radius: 11px;
+        background: #ffffff;
+    }
+}
+
+/* =========================================================
+   印刷
+   ========================================================= */
+
+@media print {
+
+    .site-header,
+    .rest-page-header-actions,
+    .rest-create-section,
+    .rest-plan-card-actions,
+    .rest-footer-nav {
+        display: none !important;
+    }
+
+    .rest-request-main {
+        width: 100%;
+        padding: 0;
+    }
+
+    .rest-information-card,
+    .rest-list-section,
+    .rest-plan-card {
+        break-inside: avoid;
+        box-shadow: none;
+    }
+}

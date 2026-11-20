@@ -1,23 +1,64 @@
 package careshift.main;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import bean.Member;
 import bean.User;
-import dao.CareFeatureDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tool.Action;
 
-public class RestAction extends FeatureActionSupport {
-    @Override public void execute(HttpServletRequest req,HttpServletResponse resp)throws Exception {
-        if("POST".equalsIgnoreCase(req.getMethod())&&!requirePost(req,resp))return;
-        Member me=requireMember(req,resp);if(me==null)return;User user=loginUser(req);CareFeatureDao dao=new CareFeatureDao();
-        if("POST".equalsIgnoreCase(req.getMethod())){
-            LocalDateTime start,end;try{start=LocalDateTime.parse(value(req,"startsAt"));end=LocalDateTime.parse(value(req,"endsAt"));}catch(Exception e){fail(req,resp,"休息の開始・終了日時を入力してください。","Rest");return;}
-            String note=value(req,"note");if(!me.isPrimary()){fail(req,resp,"休息リクエストを登録できるのは主介護者です。","Rest");return;}
-            if(!end.isAfter(start)||note.length()>300){fail(req,resp,"終了は開始より後にし、内容は300文字以内にしてください。","Rest");return;}
-            dao.createRest(me.getGroupId(),user.getId(),start,end,note);req.getSession().setAttribute("flash","休息リクエストを登録し、家族へ通知しました。");redirect(req,resp,"Rest");return;
+/**
+ * 旧休息画面URLとの互換用Action。
+ *
+ * 旧URL:
+ * /careshift/main/Rest.action
+ *
+ * 正式URL:
+ * /careshift/main/RestRequest.action
+ *
+ * 旧rest_records方式では登録せず、
+ * rest_plans・requests方式の正式画面へ移動する。
+ */
+public class RestAction extends Action {
+
+    @Override
+    public void execute(
+            HttpServletRequest req,
+            HttpServletResponse resp
+    ) throws Exception {
+
+        User user = requireLogin(req, resp);
+
+        if (user == null) {
+            return;
         }
-        LocalDate from=LocalDate.now().withDayOfMonth(1);req.setAttribute("rests",dao.rests(me.getGroupId()));req.setAttribute("report",dao.restReport(me.getGroupId(),from,from.plusMonths(1).minusDays(1)));req.getRequestDispatcher("/careshift/main/rest.jsp").forward(req,resp);
+
+        Member me = requireMember(req, resp, user);
+
+        if (me == null) {
+            return;
+        }
+
+        if (!me.isPrimary()) {
+            req.getSession().setAttribute(
+                    "flashError",
+                    "休息リクエストは主介護者専用の機能です。"
+            );
+
+            resp.sendRedirect(
+                    req.getContextPath()
+                    + "/careshift/main/Menu.action"
+            );
+
+            return;
+        }
+
+        /*
+         * GET・POSTのどちらで旧URLが呼ばれても、
+         * 旧rest_recordsへ登録せず、正式画面に移動する。
+         */
+        resp.sendRedirect(
+                req.getContextPath()
+                + "/careshift/main/RestRequest.action"
+        );
     }
 }

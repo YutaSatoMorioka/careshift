@@ -1,0 +1,558 @@
+/* =========================================================
+   Care Shift 休息レポート
+   ========================================================= */
+
+.rest-report-main {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 42px 0 72px;
+    color: #263b41;
+}
+
+.rest-report-main *,
+.rest-report-main *::before,
+.rest-report-main *::after {
+    box-sizing: border-box;
+}
+
+.rest-report-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 26px;
+}
+
+.rest-report-eyebrow,
+.rest-report-section-eyebrow {
+    margin: 0 0 7px;
+    color: #18836d;
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+}
+
+.rest-report-title {
+    margin: 0;
+    color: #1d333a;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.04em;
+}
+
+.rest-report-description {
+    max-width: 720px;
+    margin: 13px 0 0;
+    color: #65747a;
+    line-height: 1.85;
+}
+
+.rest-report-back-link,
+.rest-report-footer-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #36675d;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.rest-report-back-link:hover,
+.rest-report-footer-nav a:hover {
+    color: #145d4e;
+    text-decoration: underline;
+}
+
+.rest-report-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    margin-bottom: 10px;
+    padding: 18px 20px;
+    border: 1px solid #dce6e3;
+    border-radius: 17px;
+    background: #fff;
+    box-shadow: 0 8px 25px rgba(38, 65, 60, 0.06);
+}
+
+.rest-report-month-navigation,
+.rest-report-output-actions,
+.rest-report-month-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rest-report-month-form label {
+    color: #4f6368;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.rest-report-month-input {
+    min-height: 43px;
+    padding: 8px 11px;
+    border: 1px solid #bdcbc8;
+    border-radius: 10px;
+    background: #fff;
+    color: #2f454b;
+    font: inherit;
+}
+
+.rest-report-month-input:focus {
+    border-color: #278d78;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(39, 141, 120, 0.13);
+}
+
+.rest-report-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 43px;
+    padding: 9px 16px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.rest-report-button-primary {
+    border-color: #17826c;
+    background: #17826c;
+    color: #fff;
+}
+
+.rest-report-button-secondary {
+    border-color: #cbd9d6;
+    background: #fff;
+    color: #245b50;
+}
+
+.rest-report-button:hover {
+    filter: brightness(0.96);
+}
+
+.rest-report-pdf-help {
+    margin: 0 0 24px;
+    color: #79868b;
+    font-size: 0.78rem;
+}
+
+.rest-report-summary-section,
+.rest-report-detail-section,
+.rest-report-trend-section {
+    overflow: hidden;
+    margin-bottom: 28px;
+    border: 1px solid #dce5e3;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 12px 34px rgba(38, 65, 60, 0.07);
+}
+
+.rest-report-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    padding: 23px 27px;
+    border-bottom: 1px solid #e4ebe9;
+    background: #fbfdfc;
+}
+
+.rest-report-section-title {
+    margin: 0;
+    color: #213b42;
+    font-size: 1.35rem;
+}
+
+.rest-report-section-description {
+    margin: 7px 0 0;
+    color: #708086;
+    font-size: 0.86rem;
+}
+
+.rest-report-target-month,
+.rest-report-count {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    padding: 8px 13px;
+    border: 1px solid #d2e2de;
+    border-radius: 999px;
+    background: #fff;
+    color: #28695b;
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.rest-report-count strong {
+    font-size: 1.15rem;
+}
+
+.rest-report-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    padding: 25px 27px;
+}
+
+.rest-report-summary-card {
+    min-width: 0;
+    padding: 20px;
+    border: 1px solid #dfe7e5;
+    border-radius: 15px;
+    background: #fafcfc;
+}
+
+.rest-report-summary-card.is-primary {
+    border-color: #baddd3;
+    background: #f1faf7;
+}
+
+.rest-report-summary-card.is-time {
+    border-color: #cbd9ec;
+    background: #f5f8fc;
+}
+
+.rest-report-summary-card.is-adjusting {
+    border-color: #edd8a7;
+    background: #fff9eb;
+}
+
+.rest-report-summary-card.is-cancelled {
+    border-color: #dce1e3;
+    background: #f7f8f8;
+}
+
+.rest-report-summary-label {
+    color: #65757a;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.rest-report-summary-value {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    min-height: 46px;
+    margin: 9px 0 4px;
+    color: #223d44;
+}
+
+.rest-report-summary-value strong {
+    font-size: 1.9rem;
+    line-height: 1.2;
+}
+
+.rest-report-summary-value span {
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.rest-report-summary-help {
+    margin: 0;
+    color: #79878b;
+    font-size: 0.75rem;
+    line-height: 1.6;
+}
+
+.rest-report-upcoming-notice {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin: 0 27px 25px;
+    padding: 13px 15px;
+    border: 1px solid #d2dfec;
+    border-radius: 12px;
+    background: #f6f9fc;
+    color: #526779;
+}
+
+.rest-report-upcoming-notice p {
+    margin: 0;
+    font-size: 0.83rem;
+}
+
+.rest-report-notice-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    background: #5b7891;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 900;
+}
+
+.rest-report-table-wrapper {
+    overflow-x: auto;
+    padding: 24px 27px 28px;
+}
+
+.rest-report-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rest-report-table th {
+    padding: 12px 14px;
+    border-bottom: 2px solid #d9e4e1;
+    background: #f5f8f7;
+    color: #5a6b70;
+    font-size: 0.78rem;
+    text-align: left;
+}
+
+.rest-report-table td {
+    padding: 15px 14px;
+    border-bottom: 1px solid #e6eceb;
+    color: #3d5359;
+    font-size: 0.88rem;
+}
+
+.rest-report-table tbody tr:hover {
+    background: #f9fcfb;
+}
+
+.rest-report-date-cell,
+.rest-report-person {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 700;
+}
+
+.rest-report-date-icon,
+.rest-report-person-avatar {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #e2f1ed;
+    color: #17725f;
+    font-size: 0.65rem;
+    font-weight: 900;
+}
+
+.rest-report-date-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+}
+
+.rest-report-person-avatar {
+    width: 31px;
+    height: 31px;
+}
+
+.rest-report-duration {
+    display: inline-flex;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: #edf4f2;
+    color: #45665f;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.rest-report-empty-state {
+    padding: 54px 25px;
+    text-align: center;
+}
+
+.rest-report-empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 63px;
+    height: 63px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+    background: #e8f4f0;
+    color: #19745f;
+    font-weight: 900;
+}
+
+.rest-report-empty-state h3 {
+    margin: 0;
+    color: #2d444a;
+}
+
+.rest-report-empty-state p {
+    margin: 10px 0 0;
+    color: #748287;
+}
+
+.rest-report-trend-list {
+    display: grid;
+    gap: 17px;
+    padding: 27px;
+}
+
+.rest-report-trend-row {
+    display: grid;
+    grid-template-columns: 110px minmax(100px, 1fr) 145px;
+    align-items: center;
+    gap: 16px;
+}
+
+.rest-report-trend-label {
+    color: #4c6066;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.rest-report-trend-track {
+    overflow: hidden;
+    height: 15px;
+    border-radius: 999px;
+    background: #e9efed;
+}
+
+.rest-report-trend-bar {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #2c957d, #62b7a3);
+}
+
+.rest-report-trend-value {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 7px;
+    color: #69797e;
+    font-size: 0.78rem;
+}
+
+.rest-report-trend-value strong {
+    color: #344e54;
+}
+
+.rest-report-footer-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+@media (max-width: 900px) {
+    .rest-report-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .rest-report-output-actions {
+        justify-content: flex-end;
+    }
+
+    .rest-report-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .rest-report-main {
+        width: min(100% - 24px, 1180px);
+        padding: 28px 0 50px;
+    }
+
+    .rest-report-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .rest-report-section-header {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 20px 18px;
+    }
+
+    .rest-report-month-navigation {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .rest-report-month-navigation form,
+    .rest-report-month-navigation button,
+    .rest-report-month-form,
+    .rest-report-month-input {
+        width: 100%;
+    }
+
+    .rest-report-month-form {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .rest-report-output-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .rest-report-output-actions button {
+        width: 100%;
+    }
+
+    .rest-report-summary-grid {
+        grid-template-columns: 1fr;
+        padding: 18px;
+    }
+
+    .rest-report-upcoming-notice {
+        margin: 0 18px 20px;
+    }
+
+    .rest-report-table-wrapper {
+        padding: 18px;
+    }
+
+    .rest-report-trend-list {
+        padding: 20px 18px;
+    }
+
+    .rest-report-trend-row {
+        grid-template-columns: 1fr;
+        gap: 7px;
+    }
+
+    .rest-report-trend-value {
+        justify-content: flex-start;
+    }
+
+    .rest-report-footer-nav {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}
+
+@media print {
+    .site-header,
+    .noprint,
+    .rest-report-footer-nav {
+        display: none !important;
+    }
+
+    .rest-report-main {
+        width: 100%;
+        padding: 0;
+    }
+
+    .rest-report-summary-section,
+    .rest-report-detail-section,
+    .rest-report-trend-section {
+        break-inside: avoid;
+        box-shadow: none;
+    }
+
+    .rest-report-summary-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

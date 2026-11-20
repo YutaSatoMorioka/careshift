@@ -1,39 +1,111 @@
 package careshift.main;
 
 import bean.RequestCard;
+import bean.RequestRecipient;
 import bean.RestPlan;
 
-/** 休息リクエスト画面の1行分（休息予定と、その最新の依頼の状況）。 */
+/**
+ * 休息リクエスト画面の1行分。
+ *
+ * 休息予定と、その予定に対して最後に送信された依頼の状態をまとめる。
+ */
 public class RestRow {
-    private final RestPlan plan;
-    private final RequestCard latest;      // 最新の依頼（なければ null）
-    private final boolean awaiting;        // 回答待ちの依頼がある
-    private final boolean allDeclined;     // 最新の依頼は全員が「今回は難しい」
 
-    public RestRow(RestPlan plan, RequestCard latest) {
+    private final RestPlan plan;
+
+    /**
+     * 最新の依頼。
+     * 依頼が一度も送信されていない場合はnull。
+     */
+    private final RequestCard latest;
+
+    /**
+     * 最新の依頼に未回答者が残っている。
+     */
+    private final boolean awaiting;
+
+    /**
+     * 最新の依頼について、全員が「今回は難しい」と回答した。
+     */
+    private final boolean allDeclined;
+
+    public RestRow(
+            RestPlan plan,
+            RequestCard latest
+    ) {
+
         this.plan = plan;
         this.latest = latest;
-        // 「回答待ち」は、受付中で、まだ回答していない宛先がいる間だけ。全員が回答済み（全員が難しい等）なら再依頼できる
+
         boolean anyUnanswered = false;
+
         if (latest != null) {
-            for (bean.RequestRecipient r : latest.getRecipients()) {
-                if (!r.isAnswered()) anyUnanswered = true;
+            for (RequestRecipient recipient : latest.getRecipients()) {
+                if (!recipient.isAnswered()) {
+                    anyUnanswered = true;
+                    break;
+                }
             }
         }
-        this.awaiting = latest != null && latest.isOpenForAnswer() && anyUnanswered;
-        this.allDeclined = latest != null && latest.isAllDeclined();
+
+        this.awaiting =
+                latest != null
+                && latest.isOpenForAnswer()
+                && anyUnanswered;
+
+        this.allDeclined =
+                latest != null
+                && latest.isAllDeclined();
     }
 
-    public RestPlan getPlan() { return plan; }
-    public RequestCard getLatest() { return latest; }
-    public boolean isAwaiting() { return awaiting; }
-    public boolean isAllDeclined() { return allDeclined; }
+    public RestPlan getPlan() {
+        return plan;
+    }
 
-    /** 調整中のまま再依頼できる：調整中で、開始前で、未回答の宛先がいる依頼がない */
-    public boolean isCanRerequest() { return plan.isAdjusting() && !plan.isStarted() && !awaiting; }
+    public RequestCard getLatest() {
+        return latest;
+    }
 
-    public boolean isCanCancel() { return !plan.isCancelled(); }
+    public boolean isAwaiting() {
+        return awaiting;
+    }
 
-    /** 全員が難しい場合の、相談先の案内を出す */
-    public boolean isShowGuidance() { return plan.isAdjusting() && allDeclined; }
+    public boolean isAllDeclined() {
+        return allDeclined;
+    }
+
+    /**
+     * 再依頼できる条件。
+     *
+     * ・休息予定が調整中
+     * ・開始時刻前
+     * ・回答待ちの依頼が残っていない
+     */
+    public boolean isCanRerequest() {
+        return plan.isAdjusting()
+                && !plan.isStarted()
+                && !awaiting;
+    }
+
+    /**
+     * 取消できる条件。
+     *
+     * ・取消済みではない
+     * ・開始時刻前
+     *
+     * 開始済みの予定を取り消すと、月次レポートの過去実績が
+     * 後から変化するため、通常は開始前だけ許可する。
+     */
+    public boolean isCanCancel() {
+        return !plan.isCancelled()
+                && !plan.isStarted();
+    }
+
+    /**
+     * 全員が対応できない場合に、外部相談先の案内を表示する。
+     */
+    public boolean isShowGuidance() {
+        return plan.isAdjusting()
+                && allDeclined;
+    }
 }
