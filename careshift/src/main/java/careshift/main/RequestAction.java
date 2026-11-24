@@ -1,24 +1,82 @@
 package careshift.main;
 
-import java.time.LocalDateTime;
 import bean.Member;
 import bean.User;
-import dao.CareFeatureDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tool.Action;
 
-public class RequestAction extends FeatureActionSupport {
-    @Override public void execute(HttpServletRequest req,HttpServletResponse resp)throws Exception {
-        Member me=requireMember(req,resp);if(me==null)return;User user=loginUser(req);CareFeatureDao dao=new CareFeatureDao();
-        if("POST".equalsIgnoreCase(req.getMethod())){
-            String title=value(req,"title"),body=value(req,"body");String type=value(req,"type");
-            if(!java.util.List.of("TASK","REST").contains(type)||title.isEmpty()||title.length()>100||body.length()>1000){fail(req,resp,"依頼の種類とタイトル（100文字以内）を入力してください。","Request");return;}
-            LocalDateTime at=null;Integer mins=null;
-            if(!value(req,"requestedAt").isEmpty())try{at=LocalDateTime.parse(value(req,"requestedAt"));}catch(Exception e){fail(req,resp,"希望日時の形式を確認してください。","Request");return;}
-            if(!value(req,"durationMinutes").isEmpty())try{mins=Integer.valueOf(value(req,"durationMinutes"));}catch(Exception e){fail(req,resp,"所要時間を数字で入力してください。","Request");return;}
-            dao.createRequest(me.getGroupId(),user.getId(),type,title,body,at,mins);req.getSession().setAttribute("flash","家族へ依頼を登録しました。");redirect(req,resp,"Request");return;
+/**
+ * 旧依頼画面URLとの互換用Action。
+ *
+ * 旧URL:
+ * /careshift/main/Request.action
+ *
+ * 正式URL:
+ * /careshift/main/RequestList.action
+ *
+ * 旧care_requests・care_request_responses方式では処理せず、
+ * requests・request_recipients方式の正式な依頼一覧へ移動する。
+ */
+public class RequestAction extends Action {
+
+    @Override
+    public void execute(
+            HttpServletRequest req,
+            HttpServletResponse resp
+    ) throws Exception {
+
+        User user =
+                requireLogin(
+                        req,
+                        resp
+                );
+
+        if (user == null) {
+            return;
         }
-        var requests=dao.requests(me.getGroupId());for(var row:requests){long requestId=((Number)row.get("id")).longValue();row.put("responses",dao.responses(requestId));}req.setAttribute("requests",requests);req.setAttribute("members",dao.members(me.getGroupId()));
-        req.getRequestDispatcher("/careshift/main/request.jsp").forward(req,resp);
+
+        Member me =
+                requireMember(
+                        req,
+                        resp,
+                        user
+                );
+
+        if (me == null) {
+            return;
+        }
+
+        /*
+         * 旧Request.actionはGET・POSTのどちらで呼ばれても、
+         * 旧care_requestsテーブルへの登録や一覧取得を行わない。
+         *
+         * GET:
+         * 正式な依頼一覧へ移動する。
+         *
+         * POST:
+         * 古いrequest.jspを開いたまま送信された可能性があるため、
+         * 旧方式では登録せず、案内を表示して正式な依頼作成画面へ移動する。
+         */
+        if ("POST".equalsIgnoreCase(req.getMethod())) {
+
+            req.getSession().setAttribute(
+                    "flashError",
+                    "旧形式の依頼画面からは送信できません。"
+                    + "新しい依頼作成画面から入力してください。"
+            );
+
+            resp.sendRedirect(
+                    req.getContextPath()
+                    + "/careshift/main/RequestCreate.action"
+            );
+
+            return;
+        }
+
+        resp.sendRedirect(
+                req.getContextPath()
+                + "/careshift/main/RequestList.action"
+        );
     }
 }
