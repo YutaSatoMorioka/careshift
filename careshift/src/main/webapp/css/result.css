@@ -1,0 +1,444 @@
+/* =========================================================
+   Care Shift
+   共通結果メッセージ画面
+   ========================================================= */
+
+.result-main {
+    display: block;
+    width: min(760px, calc(100% - 40px));
+    min-height: calc(100vh - 250px);
+    margin: 0 auto;
+    padding: 58px 0 72px;
+    color: #273d43;
+}
+
+.result-main *,
+.result-main *::before,
+.result-main *::after {
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   結果カード
+   ========================================================= */
+
+.result-card {
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
+    border: 1px solid #dce5e3;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 16px 46px rgba(38, 65, 60, 0.11);
+}
+
+.result-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 142px;
+    padding: 38px 28px 18px;
+}
+
+.result-card.is-success .result-visual {
+    background:
+        linear-gradient(
+            180deg,
+            #eaf8f3 0%,
+            #f7fcfa 58%,
+            #ffffff 100%
+        );
+}
+
+.result-card.is-warning .result-visual {
+    background:
+        linear-gradient(
+            180deg,
+            #fff5dc 0%,
+            #fffbf1 58%,
+            #ffffff 100%
+        );
+}
+
+.result-card.is-information .result-visual {
+    background:
+        linear-gradient(
+            180deg,
+            #edf4fa 0%,
+            #f8fafc 58%,
+            #ffffff 100%
+        );
+}
+
+.result-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 78px;
+    height: 78px;
+    border: 8px solid;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.result-icon-success {
+    border-color: #d4eee7;
+    background: #23866f;
+    color: #ffffff;
+    box-shadow: 0 10px 26px rgba(35, 134, 111, 0.24);
+}
+
+.result-icon-warning {
+    border-color: #f3e2b9;
+    background: #c58c2b;
+    color: #ffffff;
+    box-shadow: 0 10px 26px rgba(197, 140, 43, 0.22);
+}
+
+.result-icon-information {
+    border-color: #dce5f1;
+    background: #557591;
+    color: #ffffff;
+    box-shadow: 0 10px 26px rgba(85, 117, 145, 0.22);
+}
+
+/* =========================================================
+   結果本文
+   ========================================================= */
+
+.result-content {
+    display: block;
+    padding: 15px 42px 42px;
+    text-align: center;
+}
+
+.result-eyebrow {
+    margin: 0 0 8px;
+    color: #18836d;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+}
+
+.result-card.is-warning .result-eyebrow {
+    color: #9e6a18;
+}
+
+.result-card.is-information .result-eyebrow {
+    color: #536f88;
+}
+
+.result-title {
+    margin: 0;
+    color: #1f373e;
+    font-size: clamp(1.65rem, 4vw, 2.35rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.35;
+}
+
+.result-message {
+    max-width: 620px;
+    margin: 17px auto 0;
+    color: #617177;
+    font-size: 0.96rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   注意時の補足
+   ========================================================= */
+
+.result-help {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    margin-top: 22px;
+    padding: 14px 16px;
+    border: 1px solid #ead5a8;
+    border-radius: 12px;
+    background: #fff9eb;
+    color: #715a2b;
+    text-align: left;
+}
+
+.result-help-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #c58c2b;
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 900;
+}
+
+.result-help p {
+    margin: 1px 0 0;
+    color: #715a2b;
+    font-size: 0.79rem;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   操作ボタン
+   ========================================================= */
+
+.result-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 28px;
+}
+
+.result-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 220px;
+    min-height: 48px;
+    padding: 11px 22px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font: inherit;
+    font-size: 0.91rem;
+    font-weight: 800;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.result-button:hover {
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+.result-button:focus-visible {
+    outline: 3px solid rgba(39, 138, 115, 0.22);
+    outline-offset: 3px;
+}
+
+.result-button-primary {
+    border-color: #18836d;
+    background: #18836d;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(24, 131, 109, 0.22);
+}
+
+.result-button-primary:visited {
+    color: #ffffff;
+}
+
+.result-button-primary:hover {
+    border-color: #116c59;
+    background: #116c59;
+    color: #ffffff;
+    box-shadow: 0 11px 24px rgba(24, 131, 109, 0.27);
+}
+
+.result-card.is-warning .result-button-primary {
+    border-color: #a87423;
+    background: #a87423;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(168, 116, 35, 0.21);
+}
+
+.result-card.is-warning .result-button-primary:hover {
+    border-color: #8d601b;
+    background: #8d601b;
+}
+
+/* =========================================================
+   セキュリティ案内
+   ========================================================= */
+
+.result-security-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    width: 100%;
+    margin-top: 20px;
+    padding: 17px 19px;
+    border: 1px solid #dce4e7;
+    border-radius: 15px;
+    background: #f8fafb;
+}
+
+.result-security-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 37px;
+    height: 37px;
+    border-radius: 11px;
+    background: #e6edf2;
+    color: #4f6a7d;
+    font-size: 0.74rem;
+    font-weight: 900;
+}
+
+.result-security-content {
+    min-width: 0;
+}
+
+.result-security-note h2 {
+    margin: 0;
+    color: #40575f;
+    font-size: 0.86rem;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+.result-security-note p {
+    margin: 5px 0 0;
+    color: #718087;
+    font-size: 0.78rem;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   下部ナビゲーション
+   ========================================================= */
+
+.result-footer-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    width: 100%;
+    margin-top: 22px;
+    padding: 0 3px;
+}
+
+.result-footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 42px;
+    color: #43695f;
+    font-size: 0.84rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.result-footer-link:visited {
+    color: #43695f;
+}
+
+.result-footer-link:hover {
+    color: #175e50;
+    text-decoration: underline;
+}
+
+/* =========================================================
+   スマートフォン
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+    .result-main {
+        width: min(100% - 24px, 760px);
+        min-height: 0;
+        padding: 32px 0 50px;
+    }
+
+    .result-card {
+        border-radius: 18px;
+    }
+
+    .result-visual {
+        min-height: 116px;
+        padding: 30px 20px 14px;
+    }
+
+    .result-icon {
+        width: 68px;
+        height: 68px;
+        border-width: 7px;
+        font-size: 1.5rem;
+    }
+
+    .result-content {
+        padding: 13px 20px 30px;
+    }
+
+    .result-title {
+        font-size: 1.65rem;
+    }
+
+    .result-message {
+        font-size: 0.9rem;
+        line-height: 1.8;
+    }
+
+    .result-help {
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .result-button {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .result-security-note {
+        flex-direction: column;
+    }
+
+    .result-footer-nav {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    .result-footer-link {
+        justify-content: center;
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #d8e2df;
+        border-radius: 11px;
+        background: #ffffff;
+    }
+}
+
+/* =========================================================
+   印刷
+   ========================================================= */
+
+@media print {
+
+    .site-header,
+    .result-footer-nav {
+        display: none !important;
+    }
+
+    .result-main {
+        width: 100%;
+        padding: 0;
+    }
+
+    .result-card {
+        box-shadow: none;
+    }
+
+    .result-button {
+        display: none;
+    }
+}

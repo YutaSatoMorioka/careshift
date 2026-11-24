@@ -1,0 +1,629 @@
+/* =========================================================
+   Care Shift
+   家族グループ招待確認画面
+   ========================================================= */
+
+.invite-main {
+    display: block;
+    width: min(860px, calc(100% - 40px));
+    min-height: calc(100vh - 250px);
+    margin: 0 auto;
+    padding: 44px 0 72px;
+    color: #273d43;
+}
+
+.invite-main *,
+.invite-main *::before,
+.invite-main *::after {
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   ページヘッダー
+   ========================================================= */
+
+.invite-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 28px;
+    margin-bottom: 25px;
+}
+
+.invite-page-heading {
+    min-width: 0;
+}
+
+.invite-page-eyebrow,
+.invite-section-eyebrow {
+    margin: 0 0 7px;
+    color: #18836d;
+    font-size: 0.73rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+}
+
+.invite-page-title {
+    margin: 0;
+    color: #1f373e;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.25;
+}
+
+.invite-page-description {
+    max-width: 680px;
+    margin: 13px 0 0;
+    color: #65747a;
+    font-size: 0.95rem;
+    line-height: 1.85;
+}
+
+.invite-header-link,
+.invite-footer-nav a {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 7px;
+    color: #37695e;
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.invite-header-link:hover,
+.invite-footer-nav a:hover {
+    color: #145d4f;
+    text-decoration: underline;
+}
+
+/* =========================================================
+   招待案内
+   ========================================================= */
+
+.invite-introduction-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 17px;
+    margin-bottom: 20px;
+    padding: 21px 23px;
+    border: 1px solid #cce2dc;
+    border-radius: 16px;
+    background:
+        linear-gradient(
+            135deg,
+            #f0faf7 0%,
+            #f9fcfb 100%
+        );
+}
+
+.invite-introduction-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 14px;
+    background: #d9eee8;
+    color: #176f5c;
+    font-size: 0.78rem;
+    font-weight: 900;
+}
+
+.invite-introduction-content h2 {
+    margin: 0 0 6px;
+    color: #27594e;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.invite-introduction-content p {
+    margin: 0;
+    color: #58716b;
+    font-size: 0.84rem;
+    line-height: 1.75;
+}
+
+.invite-introduction-content p + p {
+    margin-top: 7px;
+}
+
+/* =========================================================
+   招待カード
+   ========================================================= */
+
+.invite-card {
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid #dce5e3;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 13px 38px rgba(38, 65, 60, 0.08);
+}
+
+.invite-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 21px 24px;
+    border-bottom: 1px solid #e4ebe9;
+    background: #fafcfc;
+}
+
+.invite-card-title {
+    margin: 0;
+    color: #294148;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.invite-status-badge {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    min-height: 29px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    background: #dff3eb;
+    color: #176b59;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+
+/* =========================================================
+   グループ名
+   ========================================================= */
+
+.invite-group-summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 25px 25px 22px;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f7fbfa 100%
+        );
+}
+
+.invite-group-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 59px;
+    height: 59px;
+    border-radius: 18px;
+    background: #dff1eb;
+    color: #18715e;
+    font-size: 1rem;
+    font-weight: 900;
+}
+
+.invite-group-content {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.invite-group-label {
+    color: #728085;
+    font-size: 0.76rem;
+    font-weight: 700;
+}
+
+.invite-group-name {
+    overflow-wrap: anywhere;
+    color: #203c43;
+    font-size: 1.45rem;
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+/* =========================================================
+   招待情報
+   ========================================================= */
+
+.invite-details {
+    display: grid;
+    margin: 0;
+    border-top: 1px solid #e5ecea;
+    background: #fbfcfc;
+}
+
+.invite-detail-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 20px;
+    align-items: center;
+    min-height: 66px;
+    padding: 13px 25px;
+    border-bottom: 1px solid #e7edeb;
+}
+
+.invite-detail-row:last-child {
+    border-bottom: 0;
+}
+
+.invite-detail-row dt {
+    color: #748186;
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.invite-detail-row dd {
+    min-width: 0;
+    margin: 0;
+    color: #354c52;
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.invite-person,
+.invite-expiration {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.invite-person-avatar {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #e0f0eb;
+    color: #17715e;
+    font-size: 0.68rem;
+    font-weight: 900;
+}
+
+.invite-role-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 29px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    background: #edf4f2;
+    color: #43655e;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.invite-expiration-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 29px;
+    height: 29px;
+    border-radius: 8px;
+    background: #e6f1ee;
+    color: #27705f;
+    font-size: 0.65rem;
+    font-weight: 900;
+}
+
+/* =========================================================
+   参加前確認
+   ========================================================= */
+
+.invite-confirmation-card {
+    overflow: hidden;
+    margin-bottom: 22px;
+    border: 1px solid #dce5e3;
+    border-radius: 17px;
+    background: #ffffff;
+}
+
+.invite-confirmation-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 18px 21px;
+    border-bottom: 1px solid #e4ebe9;
+    background: #fafcfc;
+}
+
+.invite-confirmation-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 11px;
+    background: #e2f1ec;
+    color: #1a705e;
+    font-size: 0.72rem;
+    font-weight: 900;
+}
+
+.invite-confirmation-header h2 {
+    margin: 0;
+    color: #30484e;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.invite-confirmation-header p {
+    margin: 4px 0 0;
+    color: #748186;
+    font-size: 0.8rem;
+}
+
+.invite-confirmation-list {
+    display: grid;
+    gap: 9px;
+    margin: 0;
+    padding: 19px 24px 20px 43px;
+    color: #596a70;
+    font-size: 0.83rem;
+    line-height: 1.7;
+}
+
+.invite-confirmation-list li::marker {
+    color: #268a73;
+}
+
+/* =========================================================
+   操作ボタン
+   ========================================================= */
+
+.invite-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.invite-join-form {
+    margin: 0;
+}
+
+.invite-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 48px;
+    padding: 11px 21px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font: inherit;
+    font-size: 0.89rem;
+    font-weight: 800;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        transform 0.18s ease,
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.invite-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+.invite-button:focus-visible {
+    outline: 3px solid rgba(39, 138, 115, 0.22);
+    outline-offset: 3px;
+}
+
+.invite-button-primary {
+    min-width: 235px;
+    border-color: #18836d;
+    background: #18836d;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(24, 131, 109, 0.21);
+}
+
+.invite-button-primary:hover:not(:disabled) {
+    border-color: #116b59;
+    background: #116b59;
+    color: #ffffff;
+    box-shadow: 0 11px 25px rgba(24, 131, 109, 0.26);
+}
+
+.invite-button-secondary {
+    border-color: #ccd8d5;
+    background: #ffffff;
+    color: #46665f;
+}
+
+.invite-button-secondary:hover:not(:disabled) {
+    border-color: #91afa7;
+    background: #f5faf8;
+    color: #22594e;
+}
+
+.invite-button:disabled {
+    border-color: #cbd4d2;
+    background: #dbe2e0;
+    color: #74807d;
+    box-shadow: none;
+    cursor: wait;
+}
+
+.invite-button-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 0.67rem;
+    font-weight: 900;
+}
+
+.invite-button-primary.is-processing {
+    opacity: 0.8;
+}
+
+/* =========================================================
+   セキュリティ案内
+   ========================================================= */
+
+.invite-security-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 16px 18px;
+    border: 1px solid #dce4e7;
+    border-radius: 14px;
+    background: #f8fafb;
+}
+
+.invite-security-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    background: #e6edf2;
+    color: #4f6a7d;
+    font-size: 0.72rem;
+    font-weight: 900;
+}
+
+.invite-security-note h2 {
+    margin: 0;
+    color: #40575f;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.invite-security-note p {
+    margin: 5px 0 0;
+    color: #718087;
+    font-size: 0.78rem;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   下部ナビゲーション
+   ========================================================= */
+
+.invite-footer-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+/* =========================================================
+   スマートフォン
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+    .invite-main {
+        width: min(100% - 24px, 860px);
+        min-height: 0;
+        padding: 29px 0 50px;
+    }
+
+    .invite-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 17px;
+    }
+
+    .invite-page-title {
+        font-size: 2rem;
+    }
+
+    .invite-page-description {
+        font-size: 0.9rem;
+        line-height: 1.75;
+    }
+
+    .invite-header-link {
+        align-self: center;
+    }
+
+    .invite-introduction-card {
+        grid-template-columns: 1fr;
+        padding: 19px;
+    }
+
+    .invite-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 19px;
+    }
+
+    .invite-group-summary {
+        align-items: flex-start;
+        padding: 21px 19px;
+    }
+
+    .invite-group-icon {
+        width: 51px;
+        height: 51px;
+        border-radius: 15px;
+    }
+
+    .invite-group-name {
+        font-size: 1.24rem;
+    }
+
+    .invite-detail-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        min-height: 0;
+        padding: 14px 19px;
+    }
+
+    .invite-confirmation-header {
+        padding: 17px 18px;
+    }
+
+    .invite-confirmation-list {
+        padding: 18px 20px 19px 38px;
+    }
+
+    .invite-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .invite-join-form,
+    .invite-button {
+        width: 100%;
+    }
+
+    .invite-button-primary {
+        min-width: 0;
+    }
+
+    .invite-security-note {
+        flex-direction: column;
+    }
+
+    .invite-footer-nav a {
+        justify-content: center;
+        width: 100%;
+        min-height: 44px;
+        padding: 8px 12px;
+        border: 1px solid #d8e2df;
+        border-radius: 11px;
+        background: #ffffff;
+    }
+}
