@@ -1,0 +1,416 @@
+/* =========================================================
+   Care Shift
+   ERROR01 共通エラー画面
+   ========================================================= */
+
+.error-main {
+    display: block;
+    width: min(760px, calc(100% - 40px));
+    min-height: calc(100vh - 250px);
+    margin: 0 auto;
+    padding: 58px 0 72px;
+    color: #273d43;
+}
+
+.error-main *,
+.error-main *::before,
+.error-main *::after {
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   エラーカード
+   ========================================================= */
+
+.error-card {
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    border: 1px solid #ead3d3;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 16px 46px rgba(89, 49, 49, 0.1);
+}
+
+.error-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 142px;
+    padding: 38px 28px 18px;
+    background:
+        linear-gradient(
+            180deg,
+            #fff0f0 0%,
+            #fff8f8 58%,
+            #ffffff 100%
+        );
+}
+
+.error-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 78px;
+    height: 78px;
+    border: 8px solid #f4dada;
+    border-radius: 50%;
+    background: #bd4d4d;
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: 900;
+    line-height: 1;
+    box-shadow: 0 10px 26px rgba(189, 77, 77, 0.23);
+}
+
+/* =========================================================
+   本文
+   ========================================================= */
+
+.error-content {
+    display: block;
+    padding: 15px 42px 42px;
+    text-align: center;
+}
+
+.error-eyebrow {
+    margin: 0 0 8px;
+    color: #a34343;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+}
+
+.error-title {
+    margin: 0;
+    color: #3e2929;
+    font-size: clamp(1.65rem, 4vw, 2.35rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.35;
+}
+
+.error-message {
+    max-width: 620px;
+    margin: 17px auto 0;
+    color: #765b5b;
+    font-size: 0.96rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   回復方法
+   ========================================================= */
+
+.error-guidance {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 23px;
+    padding: 16px 18px;
+    border: 1px solid #e6dddd;
+    border-radius: 13px;
+    background: #fbf9f9;
+    color: #655757;
+    text-align: left;
+}
+
+.error-guidance-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background: #846969;
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 900;
+}
+
+.error-guidance h2 {
+    margin: 1px 0 7px;
+    color: #5b4848;
+    font-size: 0.84rem;
+    font-weight: 800;
+}
+
+.error-guidance ul {
+    display: grid;
+    gap: 5px;
+    margin: 0;
+    padding-left: 1.25rem;
+    color: #786969;
+    font-size: 0.77rem;
+    line-height: 1.65;
+}
+
+.error-guidance li::marker {
+    color: #a35b5b;
+}
+
+/* =========================================================
+   操作ボタン
+   ========================================================= */
+
+.error-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 27px;
+}
+
+.error-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-width: 190px;
+    min-height: 48px;
+    padding: 11px 20px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font: inherit;
+    font-size: 0.89rem;
+    font-weight: 800;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background-color 0.18s ease,
+        color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.error-button:hover {
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+.error-button:focus-visible {
+    outline: 3px solid rgba(189, 77, 77, 0.2);
+    outline-offset: 3px;
+}
+
+.error-button-primary {
+    border-color: #4f6e68;
+    background: #4f6e68;
+    color: #ffffff;
+    box-shadow: 0 8px 19px rgba(79, 110, 104, 0.2);
+}
+
+.error-button-primary:visited {
+    color: #ffffff;
+}
+
+.error-button-primary:hover {
+    border-color: #385852;
+    background: #385852;
+    color: #ffffff;
+}
+
+.error-button-secondary {
+    border-color: #d3c7c7;
+    background: #ffffff;
+    color: #715c5c;
+}
+
+.error-button-secondary:hover {
+    border-color: #b6a1a1;
+    background: #fcf8f8;
+    color: #554242;
+}
+
+.error-button-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 0.65rem;
+}
+
+/* =========================================================
+   セキュリティ案内
+   ========================================================= */
+
+.error-support-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    width: 100%;
+    margin-top: 20px;
+    padding: 17px 19px;
+    border: 1px solid #dce4e7;
+    border-radius: 15px;
+    background: #f8fafb;
+}
+
+.error-support-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 37px;
+    height: 37px;
+    border-radius: 11px;
+    background: #e6edf2;
+    color: #4f6a7d;
+    font-size: 0.7rem;
+    font-weight: 900;
+}
+
+.error-support-note h2 {
+    margin: 0;
+    color: #40575f;
+    font-size: 0.86rem;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+.error-support-note p {
+    margin: 5px 0 0;
+    color: #718087;
+    font-size: 0.78rem;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   下部ナビゲーション
+   ========================================================= */
+
+.error-footer-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    width: 100%;
+    margin-top: 22px;
+    padding: 0 3px;
+}
+
+.error-footer-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 42px;
+    color: #43695f;
+    font-size: 0.84rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.error-footer-nav a:hover {
+    color: #175e50;
+    text-decoration: underline;
+}
+
+/* =========================================================
+   スマートフォン
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+    .error-main {
+        width: min(100% - 24px, 760px);
+        min-height: 0;
+        padding: 32px 0 50px;
+    }
+
+    .error-card {
+        border-radius: 18px;
+    }
+
+    .error-visual {
+        min-height: 116px;
+        padding: 30px 20px 14px;
+    }
+
+    .error-icon {
+        width: 68px;
+        height: 68px;
+        border-width: 7px;
+        font-size: 1.5rem;
+    }
+
+    .error-content {
+        padding: 13px 20px 30px;
+    }
+
+    .error-title {
+        font-size: 1.65rem;
+    }
+
+    .error-message {
+        font-size: 0.9rem;
+        line-height: 1.8;
+    }
+
+    .error-guidance {
+        flex-direction: column;
+    }
+
+    .error-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .error-button {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .error-support-note {
+        flex-direction: column;
+    }
+
+    .error-footer-nav {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    .error-footer-nav a {
+        justify-content: center;
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #d8e2df;
+        border-radius: 11px;
+        background: #ffffff;
+    }
+}
+
+/* =========================================================
+   印刷
+   ========================================================= */
+
+@media print {
+
+    .site-header,
+    .error-footer-nav {
+        display: none !important;
+    }
+
+    .error-main {
+        width: 100%;
+        padding: 0;
+    }
+
+    .error-card {
+        box-shadow: none;
+    }
+
+    .error-actions {
+        display: none;
+    }
+}
