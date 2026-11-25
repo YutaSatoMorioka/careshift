@@ -189,7 +189,7 @@
                         maxlength="30"
                         value="<c:out value='${groupName}'/>"
                         aria-invalid="${not empty errors['groupName']}"
-                        placeholder="例：佐藤家の介護グループ"
+                        placeholder="例：鈴木家の介護グループ"
                         autocomplete="off">
 
                     <c:if test="${not empty errors['groupName']}">

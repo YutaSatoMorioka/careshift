@@ -30,6 +30,11 @@
 
 </jsp:include>
 
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="${pageContext.request.contextPath}/css/auth.css?v=20261125-3">
+
 <section
     class="auth-card"
     aria-labelledby="login-title">

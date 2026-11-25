@@ -20,12 +20,16 @@
 
 </jsp:include>
 
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="${pageContext.request.contextPath}/css/auth.css?v=20261125-3">
+
 <section
     class="auth-card"
     aria-labelledby="password-reset-title">
 
     <div class="auth-heading">
-
 
         <h1
             class="auth-title"
@@ -41,16 +45,25 @@
     </div>
 
     <div class="auth-note">
+
         <p>
-            再設定メールが届かない場合は、迷惑メールフォルダーも確認してください。
+            再設定メールが届かない場合は、
+            迷惑メールフォルダーも確認してください。
+        </p>
+
+        <p>
+            登録されていないメールアドレスを入力した場合も、
+            アカウントの有無が分からないよう同じ完了案内を表示します。
         </p>
 
     </div>
 
     <form
         class="auth-form"
+        id="password-reset-request-form"
         method="post"
-        action="${pageContext.request.contextPath}/careshift/PasswordResetRequest.action">
+        action="${pageContext.request.contextPath}/careshift/PasswordResetRequest.action"
+        onsubmit="return passwordResetRequestStart(this);">
 
         <div class="auth-field">
 
@@ -99,16 +112,19 @@
 
         <button
             class="auth-button"
+            id="password-reset-request-submit"
             type="submit"
             name="sendReset">
 
-            再設定メールを送信
+            <span class="auth-button-label">
+                再設定メールを送信
+            </span>
+
         </button>
 
     </form>
 
     <div class="auth-security-note">
-
 
         <p>
             メール内の再設定リンクは1時間有効で、一度だけ使用できます。
@@ -123,12 +139,46 @@
             class="auth-link"
             id="login"
             href="${pageContext.request.contextPath}/login.jsp">
-
             ログインへ戻る
         </a>
 
     </div>
 
 </section>
+
+<script>
+(function () {
+    "use strict";
+
+    window.passwordResetRequestStart = function (form) {
+        if (!form.checkValidity()) {
+            return true;
+        }
+
+        var button =
+            document.getElementById(
+                "password-reset-request-submit"
+            );
+
+        if (!button) {
+            return true;
+        }
+
+        button.disabled = true;
+
+        var label =
+            button.querySelector(
+                ".auth-button-label"
+            );
+
+        if (label) {
+            label.textContent =
+                "送信しています...";
+        }
+
+        return true;
+    };
+})();
+</script>
 
 <jsp:include page="/common/footer.jsp"/>

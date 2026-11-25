@@ -20,6 +20,11 @@
 
 </jsp:include>
 
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="${pageContext.request.contextPath}/css/auth.css?v=20261125-3">
+
 <section
     class="auth-card"
     aria-labelledby="password-reset-form-title">
@@ -52,6 +57,7 @@
 
     <form
         class="auth-form"
+        id="password-reset-form"
         method="post"
         action="${pageContext.request.contextPath}/careshift/PasswordResetExecute.action">
 
@@ -61,6 +67,7 @@
             トークンはPasswordResetExecuteActionで再検証される。
             パスワード検証エラー後も同じトークンを引き継ぐ。
         --%>
+
         <input
             type="hidden"
             name="token"
@@ -156,10 +163,11 @@
         <div class="auth-password-guidance">
 
             <strong>
-                安全なパスワードの例
+                安全なパスワードの設定方法
             </strong>
 
             <ul>
+
                 <li>
                     8文字以上にする
                 </li>
@@ -171,6 +179,7 @@
                 <li>
                     他サービスと同じパスワードを使用しない
                 </li>
+
             </ul>
 
         </div>
@@ -181,7 +190,10 @@
             name="save"
             id="password-reset-submit">
 
-            パスワードを変更
+            <span class="auth-button-label">
+                パスワードを変更
+            </span>
+
         </button>
 
     </form>
@@ -215,12 +227,32 @@
 (function () {
     "use strict";
 
-    var form = document.querySelector(".auth-form");
-    var password = document.getElementById("password");
-    var passwordConfirm = document.getElementById("passwordConfirm");
-    var submitButton = document.getElementById("password-reset-submit");
+    var form =
+        document.getElementById(
+            "password-reset-form"
+        );
 
-    if (!form || !password || !passwordConfirm || !submitButton) {
+    var password =
+        document.getElementById(
+            "password"
+        );
+
+    var passwordConfirm =
+        document.getElementById(
+            "passwordConfirm"
+        );
+
+    var submitButton =
+        document.getElementById(
+            "password-reset-submit"
+        );
+
+    if (
+        !form
+        || !password
+        || !passwordConfirm
+        || !submitButton
+    ) {
         return;
     }
 
@@ -249,15 +281,26 @@
 
     form.addEventListener(
         "submit",
-        function () {
+        function (event) {
             validatePasswordMatch();
 
             if (!form.checkValidity()) {
+                event.preventDefault();
+                form.reportValidity();
                 return;
             }
 
             submitButton.disabled = true;
-            submitButton.textContent = "変更しています...";
+
+            var label =
+                submitButton.querySelector(
+                    ".auth-button-label"
+                );
+
+            if (label) {
+                label.textContent =
+                    "変更しています...";
+            }
         }
     );
 })();
