@@ -8,9 +8,11 @@
 %>
 
 <!DOCTYPE html>
+
 <html lang="ja">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -26,7 +28,8 @@
 
     <link
         rel="stylesheet"
-        href="${pageContext.request.contextPath}/css/style.css?v=20261117-1">
+        href="${pageContext.request.contextPath}/css/style.css?v=20261125-1">
+
 </head>
 
 <body>
@@ -44,7 +47,10 @@
             C
         </span>
 
-        <span>Care Shift</span>
+        <span>
+            Care Shift
+        </span>
+
     </a>
 
     <div class="header-actions">
@@ -63,6 +69,7 @@
                     <span class="menu-toggle-line"></span>
                     <span class="menu-toggle-line"></span>
                     <span class="menu-toggle-line"></span>
+
                 </button>
 
                 <nav
@@ -74,16 +81,20 @@
                     <div class="global-nav-header">
 
                         <div>
+
                             <span class="global-nav-label">
                                 ログインユーザー
                             </span>
 
                             <strong class="global-nav-user">
+
                                 <c:out
                                     value="${sessionScope.user.displayName}"
                                     default="ログイン中"/>
+
                                 さん
                             </strong>
+
                         </div>
 
                         <button
@@ -110,7 +121,10 @@
                             H
                         </span>
 
-                        <span>ホーム</span>
+                        <span>
+                            ホーム
+                        </span>
+
                     </a>
 
                     <a
@@ -123,7 +137,10 @@
                             C
                         </span>
 
-                        <span>カレンダー</span>
+                        <span>
+                            カレンダー
+                        </span>
+
                     </a>
 
                     <a
@@ -136,7 +153,10 @@
                             T
                         </span>
 
-                        <span>タスク</span>
+                        <span>
+                            タスク
+                        </span>
+
                     </a>
 
                     <a
@@ -149,7 +169,10 @@
                             R
                         </span>
 
-                        <span>依頼</span>
+                        <span>
+                            依頼
+                        </span>
+
                     </a>
 
                     <a
@@ -163,18 +186,20 @@
                             N
                         </span>
 
-                        <span>通知</span>
+                        <span>
+                            通知
+                        </span>
 
                         <c:if test="${not empty unreadCount and unreadCount > 0}">
 
                             <span
                                 class="badge"
                                 aria-label="未読通知件数">
-
                                 <c:out value="${unreadCount}"/>
                             </span>
 
                         </c:if>
+
                     </a>
 
                     <a
@@ -187,7 +212,10 @@
                             M
                         </span>
 
-                        <span>メンバー</span>
+                        <span>
+                            メンバー
+                        </span>
+
                     </a>
 
                     <div
@@ -205,7 +233,10 @@
                             B
                         </span>
 
-                        <span>負担状況</span>
+                        <span>
+                            負担状況
+                        </span>
+
                     </a>
 
                     <a
@@ -218,7 +249,10 @@
                             休
                         </span>
 
-                        <span>休息管理</span>
+                        <span>
+                            休息管理
+                        </span>
+
                     </a>
 
                     <a
@@ -231,7 +265,10 @@
                             記
                         </span>
 
-                        <span>コラム</span>
+                        <span>
+                            コラム
+                        </span>
+
                     </a>
 
                     <a
@@ -244,7 +281,10 @@
                             S
                         </span>
 
-                        <span>設定</span>
+                        <span>
+                            設定
+                        </span>
+
                     </a>
 
                     <div
@@ -252,19 +292,42 @@
                         aria-hidden="true">
                     </div>
 
-                    <a
-                        class="global-nav-link global-nav-logout"
-                        href="${pageContext.request.contextPath}/careshift/Logout.action"
-                        onclick="return confirm('ログアウトします。よろしいですか？');">
+                    <%--
+                        ログアウトはGETリンクではなくPOSTフォームで実行する。
+                    --%>
 
-                        <span
-                            class="nav-icon"
-                            aria-hidden="true">
-                            L
-                        </span>
+                    <form
+                        class="global-nav-logout-form"
+                        method="post"
+                        action="${pageContext.request.contextPath}/careshift/Logout.action"
+                        onsubmit="return confirm('ログアウトします。よろしいですか？');"
+                        style="margin: 0; width: 100%;">
 
-                        <span>ログアウト</span>
-                    </a>
+                        <button
+                            class="global-nav-link global-nav-logout"
+                            type="submit"
+                            name="logout"
+                            style="
+                                width: 100%;
+                                border: 0;
+                                font: inherit;
+                                text-align: left;
+                                cursor: pointer;
+                            ">
+
+                            <span
+                                class="nav-icon"
+                                aria-hidden="true">
+                                L
+                            </span>
+
+                            <span>
+                                ログアウト
+                            </span>
+
+                        </button>
+
+                    </form>
 
                 </nav>
 
@@ -300,6 +363,7 @@
             role="status">
 
             <c:out value="${sessionScope.flash}"/>
+
         </p>
 
         <c:remove
@@ -315,6 +379,7 @@
             role="alert">
 
             <c:out value="${sessionScope.flashError}"/>
+
         </p>
 
         <c:remove

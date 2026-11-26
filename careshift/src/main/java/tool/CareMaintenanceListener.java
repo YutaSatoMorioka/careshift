@@ -5,6 +5,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import dao.CareFeatureDao;
+import dao.Dao;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
@@ -14,19 +15,19 @@ import jakarta.servlet.annotation.WebListener;
  *
  * 次の処理を24時間ごとに実行する。
  *
- * ・タスク期限リマインドの作成
- * ・90日を超えた操作ログの削除
- * ・24時間以内に成功したバックアップがなければ自動バックアップ
+ * ・期限リマインドの作成
+ * ・90日を超えたログの整理
+ * ・必要に応じた自動バックアップ
  *
- * 各処理は個別に例外を処理する。
- * 1つの処理に失敗しても、ほかの処理は続行する。
+ * アプリケーション停止時には、
+ * メンテナンススレッドとH2データベースを終了する。
  */
 @WebListener
 public class CareMaintenanceListener
         implements ServletContextListener {
 
     /**
-     * Tomcat起動後、最初の日次処理を開始するまでの時間。
+     * Tomcat起動後、最初の処理までの待ち時間。
      */
     private static final long INITIAL_DELAY_HOURS =
             1L;
@@ -36,6 +37,12 @@ public class CareMaintenanceListener
      */
     private static final long PERIOD_HOURS =
             24L;
+
+    /**
+     * アプリ停止時にスケジューラーの終了を待つ秒数。
+     */
+    private static final long SHUTDOWN_WAIT_SECONDS =
+            10L;
 
     private ScheduledExecutorService scheduler;
 
@@ -47,7 +54,6 @@ public class CareMaintenanceListener
         scheduler =
                 Executors.newSingleThreadScheduledExecutor(
                         runnable -> {
-
                             Thread thread =
                                     new Thread(
                                             runnable,
@@ -55,8 +61,8 @@ public class CareMaintenanceListener
                                     );
 
                             /*
-                             * Tomcat停止時に、このスレッドが
-                             * JVMの終了を妨げないようにする。
+                             * このスレッドがTomcat停止を
+                             * 妨げないようにする。
                              */
                             thread.setDaemon(true);
 
@@ -79,8 +85,8 @@ public class CareMaintenanceListener
     /**
      * 日次メンテナンスを実行する。
      *
-     * 各処理を分離し、1つの失敗によって
-     * 後続処理が実行されなくなることを防ぐ。
+     * 各処理を個別に実行し、1つの処理が失敗しても
+     * 後続処理を続行する。
      */
     private void runMaintenance(
             ServletContextEvent event
@@ -105,7 +111,7 @@ public class CareMaintenanceListener
     }
 
     /**
-     * 翌日期限のタスクに対するリマインドを作成する。
+     * 期限リマインドを作成する。
      */
     private void createDueReminders(
             ServletContextEvent event,
@@ -121,7 +127,6 @@ public class CareMaintenanceListener
             );
 
         } catch (Exception e) {
-
             logFailure(
                     event,
                     "期限リマインドの日次処理",
@@ -131,7 +136,7 @@ public class CareMaintenanceListener
     }
 
     /**
-     * 90日を超えた操作ログを削除する。
+     * 保存期間を過ぎた旧ログを整理する。
      */
     private void purgeOldLogs(
             ServletContextEvent event,
@@ -143,11 +148,10 @@ public class CareMaintenanceListener
 
             AppLog.write(
                     "MAINTENANCE",
-                    "90日を超えた操作ログを整理しました"
+                    "保存期間を過ぎた操作ログを整理しました"
             );
 
         } catch (Exception e) {
-
             logFailure(
                     event,
                     "操作ログの整理",
@@ -157,12 +161,13 @@ public class CareMaintenanceListener
     }
 
     /**
-     * 必要な場合のみ自動バックアップを作成する。
+     * 必要な場合だけ自動バックアップを作成する。
      *
      * 直近24時間以内に成功した自動または手動バックアップが
-     * 存在する場合は、新しいバックアップを作成しない。
+     * 存在する場合は作成しない。
      *
-     * バックアップ未対応のデータベースの場合も実行しない。
+     * H2以外のデータベースでは、
+     * アプリ内バックアップ処理を実行しない。
      */
     private void createAutomaticBackup(
             ServletContextEvent event
@@ -170,28 +175,17 @@ public class CareMaintenanceListener
 
         try {
             if (!BackupManager.isSupported()) {
-
-                AppLog.write(
-                        "MAINTENANCE",
-                        "現在のデータベースはアプリ内自動バックアップの対象外です"
-                );
-
                 return;
             }
 
             if (!BackupManager.autoBackupDue()) {
-
-                AppLog.write(
-                        "MAINTENANCE",
-                        "直近24時間以内に成功したバックアップがあるため、"
-                        + "自動バックアップを省略しました"
-                );
-
                 return;
             }
 
             BackupManager.Record record =
-                    BackupManager.backup("AUTO");
+                    BackupManager.backup(
+                            "AUTO"
+                    );
 
             AppLog.write(
                     "MAINTENANCE",
@@ -204,7 +198,6 @@ public class CareMaintenanceListener
             );
 
         } catch (Exception e) {
-
             logFailure(
                     event,
                     "自動バックアップ",
@@ -214,19 +207,17 @@ public class CareMaintenanceListener
     }
 
     /**
-     * 日次処理の失敗をTomcatログとCare Shiftの操作ログへ記録する。
+     * 日次処理の失敗をTomcatログと
+     * Care Shiftの操作ログへ記録する。
      *
-     * パスワード、相談文、トークンなどの入力値は記録しない。
+     * メールアドレス、トークン、パスワード、
+     * 入力本文などは記録しない。
      */
     private void logFailure(
             ServletContextEvent event,
             String processName,
             Exception exception
     ) {
-
-        String exceptionName =
-                exception.getClass()
-                        .getSimpleName();
 
         event.getServletContext().log(
                 "Care Shiftの"
@@ -240,13 +231,44 @@ public class CareMaintenanceListener
                 processName
                 + "に失敗しました"
                 + "（"
-                + exceptionName
+                + exception.getClass()
+                        .getSimpleName()
                 + "）"
         );
     }
 
+    /**
+     * アプリケーション停止時の処理。
+     *
+     * 1. 新しい定期処理の受付を停止
+     * 2. 実行中処理の終了を最大10秒待機
+     * 3. 終了しない場合は割り込み
+     * 4. H2ファイルデータベースを終了
+     */
     @Override
     public void contextDestroyed(
+            ServletContextEvent event
+    ) {
+
+        stopScheduler(event);
+
+        /*
+         * メンテナンス処理の終了後にDBを閉じる。
+         *
+         * 先にDBを閉じると、実行中のバックアップや
+         * リマインド作成と競合する可能性がある。
+         */
+        Dao.shutdown();
+
+        event.getServletContext().log(
+                "Care Shiftのデータベース終了処理が完了しました"
+        );
+    }
+
+    /**
+     * 定期実行スケジューラーを停止する。
+     */
+    private void stopScheduler(
             ServletContextEvent event
     ) {
 
@@ -257,26 +279,37 @@ public class CareMaintenanceListener
         scheduler.shutdown();
 
         try {
-            /*
-             * 実行中の処理がある場合は最大10秒待つ。
-             */
-            if (!scheduler.awaitTermination(
-                    10L,
-                    TimeUnit.SECONDS
-            )) {
+            boolean terminated =
+                    scheduler.awaitTermination(
+                            SHUTDOWN_WAIT_SECONDS,
+                            TimeUnit.SECONDS
+                    );
+
+            if (!terminated) {
                 scheduler.shutdownNow();
+
+                event.getServletContext().log(
+                        "Care Shift日次メンテナンスを"
+                        + "強制停止しました"
+                );
             }
 
         } catch (InterruptedException e) {
-
             scheduler.shutdownNow();
 
+            /*
+             * 割り込み状態を復元する。
+             */
             Thread.currentThread()
                     .interrupt();
+
+            event.getServletContext().log(
+                    "Care Shift日次メンテナンスの"
+                    + "終了待機が中断されました"
+            );
         }
 
-        event.getServletContext().log(
-                "Care Shift日次メンテナンスを停止しました"
-        );
+        scheduler =
+                null;
     }
 }
